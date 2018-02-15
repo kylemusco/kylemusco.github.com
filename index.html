@@ -1,0 +1,44 @@
+<html>
+<head>
+    <title>Portfolio</title>
+    <link rel="stylesheet" href="css/freezeframe_styles.min.css">
+
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-route.js"></script>
+    <script src="js/jquery.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.rawgit.com/ctrl-freaks/freezeframe.js/master/build/css/freezeframe_styles.min.css">
+<script type="text/javascript" src="https://cdn.rawgit.com/ctrl-freaks/freezeframe.js/master/build/js/freezeframe.pkgd.js"></script>
+
+    <script src="js/scripts.js"></script>
+    
+
+
+    <link rel="stylesheet" href="css/styles.css">
+    
+</head>
+<body ng-app="portfolio">
+    <div class="container">
+        <div class="nav">
+            <div class="profile-img-container">
+                <img src="img/profile.png" class="profile-img">
+            </div>
+
+            <div class="nav-items">
+                <a href="#!/" class="title" style="text-decoration: none;">Kyle Musco</a>
+                <div class="subtitle">Computer Engineer</div>
+
+                <a href="#!experience" class="nav-item">Experience</a>
+                <a href="#!projects" class="nav-item">Projects</a>
+                <div class="nav-item">Resume</div>
+                <div class="nav-item">Contact</div>
+            </div>
+        </div>
+
+        <div class="content" id="content" ng-view></div>
+    </div>
+
+    <script src="app.js"></script>
+    <script src="controller.js"></script>
+</body>
+</html>
