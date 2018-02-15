@@ -8,6 +8,7 @@ $(document).ready( function() {
         });
 
         setTimeout( function() {
+            // Append mobile nav
             $('#content').prepend('<div class="mobile-nav">' +
                 '<div id="mobile-title" class="mobile-title"></div>' +
                 '<div class="nav-button-container">' +
@@ -26,6 +27,7 @@ $(document).ready( function() {
                 '<a href="img/Kyle Musco - Resume.pdf"><div class="mobile-menu-item">Resume</div></a>' +
             '</div>');
 
+            // Resize menu button
             $('#spanContainer').css('transform', 'scale(2,2)');
 
             setTitle();
@@ -36,8 +38,6 @@ $(document).ready( function() {
         
     }
 });
-
-
 
 /* Add title to mobile nav */
 function setTitle() {

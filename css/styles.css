@@ -616,6 +616,10 @@ a {
           z-index: 999;
       }
 
+      .mobile-nav:hover {
+          cursor:pointer;
+      }
+
       
 
       .mobile-menu {
@@ -664,14 +668,24 @@ a {
           font-size: 60px;
           margin-top: 20px;
           margin-left: 50px;
+          width: 50%;
+      }
 
+      .mobile-title:hover {
+          cursor: pointer;
       }
 
       .nav-button-container {
           float: right;
           position: fixed;
           top: 40px;
-          right: 120px;
+          right: 60px;
+          height: 50px;
+          width: 50px;
+      }
+
+      .nav-button-container:hover {
+          cursor: pointer;
       }
 
       .spanContainer{
