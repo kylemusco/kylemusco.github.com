@@ -1,6 +1,17 @@
 $(document).ready( function() {
     // Display 'all' projects by default
     displayProjects("all");
+
+
+    // Set height and width
+    var width = $(window).width();
+    var height = $(window).height();
+
+    if( !isMobile ) {
+        $('#project-container').width( width - 400 );
+        $('#project-container').height( height - 100 );
+    }
+
 });
 
 function displayProjects(tag) {
