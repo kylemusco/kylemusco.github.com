@@ -20,11 +20,10 @@ $(document).ready( function() {
                 '</div>' +       
             '</div>' +
             '<div class="mobile-menu">' +
-                '<a href="#!"><div class="mobile-menu-item" style="margin-top: 50%">About</div></a>' +
-                '<a href="#!experience"><div class="mobile-menu-item">Experience</div></a>' +
-                '<a href="#!projects"><div class="mobile-menu-item">Projects</div></a>' +
-                '<a href="#!resume"><div class="mobile-menu-item">Resume</div></a>' +
-                '<a href="#!contact"><div class="mobile-menu-item">Contact</div></a>' +
+                '<a href="index.html"><div class="mobile-menu-item" style="margin-top: 50%">About</div></a>' +
+                '<a href="experience.html"><div class="mobile-menu-item">Experience</div></a>' +
+                '<a href="projects.html"><div class="mobile-menu-item">Projects</div></a>' +
+                '<a href="img/Kyle Musco - Resume.pdf"><div class="mobile-menu-item">Resume</div></a>' +
             '</div>');
 
             $('#spanContainer').css('transform', 'scale(2,2)');

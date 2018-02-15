@@ -366,6 +366,7 @@ a {
     width: 80%;
     padding: 50px;
     padding-top: 10px;
+    padding-bottom: 45px;
     display: flex;
     justify-content: space-between;
 }
@@ -593,5 +594,48 @@ a {
 
       #jcilogo {
           width: 200px;
+      }
+
+      .about-title {
+          margin-top: 175px;
+          font-size: 75px;
+      }
+
+      .about-subtitle {
+          font-size: 30px;
+          width: 90%;
+      }
+
+      .generic-subtitle {
+          margin-top: 75px;
+          font-size: 50px;
+      }
+
+      .interests-container {
+          display: block;
+          width: 90%;
+      }
+
+      .interest-box {
+          width: 880px;
+          height: 800px;
+          margin: auto;
+          margin-bottom: 50px;
+      }
+
+      .nixie-img,
+      .bg-img {
+          width: 880px;
+          height: 560px;
+      }
+
+      .onethird {
+          margin-left: 300px;
+      }
+    
+
+      .interest-bottom {
+          font-size: 60px;
+          line-height: 240px;
       }
 }
