@@ -3,7 +3,10 @@ var hardware;
 var roadtrips;
 var astronomy;
 
+/*
 $(document).ready( function() {
+
+    
         setTimeout( function() {
             hackathon  = new freezeframe('#hackathon-gif').freeze();
             hardware = new freezeframe('#hardware-gif').freeze();
@@ -33,4 +36,4 @@ $(document).on('mouseleave', '.interest-box', function() {
     hardware.release();
     roadtrip.release();
     astronomy.release();
-});
+});*/

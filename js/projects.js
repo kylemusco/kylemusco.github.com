@@ -7,6 +7,8 @@ $(document).ready( function() {
     var width = $(window).width();
     var height = $(window).height();
 
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
     if( !isMobile ) {
         $('#project-container').width( width - 400 );
         $('#project-container').height( height - 100 );
