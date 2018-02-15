@@ -616,6 +616,8 @@ a {
           z-index: 999;
       }
 
+      
+
       .mobile-menu {
           position: fixed;
           width: 100%;
@@ -626,6 +628,20 @@ a {
           display: none;
           background-color: #272727;
       }
+
+      .profile-img-container {
+            width: 100%;
+            position: relative;
+            display: flex;
+            justify-content: space-around;
+            padding-top: 0px;
+            margin-top: 200px;
+        }
+
+        .profile-img {
+            height: 600px;
+            margin: auto;
+        }
 
       .mobile-menu:first-child {
           margin-top: 125px;
@@ -638,6 +654,10 @@ a {
           color: white;
           font-size: 70px;
       }
+
+      .mobile-menu-item:hover {
+        cursor: pointer;
+    }
 
       .mobile-title {
           color: white;
@@ -675,6 +695,11 @@ a {
         border: solid 2px white;
         transition: all 1s;
     }
+
+    .divsForNavBar:hover {
+        cursor: pointer;
+    }
+
     .divsForNavBarHiddenOne{
         position: absolute;
         width: 40px;
@@ -684,6 +709,11 @@ a {
         border-radius: 5px;
         transition: all 1s;
     }
+
+    .divsForNavBarHiddenOne:hover {
+        cursor: pointer;
+    }
+
     #firstNavbarLine{
         transition: all .5s;
     }
@@ -715,7 +745,7 @@ a {
       }
 
       .about-title {
-          margin-top: 250px;
+          margin-top: 75px;
           font-size: 75px;
       }
 

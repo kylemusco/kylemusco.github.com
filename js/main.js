@@ -3,18 +3,24 @@ var hardware;
 var roadtrips;
 var astronomy;
 
-/*
-$(document).ready( function() {
 
-    
+$(document).ready( function() {
+    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+
+    if( isMobile ) {
+        $('#mobile-profile-img').show();
+    }
+
+        /*
         setTimeout( function() {
             hackathon  = new freezeframe('#hackathon-gif').freeze();
             hardware = new freezeframe('#hardware-gif').freeze();
             roadtrip = new freezeframe('#roadtrip-gif').freeze();
             astronomy = new freezeframe('#astronomy-gif').freeze();
-        }, 250 );
+        }, 250 );*/
 });
 
+/*
 $(document).on('mouseover', '#hackathon', function() {
     hackathon.trigger();
 });
