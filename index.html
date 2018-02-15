@@ -2,22 +2,16 @@
 <head>
     <title>Portfolio</title>
     <link rel="stylesheet" href="css/freezeframe_styles.min.css">
-
-    <script src="js/angular.min.js"></script>
-    <script src="js/angular-route.js"></script>
     <script src="js/jquery.min.js"></script>
 
-    <link rel="stylesheet" href="https://cdn.rawgit.com/ctrl-freaks/freezeframe.js/master/build/css/freezeframe_styles.min.css">
-<script type="text/javascript" src="https://cdn.rawgit.com/ctrl-freaks/freezeframe.js/master/build/js/freezeframe.pkgd.js"></script>
-
+    <link rel="stylesheet" href="css/freezeframe_styles.min.css">
+    <script type="text/javascript" src="js/freezeframe.pkgd.js"></script>
     <script src="js/scripts.js"></script>
     
-
-
     <link rel="stylesheet" href="css/styles.css">
     
 </head>
-<body ng-app="portfolio">
+<body>
     <div class="container">
         <div class="nav">
             <div class="profile-img-container">
@@ -25,20 +19,54 @@
             </div>
 
             <div class="nav-items">
-                <a href="#!/" class="title" style="text-decoration: none;">Kyle Musco</a>
+                <a href="index.html" class="title" style="text-decoration: none;">Kyle Musco</a>
                 <div class="subtitle">Computer Engineer</div>
 
-                <a href="#!experience" class="nav-item">Experience</a>
-                <a href="#!projects" class="nav-item">Projects</a>
-                <div class="nav-item">Resume</div>
-                <div class="nav-item">Contact</div>
+                <a href="index.html" class="nav-item">About</a>
+                <a href="experience.html" class="nav-item">Experience</a>
+                <a href="projects.html" class="nav-item">Projects</a>
+                <a href="img/Kyle Musco - Resume.pdf" class="nav-item">Resume</a>
             </div>
         </div>
 
-        <div class="content" id="content" ng-view></div>
+        <div class="content" id="content">
+            <div class="about-title">Hi, I'm Kyle</div>
+                <div class="about-subtitle">I run KM Development, a software company that specializes in web and mobile applications</div>
+
+                <div class="generic-subtitle">I like</div>
+
+                <div class="interests-container">
+                    <div class="interest-box" id="hackathon">
+                        <div class="interest-top">
+                            <img id="hackathon-gif" src="img/interests/hackathon.gif" class="bg-img">
+                        </div>
+                        <div class="interest-bottom">
+                            Organizing Hackathons
+                        </div>
+                    </div>
+
+                    <div class="interest-box" id="hardware">
+                        <div class="interest-top">
+                            <img id="hardware-gif" src="img/interests/nixie.gif" class="nixie-img">
+                        </div>
+                        <div class="interest-bottom">
+                            DIY Hardware
+                        </div>
+                    </div>
+
+                    <div class="interest-box" id="roadtrip">
+                        <div class="interest-top">
+                            <img id="roadtrip-gif" src="img/interests/roadtrip.gif" class="nixie-img">
+                        </div>
+                        <div class="interest-bottom">
+                            Road Trips
+                        </div>
+                    </div>
+                </div>
+
+        </div>
     </div>
 
-    <script src="app.js"></script>
-    <script src="controller.js"></script>
+    <script src="js/main.js"></script>
 </body>
 </html>

@@ -33,7 +33,17 @@ a {
 .content {
     height: 100%;
     width: 85%;
+    max-width: 1200px;
     overflow: scroll;
+}
+
+::-webkit-scrollbar {
+    width: 0px;  /* remove scrollbar space */
+    background: transparent;  /* optional: just make scrollbar invisible */
+}
+/* optional: show position indicator in red */
+::-webkit-scrollbar-thumb {
+    background: #272727;
 }
 
 
