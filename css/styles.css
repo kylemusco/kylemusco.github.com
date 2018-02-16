@@ -205,6 +205,7 @@ a {
     padding-bottom: 25px;
     display: flex;
     justify-content: space-around;
+    overflow: hidden;
 }
 
 .project-card {
@@ -530,9 +531,8 @@ a {
 
 
 @media only screen 
-  and (min-device-width: 320px) 
-  and (max-device-width: 480px)
-  and (-webkit-min-device-pixel-ratio: 2)
+  and (min-device-width: 0px) 
+  and (max-device-width: 1400px)
   and (orientation: portrait) {
       .nav {
           display: none;
@@ -635,11 +635,12 @@ a {
 
       .profile-img-container {
             width: 100%;
-            position: relative;
+            position: absolute;
             display: flex;
             justify-content: space-around;
             padding-top: 0px;
-            margin-top: 200px;
+            top: 200px;
+            z-index: 0;
         }
 
         .profile-img {
@@ -695,7 +696,7 @@ a {
         height: 50px;
         background: transparent;
         position: absolute;
-        transition: all 1s;
+        transition: all .5s;
     }
 
     .spanContainer:hover {
@@ -707,7 +708,7 @@ a {
         margin-top: 9px;
         width: 40px;
         border: solid 2px white;
-        transition: all 1s;
+        transition: all .5s;
     }
 
     .divsForNavBar:hover {
@@ -721,7 +722,7 @@ a {
         margin-left: 2.5px;
         border: solid 2px white;
         border-radius: 5px;
-        transition: all 1s;
+        transition: all .5s;
     }
 
     .divsForNavBarHiddenOne:hover {
@@ -759,13 +760,17 @@ a {
       }
 
       .about-title {
-          margin-top: 75px;
+          margin-top: 0px;
           font-size: 75px;
+          position: absolute;
+          top: 900px;
       }
 
       .about-subtitle {
-          font-size: 30px;
+          font-size: 32px;
           width: 90%;
+          position: absolute;
+          top: 1000px;
       }
 
       .generic-subtitle {
@@ -890,5 +895,9 @@ a {
             height: 50px;
             margin-top: 5px;
             margin-left: -15px;
+        }
+
+        .project-title {
+            font-size: 45px;
         }
 }

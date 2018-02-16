@@ -2,7 +2,7 @@
 $(document).ready( function() {
     var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
-    if( isMobile ) {
+    if( isMobile && $(window).width() < 1300 ) {
         $(window).on('popstate', function() {
             location.reload(true);
         });
