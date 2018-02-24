@@ -35,7 +35,7 @@ $(document).ready( function() {
         }, 50 );
         
     } else {
-        
+        $('#placeholder').remove();
     }
 });
 
@@ -74,5 +74,6 @@ $(document).on('click', '.mobile-menu', function() {
 
     $(this).toggle();
 });
+
 
 

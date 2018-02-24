@@ -1,0 +1,81 @@
+<html>
+<head>
+    <title>Navigator</title>
+
+    <link rel="stylesheet" href="../css/projects.css">
+
+    <script src="../js/jquery.min.js"></script>
+    <script src="../js/projects.js"></script>
+</head>
+<body>
+    <div class="back-btn"><img class="back-btn-icon" src="../img/icons/back.png">back</div>
+
+    <div class="left-nav-container">
+        <div id="project-nav-container" class="left-nav-container-inner">
+            <!-- Overview -->
+            <div class="left-nav-item subitem-selected" id="overview" style="height: 50px;">overview</div>
+
+            <!-- Company -->
+            <div class="left-nav-item" id="company" style="height: 50px;">company</div>
+
+            <!-- Problem -->
+            <div class="left-nav-item" id="problem" style="height: 50px;">problem</div>
+            <div id="problem-subitems" class="left-nav-subitems" style="height: 0px;">
+                <div class="left-nav-subitem" id="test3">test3</div>
+                <div class="left-nav-subitem" id="test4">test4</div>
+            </div>
+
+            <!-- Features -->
+            <div class="left-nav-item" id="features" style="height: 50px;">features</div>
+            <div id="features-subitems" class="left-nav-subitems" style="height: 0px;">
+                <div class="left-nav-subitem" id="preventative-maintenance">preventative maintenance</div>
+                <div class="left-nav-subitem" id="correlative-analysis">correlative analysis</div>
+                <div class="left-nav-subitem" id="hardware-integration">hardware integration</div>
+                <div class="left-nav-subitem" id="pdf_report-generation">pdf report generation</div>
+            </div>
+
+            <!-- Design -->
+            <div class="left-nav-item" id="design" style="height: 50px;">design</div>
+
+            <!-- Benchmark -->
+            <div class="left-nav-item" id="benchmark" style="height: 50px;">benchmark</div>
+        </div>
+    </div>
+
+    <!-- Overview -->
+    <div id="overview-container" class="project-containing-div">
+            <div class="overview-content">
+                <div class="overview-description">
+                    <div class="navigator-logo"><img src="../img/projects/navigator/navigator.png"></div>
+                Navigator is a Laboratory Information Management System ( LIMS ) designed as a web based interface for MRG Lab's analysis process. Navigator provides MRG customers with real-time updates on their samples, the ability for lab technicians to track samples as they flow through the testing process, and preventative maintenance suggestions based on data collected from machinery in similar conditions.
+                </div>
+                <div class="navigator-overview-image">
+                    <img src="../img/projects/navigator/navigator-large.png" class="navigator-laptop">
+                    <img src="../img/projects/navigator/navigator.gif" class="navigator-gif">
+                </div>
+            </div>
+    </div>
+
+    <!-- Company -->
+    <div id="company-container" class="project-containing-div">
+        
+            Company
+
+    </div>
+
+    <!-- Preventative Maintenance -->
+    <div id="preventative-maintenance-container" class="project-containing-div">
+        
+            Preventative Maintenance
+
+    </div>
+
+    
+
+    <script>
+        selectedNavItem = $('#overview');
+        displayNavItemView( 'overview' );
+    </script>
+
+</body>
+</html>

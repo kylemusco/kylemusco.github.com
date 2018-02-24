@@ -1,0 +1,178 @@
+@font-face {
+	font-family: 'Futura PT';
+	src: url('FuturaPTDemi.otf') format('opentype');
+	font-weight: medium;
+    font-style: normal;
+}
+
+body {
+    font-family: 'Futura PT';
+    overflow: hidden;
+}
+
+.left-nav-container {
+  position: absolute;
+  left: 40px; 
+  top: 0;
+  font-size: 20px;
+  height: 100%;
+  width: 200px;
+  z-index: 100;
+  display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+   justify-content: space-around;
+}
+
+.left-nav-container-inner {
+   width: 100%;
+   display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+   justify-content: space-around;
+}
+
+/* UL for nav items */
+.nav-container ul {
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: right;
+}
+
+/* LI for nav items */
+.nav-container li {
+  list-style: none;
+  margin-bottom: 30px;
+  font-weight: 400;
+  color: black;
+  opacity: .8;
+  letter-spacing: 1.1px;
+  transition: all .5s ease-in-out;
+}
+
+/* Hover styling for LI nav items */
+.nav-container li:hover {
+  cursor: pointer;
+  color: black;
+  opacity: 1;
+}
+
+/* Selected nav item */
+.nav-container .selected {
+  color: black;
+  opacity: 1;
+}
+
+/* Nav items for project navbar */
+.left-nav-subitem,
+.left-nav-item {
+  width: 100%;
+  height: 50px;
+  color: black;
+  opacity: .4;
+  text-transform: uppercase;
+  transition: all .5s ease-in-out;
+}
+
+/* Make text smaller for subitems */
+.left-nav-subitem {
+  font-size: 12px;
+  line-height: 22px;
+  height: 22px;
+}
+
+.visible {
+    height: 120px;
+}
+
+.left-nav-subitem:hover {
+  cursor: pointer;
+  color: black;
+  opacity: 1;
+}
+
+/* Make font white on select */
+.subitem-selected {
+  color: black;
+  opacity: 1;
+}
+
+/* Change cursor and color on hover */
+.left-nav-item:hover {
+  cursor: pointer;
+  color: black;
+  opacity: 1;
+}
+
+.left-nav-subitems {
+  margin-left: 10px;
+  height: 0px;
+  overflow: hidden;
+  transition: all .5s ease-in-out;
+}
+
+
+/* Container for back button */
+.back-btn {
+  text-transform: uppercase;
+  width: 100px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 1px;
+  z-index: 999999;
+  position: absolute;
+}
+
+.back-btn:hover {
+  cursor: pointer;
+}
+
+.back-btn-icon {
+  height: 10px;
+  margin-right: 10px;
+}
+
+
+/* Container for project nav item content */
+.project-containing-div {
+    width: 80%;
+    position: absolute;
+    left: 250px;
+    height: 100%;
+    display: none;
+}
+
+
+/* Container for Navigator icon */
+.navigator-logo {
+    margin-bottom: 40px;
+}
+
+/* Container for Overview description div */
+.overview-description {
+    width: 400px;
+    font-size: 18px;
+}
+
+.overview-content {
+    display:flex;
+    justify-content: space-between;
+    margin-top: 130px;
+}
+
+.navigator-overview-image {
+    max-width: 810px;
+}
+
+.navigator-laptop {
+    height: 390px;
+    width: 795px;
+}
+
+.navigator-gif {
+    margin-top: -360px;
+    margin-left: 98px;
+}
