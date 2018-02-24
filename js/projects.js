@@ -81,9 +81,13 @@ var selectedNavItem;
 $(document).on('click', '.left-nav-item', function() {
     $('.subitem-selected').removeClass('subitem-selected');
 
+    
+
     selectedNavItem = $(this);
     var id = $(this).attr('id');
-    console.log( $('#' + id + "-subitems") );
+
+    // Set viewIndex
+    viewIndex = views.findIndex( x => x.id == id );
 
     // If nav item has children, display first child 
     if( $('#' + id + "-subitems").hasClass('left-nav-subitems')) {
@@ -94,34 +98,27 @@ $(document).on('click', '.left-nav-item', function() {
         id = $('#' + id + "-subitems").find('div').first().attr('id');
         selectedNavItem = $('#' + id);
 
-    } else {
-
-    }
-
-    
+    }     
     $('#' + id).addClass('subitem-selected');
     displayNavItemView( id );
     
 
     resetNavbar();
     resetSubNavs();
-
-    
 });
 
 /* Select nav item (Sub Nav Item) */
 $(document).on('click', '.left-nav-subitem', function() {
     selectedNavItem = $(this);
+
+    // Set viewIndex
+    viewIndex = views.findIndex( x => x.id == $(this).attr('id') );
+
     displayNavItemView( $(this).attr('id') );
     $(this).addClass('subitem-selected');
     
     resetNavbar();
     resetSubNavs();
-
-    // Set parent to visible
-    //$(this).parent().addClass('visible');
-
-    
 });
 
 
@@ -195,16 +192,6 @@ $(document).on('mouseout', '.left-nav-item', function() {
     var id = $(this).attr('id');
     var subitems = $('#' + id + '-subitems');
 
-    // Check if subitem is selected
-    //console.log("\n\n");
-    
-    /*
-    subitems.find('.left-nav-subitem').each( function() {
-        isSubItemSelected($(this));
-    });
-*/
-    //console.log(subItemSelected);
-
     // If item has subitems, hide them
     if( !subItemSelected ) {
         if( subitems.hasClass("left-nav-subitems") ) {
@@ -234,9 +221,6 @@ function resetNavbar() {
         }
     });
 
-    //$('.left-nav-subitem').removeClass("subitem-selected");
-    
-
     // Hide all other subnavs
     $('.left-nav-item').each( function() {
         var nubs = $('#' + $(this).attr('id') + "-subitems" ).find('.subitem-selected');
@@ -250,6 +234,69 @@ function resetNavbar() {
 
     // Set selected as selected
     selectedNavItem.addClass('subitem-selected');
+}
+
+/* Handle scroll down in project view */
+var wait = false;
+$(window).bind( 'mousewheel', function(event) {
+    if( wait ) {
+        return;
+    }
+    startWait();
+
+    // Scroll up
+    if (event.originalEvent.wheelDelta >= 0) {
+        if( viewIndex > 0 ) {
+            viewIndex--;
+        }
+    }
+
+    // Scroll down
+    else {
+        if( viewIndex < views.length-1 ) {
+            viewIndex++;
+        }
+    }
+
+    displayScrollUpdate();
+});
+
+/* Set wait to control scrolling on mouse pads */
+function startWait() {
+    wait = true;
+    setTimeout( function() {
+        wait = false;
+    }, 750 );
+}
+
+/* Updates view */
+function displayScrollUpdate() {
+
+    $('.subitem-selected').removeClass('subitem-selected');
+    var id = views[viewIndex].id;
+
+    // If subnav, display subnav items
+    if( views[viewIndex].type == 'subnav') {
+        var subitemCount = 0;
+        var parent = $('#' + id ).parent();
+        parent.find('.left-nav-subitem').each( function() {
+            subitemCount++;
+        });
+
+        parent.height( 30*subitemCount );
+
+        // Set parent to 'selected'
+        $('#' + parent.attr('id').split('-')[0] ).addClass('subitem-selected');
+        $('#' + parent.attr('id').split('-')[0] ).height( 30 );
+    }
+   
+    selectedNavItem = $('#' + id );
+    $('#' + id).addClass('subitem-selected');
+    displayNavItemView( id );
+    
+
+    resetNavbar();
+    resetSubNavs();
 }
 
 

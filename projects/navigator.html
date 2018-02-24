@@ -4,6 +4,23 @@
 
     <link rel="stylesheet" href="../css/projects.css">
 
+    <script>
+        // Nav array used for scrolling effect
+        var viewIndex = 0;
+        var views = [
+            { id: "overview", type: 'nav' },
+            { id: "company", type: 'nav' },
+            { id: "test3", type: 'subnav' },
+            { id: "test4", type: 'subnav' },
+            { id: "preventative-maintenance", type: 'subnav' },
+            { id: "correlative-analysis", type: 'subnav' },
+            { id: "hardware-integration", type: 'subnav' },
+            { id: "pdf-report-generation", type: 'subnav' },
+            { id: "design", type: 'nav' },
+            { id: "benchmark", type: 'nav' }
+        ];
+    </script>
+
     <script src="../js/jquery.min.js"></script>
     <script src="../js/projects.js"></script>
 </head>
@@ -31,7 +48,7 @@
                 <div class="left-nav-subitem" id="preventative-maintenance">preventative maintenance</div>
                 <div class="left-nav-subitem" id="correlative-analysis">correlative analysis</div>
                 <div class="left-nav-subitem" id="hardware-integration">hardware integration</div>
-                <div class="left-nav-subitem" id="pdf_report-generation">pdf report generation</div>
+                <div class="left-nav-subitem" id="pdf-report-generation">pdf report generation</div>
             </div>
 
             <!-- Design -->
@@ -44,9 +61,10 @@
 
     <!-- Overview -->
     <div id="overview-container" class="project-containing-div">
+        <div class="flexdiv">
             <div class="overview-content">
                 <div class="overview-description">
-                    <div class="navigator-logo"><img src="../img/projects/navigator/navigator.png"></div>
+                    <div class="navigator-logo"><img class="mrg-logo"  src="../img/projects/navigator/navigator.png"></div>
                 Navigator is a Laboratory Information Management System ( LIMS ) designed as a web based interface for MRG Lab's analysis process. Navigator provides MRG customers with real-time updates on their samples, the ability for lab technicians to track samples as they flow through the testing process, and preventative maintenance suggestions based on data collected from machinery in similar conditions.
                 </div>
                 <div class="navigator-overview-image">
@@ -54,13 +72,23 @@
                     <img src="../img/projects/navigator/navigator.gif" class="navigator-gif">
                 </div>
             </div>
+        </div>        
     </div>
 
     <!-- Company -->
     <div id="company-container" class="project-containing-div">
-        
-            Company
-
+        <div class="flexdiv">
+            <div class="overview-content">
+                <div class="overview-description">
+                    <div class="navigator-logo"><img src="../img/projects/navigator/mrglogo.png" class="mrg-logo"></div>
+                    The MRG Labs team are experts in the development of grease sampling tools and analysis, reliability training classes, and the development of predictive maintenance programs for industrial equipment. These 
+                    programs and technologies have enabled their partners to more accurately locate, predict and prevent mechanical problems, saving both time and money for their companies.
+                </div>
+                <div class="navigator-overview-image" style="width: 650px;">
+                    <img src="../img/projects/navigator/mrgteam.png" class="mrg-team">
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Preventative Maintenance -->
@@ -70,12 +98,18 @@
 
     </div>
 
+    <!-- Scroll down animation -->
+    <div class="scrolldown-container"><div class="scrolldown-icon"><span></span><span></span><span></span></div></div>
+
     
 
     <script>
+        // Set default view
         selectedNavItem = $('#overview');
         displayNavItemView( 'overview' );
     </script>
+
+    
 
 </body>
 </html>

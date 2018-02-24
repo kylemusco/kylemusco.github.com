@@ -35,7 +35,7 @@ $(document).ready( function() {
         }, 50 );
         
     } else {
-        $('#placeholder').remove();
+        $('.derp-block').remove();
     }
 });
 
