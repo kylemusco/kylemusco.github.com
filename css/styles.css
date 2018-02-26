@@ -51,6 +51,23 @@ a {
     background: #272727;
 }
 
+/* Container for social media icons on homepage */
+.social-icons-container {
+    position: absolute;
+    bottom: 50px;
+    right: 20px;
+    width: 200px;
+    height: 40px;
+}
+
+.social-icon {
+    height: 50px;
+    transition: .2s all ease-in-out;
+}
+
+.social-icon:hover {
+    transform: scale(1.2,1.2);
+}
 
 
 .profile-img-container {
@@ -949,7 +966,7 @@ a {
       }
 
       .about-subtitle {
-          font-size: 32px;
+          font-size: 40px;
           width: 90%;
           position: absolute;
           top: 1000px;
@@ -1081,5 +1098,26 @@ a {
 
         .project-title {
             font-size: 45px;
+        }
+
+        /* Container for social media icons on homepage */
+        .social-icons-container {
+            position: absolute;
+            bottom: 100px;
+            right: 25%;
+            width: 50%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            height: 150px;
+        }
+
+        .social-icon {
+            height: 150px;
+            transition: .2s all ease-in-out;
+        }
+
+        .social-icon:hover {
+            transform: scale(1.2,1.2);
         }
 }
