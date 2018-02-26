@@ -81,14 +81,12 @@ var selectedNavItem;
 $(document).on('click', '.left-nav-item', function() {
     $('.subitem-selected').removeClass('subitem-selected');
 
-    
-
     selectedNavItem = $(this);
     var id = $(this).attr('id');
 
     // Set viewIndex
     viewIndex = views.findIndex( x => x.id == id );
-
+    
     // If nav item has children, display first child 
     if( $('#' + id + "-subitems").hasClass('left-nav-subitems')) {
 
@@ -97,6 +95,10 @@ $(document).on('click', '.left-nav-item', function() {
 
         id = $('#' + id + "-subitems").find('div').first().attr('id');
         selectedNavItem = $('#' + id);
+
+        if( viewIndex == -1 ) {
+            viewIndex = views.findIndex( x => x.id == id );
+        }
 
     }     
     $('#' + id).addClass('subitem-selected');

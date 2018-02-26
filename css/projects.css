@@ -269,3 +269,40 @@ body {
     opacity: 0;
   }
 }
+
+/* Container for Webview description div */
+.webview-description {
+    width: 550px;
+    font-size: 18px;
+    margin-right: 50px;
+}
+
+.webview-img {
+  height: 400px;
+  margin-top: 60px;
+}
+
+.nav-title {
+  font-size: 50px;
+}
+
+
+/* Sample Status styling */
+.sample-status-description {
+  width: 100%;
+}
+
+.process-img {
+  height: 150px;
+}
+
+.sample-status-text {
+  margin-top: 50px;
+}
+
+.coming-soon {
+  font-size: 40px;
+  text-align: center;
+  width: 80%;
+  margin-top: 300px;
+}
