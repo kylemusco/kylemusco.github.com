@@ -11,6 +11,8 @@ $(document).ready( function() {
     if( !isMobile ) {
         $('#project-container').width( width - 400 );
         $('#project-container').height( height - 100 );
+    } else {
+        $('#navigator-url').attr('href', '#');
     }
 
 });
