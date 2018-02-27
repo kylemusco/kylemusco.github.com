@@ -289,6 +289,18 @@ body {
   margin-top: 60px;
 }
 
+.pdf-img {
+  height: 60%;
+  width: 270px;
+  box-shadow: 0px 3px 8px rgba(0,0,0,.2);
+            
+}
+
+.lab-upload-img {
+  height: 500px;
+  margin-top: -50px;
+}
+
 .preventative-maintenance-img {
   height: 350px;
 }
@@ -304,7 +316,7 @@ body {
 }
 
 .process-img {
-  height: 150px;
+  height: 170px;
 }
 
 .sample-status-text {
@@ -329,4 +341,12 @@ body {
   text-align: center;
   width: 80%;
   margin-top: 300px;
+}
+
+.scroll-down {
+  font-size: 10px;
+  color: grey;
+  width: 75px;
+  margin-top: -15px;
+  margin-left: -5px;
 }

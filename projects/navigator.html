@@ -8,17 +8,25 @@
         // Nav array used for scrolling effect
         var viewIndex = 0;
         var views = [
+            // Overview
             { id: "overview", type: 'nav' },
+            // Company
             { id: "company", type: 'nav' },
+            // Problems
             { id: "webview", type: 'subnav' },
             { id: "sample-status", type: 'subnav' },
             { id: "customer-engagement", type: 'subnav' },
             { id: "lab-equipment", type: 'subnav' },
+            // Features
+            { id: "sample-management", type: 'subnav' },
             { id: "preventative-maintenance", type: 'subnav' },
             { id: "correlative-analysis", type: 'subnav' },
             { id: "hardware-integration", type: 'subnav' },
             { id: "pdf-report-generation", type: 'subnav' },
-            { id: "design", type: 'nav' },
+            // Design
+            { id: "interface", type: 'subnav' },
+            { id: "backend", type: 'subnav' },
+            // Benchmark
             { id: "benchmark", type: 'nav' }
         ];
     </script>
@@ -49,6 +57,7 @@
             <!-- Features -->
             <div class="left-nav-item" id="features" style="height: 50px;">features</div>
             <div id="features-subitems" class="left-nav-subitems" style="height: 0px;">
+                <div class="left-nav-subitem" id="sample-management">sample management</div>
                 <div class="left-nav-subitem" id="preventative-maintenance">preventative maintenance</div>
                 <div class="left-nav-subitem" id="correlative-analysis">correlative analysis</div>
                 <div class="left-nav-subitem" id="hardware-integration">hardware integration</div>
@@ -57,6 +66,10 @@
 
             <!-- Design -->
             <div class="left-nav-item" id="design" style="height: 50px;">design</div>
+            <div id="design-subitems" class="left-nav-subitems" style="height: 0px;">
+                <div class="left-nav-subitem" id="interface">Interface</div>
+                <div class="left-nav-subitem" id="backend">Backend</div>
+            </div>
 
             <!-- Benchmark -->
             <div class="left-nav-item" id="benchmark" style="height: 50px;">benchmark</div>
@@ -165,6 +178,27 @@
         </div>
     </div>
 
+    <!-- Sample Management -->
+    <div id="sample-management-container" class="project-containing-div">
+        <div class="flexdiv">
+            <div class="long-nav-title">Sample Management</div>
+            <div class="overview-content">
+                <div class="overview-description">
+                Navigator categorizes samples into 5 interchangeable tables. Users can search for specific samples or filter by time. Navigator allows lab technicians to edit multiple rows simultaneously
+                and provides autocomplete suggestions to reduce repetitiveness.
+
+                <br><br>
+                Customers have their own version of this interface that displays their samples. Now, instead of having to call MRG and ask for updates, they can login to Navigator and see where their samples are in real-time.
+                This provides customers with a level of transparency that wasn't available through WebView and saves lab technicians from having to stop analyzing samples to deal with customer calls.  
+                </div>
+                <div class="navigator-overview-image">
+                    <img src="../img/projects/navigator/navigator-large.png" class="navigator-laptop">
+                    <img src="../img/projects/navigator/sample-status.gif" class="navigator-gif">
+                </div>
+            </div>
+        </div>  
+    </div>
+
     <!-- Preventative Maintenance -->
     <div id="preventative-maintenance-container" class="project-containing-div">
             <div class="flexdiv">
@@ -190,25 +224,58 @@
                 <div class="long-nav-title">Correlative Analysis</div>
                 <div class="overview-content-large">
                     <div class="webview-description">
-                        Navigator features an interface for customers to view how their machinery compares to other companies'. These correlations alert customers to potential environmental issues that are effecting their machinery and help MRG Labs promote other services and products.
+                        Navigator features an interface for customers to view how their machinery compares to other companies. These correlations alert customers to potential issues that are effecting their machinery and help MRG Labs promote other services and products.
+                        <br><br>
+                        The interface also features distribution graphs and timelines.
                     </div>
-                    <div class="navigator-overview-image" style="width: 650px;"></div>
+                    <div class="navigator-overview-image" style="width: 650px;">
+                        <img src="../img/projects/navigator/correlative-analysis.png" class="preventative-maintenance-img">
+                    </div>
                 </div>
             </div>
     </div>
 
     <!-- Hardware Integration -->
     <div id="hardware-integration-container" class="project-containing-div">
-            <div class="coming-soon">Coming Soon!</div>
+            <div class="flexdiv">
+                <div class="long-nav-title">Hardware Integration</div>
+                <div class="overview-content-large">
+                    <div class="webview-description">
+                        Navigator features a RESTful API that allows lab equipment to automatically send test results to Navigator's servers. Equipment is assigned unique credentials to authenticate with Navigator and communication is done over HTTPS to ensure confidentiality.
+                        <br><br>
+                        Removing the need for lab technicians to manually input data into WebView after every test saves 5-10 minutes per test, allowing MRG to run more tests per day while also removing the potential for human error.
+                    </div>
+                    <div class="navigator-overview-image" style="width: 650px;">
+                        <img src="../img/projects/navigator/lab-uploads.png" class="lab-upload-img">
+                    </div>
+                </div>
+            </div>
     </div>
 
     <!-- PDF Report Generation -->
     <div id="pdf-report-generation-container" class="project-containing-div">
+            <div class="flexdiv">
+                <div class="long-nav-title">PDF Report Generation</div>
+                <div class="overview-content-large">
+                    <div class="webview-description">
+                        After testing is complete, Navigator automatically generates PDF reports and emails them to the customer. The report provides a color coded status for each sample 
+                        and includes photos taken during the analysis process and corresponding graphs.
+                    </div>
+                    <div class="navigator-overview-image" style="width: 650px;">
+                        <img src="../img/projects/navigator/pdf1.png" class="pdf-img">
+                        <img src="../img/projects/navigator/pdf2.png" class="pdf-img">
+                    </div>
+                </div>
+            </div>
+    </div>
+
+    <!-- Interface -->
+    <div id="interface-container" class="project-containing-div">
             <div class="coming-soon">Coming Soon!</div>
     </div>
 
-    <!-- Design -->
-    <div id="design-container" class="project-containing-div">
+    <!-- Backend -->
+    <div id="backend-container" class="project-containing-div">
             <div class="coming-soon">Coming Soon!</div>
     </div>
 

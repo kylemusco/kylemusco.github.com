@@ -303,6 +303,13 @@ function displayScrollUpdate() {
     resetSubNavs();
 }
 
+$(document).on('click', '.scrolldown-icon', function() {
+    if( viewIndex < views.length-1 ) {
+        viewIndex++;
+    }
+
+    displayScrollUpdate();
+});
 
 
 String.prototype.replaceAll = function(str1, str2, ignore) 
