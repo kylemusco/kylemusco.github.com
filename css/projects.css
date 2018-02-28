@@ -137,6 +137,7 @@ body {
 
 
 /* Container for project nav item content */
+.project-conmtaining-div2,
 .project-containing-div {
     width: 80%;
     max-width: 1300px;
@@ -180,6 +181,7 @@ body {
     height: 480px;
 }
 
+.prev-content-large,
 .overview-content-large {
     display:flex;
     justify-content: space-between;
@@ -278,6 +280,7 @@ body {
 }
 
 /* Container for Webview description div */
+.prev-description,
 .webview-description {
     width: 550px;
     font-size: 18px;
@@ -305,9 +308,12 @@ body {
   height: 350px;
 }
 
+.sample-nav-title,
 .nav-title {
-  font-size: 50px;
+  font-size: 70px;
 }
+
+
 
 
 /* Sample Status styling */
@@ -317,6 +323,10 @@ body {
 
 .process-img {
   height: 170px;
+}
+
+.process-img-mobile {
+  display: none;
 }
 
 .sample-status-text {
@@ -350,3 +360,124 @@ body {
   margin-top: -15px;
   margin-left: -5px;
 }
+
+@media only screen 
+  and (min-device-width: 0px) 
+  and (max-device-width: 1400px)
+  and (orientation: portrait) {
+
+      .back-btn {
+        transform: scale(2,2);
+        margin-left: 100px;
+        margin-top: 50px;
+      }
+
+      .left-nav-container {
+        top: 70%;
+        height: 500px;
+      }
+
+      .left-nav-container-inner {
+        transform: scale(1.2,1.2);
+        margin-left: 20px;
+      }
+
+      .project-containing-div {
+        width: 100%;
+        height: 60%;
+        left: 0;
+      }
+
+      .project-containing-div2 {
+        width: 100%;
+        height: 50%;
+        left: 0;
+      }
+
+      .overview-content {
+        height: 500px;
+        margin-top: -200px;
+        flex-direction: column;
+      }
+
+      .overview-description {
+        order: 2;
+        width: 90%;
+        padding: 5%;
+        font-size: 30px;
+      }
+
+      .navigator-overview-image {
+        order: 1;
+        margin: auto;
+      }
+
+      .mrg-team {
+        width: 100%;
+      }
+
+      .prev-description,
+      .webview-description {
+        width: 90%;
+        padding: 5%;
+        font-size: 30px;
+      }
+
+      .webview-img {
+        height: 500px;
+      }
+
+      .webview-overview-image {
+        order: 1;
+        margin: auto;
+        height: 550px;
+      }
+
+      .process-img-mobile {
+          display: block;
+          margin: auto;
+      }
+
+      .process-img {
+        display: none;
+      }
+
+      .sample-nav-title {
+        padding-left: 5%;
+      }
+
+      .sample-status-text {
+        font-size: 30px;
+        padding: 5%;
+      }
+
+      .customer-engagement-text {
+        font-size: 30px;
+        padding: 5%;
+      }
+
+      .long-nav-title {
+        margin-top: 0px;
+        font-size: 70px;
+        padding-left: 5%;
+      }
+
+      .overview-content-large{
+        flex-direction: column;
+      }
+
+      .prev-content-large {
+        flex-direction: column;
+        height: 700px;
+      }
+
+      .prev-description {
+        order: 2;
+      }
+
+      .prev-title {
+        margin-top: 40px;
+      }
+      
+
+  }

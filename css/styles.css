@@ -501,6 +501,7 @@ a {
     padding-left: 30px;
     background-color: white;
     border-bottom: solid 1px #d6d6d6;
+
 }
 
 .project-img {
@@ -508,6 +509,7 @@ a {
     height: 180px;
     object-fit: contain;
     overflow:hidden;
+    background-color:#272727;
 }
 
 .webscraper-img {

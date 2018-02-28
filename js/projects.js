@@ -1,3 +1,4 @@
+var isMobile;
 $(document).ready( function() {
     // Display 'all' projects by default
     displayProjects("all");
@@ -6,13 +7,19 @@ $(document).ready( function() {
     var width = $(window).width();
     var height = $(window).height();
 
-    var isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+    isMobile = /iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
 
+    // Desktop view
     if( !isMobile ) {
         $('#project-container').width( width - 400 );
         $('#project-container').height( height - 100 );
+
+    // Mobile view    
     } else {
-        $('#navigator-url').attr('href', '#');
+        //$('#navigator-url').attr('href', '#');
+
+        // Temp clear
+        //$('.project-containing-div').empty();
     }
 
 });
@@ -130,6 +137,7 @@ $(document).on('click', '.left-nav-subitem', function() {
 /* Displays nav item's view */
 function displayNavItemView(id) {
     $('.project-containing-div').hide();
+    $('.project-containing-div2').hide();
     $('#' + id + "-container" ).show();
 }
 
@@ -263,6 +271,38 @@ $(window).bind( 'mousewheel', function(event) {
     }
 
     displayScrollUpdate();
+});
+
+/* Handle mobile scrolling */
+var updated=0,st;
+$(document).on({
+    'touchmove': function(e) { 
+
+    if( wait ) {
+        return;
+    }
+    startWait();
+
+    st = $(this).scrollTop();
+
+    // Scroll down
+    if(st > updated) {
+        if( viewIndex < views.length-1 ) {
+            viewIndex++;
+        }
+    }
+
+    // Scroll up
+    /*
+    else {
+        if( viewIndex > 0 ) {
+            viewIndex--;
+        }
+    }*/
+    //updated = st;
+
+    displayScrollUpdate();
+    }
 });
 
 /* Set wait to control scrolling on mouse pads */
