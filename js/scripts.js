@@ -41,7 +41,7 @@ $(document).ready( function() {
 
 /* Add title to mobile nav */
 function setTitle() {
-    //$('#mobile-title').text( $('.view-title').text() );
+    $('#mobile-title').text( $('.view-title').text() );
     $('.view-title').text('');
 }
 
