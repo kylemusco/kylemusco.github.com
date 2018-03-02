@@ -171,7 +171,7 @@ body {
 
 /* Container for Overview description div */
 .overview-description {
-    width: 400px;
+    width: 500px;
     font-size: 18px;
 }
 
@@ -192,6 +192,10 @@ body {
 .navigator-overview-image {
   width: 450px;
     max-width: 810px;
+}
+
+.lab-equipment-image {
+  width: 400px;
 }
 
 .navigator-laptop {
@@ -288,6 +292,12 @@ body {
 .webview-description {
     width: 550px;
     font-size: 18px;
+    margin-right: 50px;
+}
+
+.lab-equipment-description {
+  width: 600px;
+  font-size: 18px;
     margin-right: 50px;
 }
 
@@ -415,7 +425,10 @@ body {
       .navigator-overview-image {
         order: 1;
         margin: auto;
+        width: 80%;
       }
+
+      
 
       .mrg-team {
         width: 100%;
@@ -484,5 +497,16 @@ body {
         margin-top: 40px;
       }
       
+      .lab-equipment-description {
+        font-size: 30px;
+        width: 90%;
+        padding: 5%;
+      }
+
+      .lab-equipment-image {
+        width: 90%;
+        margin: auto;
+        text-align: center;
+      }
 
   }
