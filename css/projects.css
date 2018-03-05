@@ -76,6 +76,11 @@ body {
   transition: all .5s ease-in-out;
 }
 
+.subtitle {
+  font-weight: bold;
+  font-size: 25px;
+}
+
 /* Make text smaller for subitems */
 .left-nav-subitem {
   font-size: 12px;
@@ -183,7 +188,8 @@ body {
 }
 
 .prev-content-large,
-.overview-content-large {
+.overview-content-large,
+.overview-content-superlarge {
     display:flex;
     justify-content: space-between;
     height: 550px;
@@ -192,6 +198,10 @@ body {
 .navigator-overview-image {
   width: 450px;
     max-width: 810px;
+}
+
+.backend-image {
+  width: 600px;
 }
 
 .lab-equipment-image {
@@ -360,6 +370,11 @@ body {
   font-size: 50px;
 }
 
+.design-title {
+  margin-top: 40px;
+  font-size: 50px;
+}
+
 .coming-soon {
   font-size: 40px;
   text-align: center;
@@ -373,6 +388,58 @@ body {
   width: 75px;
   margin-top: -15px;
   margin-left: -5px;
+}
+
+.interface-container {
+  width: 100%;
+  height: 500px;
+  display: flex;
+}
+
+.interface-background {
+  width: 30%;
+}
+
+.interface-example-div {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 30px;
+  padding-top: 0px;
+  padding-bottom: 10px;
+}
+
+.interface-example-container {
+  width: 44%;
+  margin-left: 8%;
+  margin-top: 50px;
+}
+
+.interface-preview {
+   height: 120px;
+   box-shadow: 0px 3px 8px rgba(0,0,0,.2);
+   width: 230px;
+}
+
+.interface-frontend {
+  width: 100%;
+}
+
+
+
+.company-color-container {
+  width: 80%;
+  margin: auto;
+  margin-top: 10px;
+  height: 30px;
+  display: flex;
+  justify-content: space-around;
+}
+
+.company-color {
+  width: 100px;
+  height: 30px;
+  border-radius: 50px;
 }
 
 @media only screen 
@@ -507,6 +574,56 @@ body {
         width: 90%;
         margin: auto;
         text-align: center;
+      }
+
+      .interface-container {
+        width: 90%;
+        padding: 5%;
+      }
+
+      .overview-content-superlarge {
+        flex-direction: column;
+        height: 1000px;
+      }
+
+      .backend {
+        margin-top: 100px;
+      }
+
+      .backend-image {
+        margin: auto;
+      }
+
+      .subtitle {
+        font-size: 45px;
+      }
+
+      .interface-container {
+        flex-direction: column;
+        font-size: 30px;
+      }
+
+      .interface-background {
+        width: 90%;
+      }
+
+      .design-title {
+        font-size: 70px;
+      }
+
+      .interface-example-container {
+          width: 90%;
+          margin-left: 0px;
+      }
+
+      .interface-preview {
+        height: 200px;
+        width: 350px;
+      }
+
+      .pdf-img {
+        height: 90%;
+        width: 320px;
       }
 
   }
