@@ -1,280 +1,69 @@
 <html>
-<head>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-115131785-1"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+    <head>
+        <title>Projects</title>
 
-        gtag('config', 'UA-115102048-1');
-    </script>
-    <title>Portfolio</title>
-    <link rel="stylesheet" href="css/styles.css">
-
-    <script src="js/jquery.min.js"></script>
-    <script src="js/scripts.js"></script>
-    <script src="js/resources/projects.js"></script>
-    <script src="js/projects.js"></script>
-</head>
-<body>
-    <div class="container">
-        <div class="nav">
-            <div class="profile-img-container">
-                <img src="img/profile.png" class="profile-img">
-            </div>
-
-            <div class="nav-items">
-                <a href="index.html" class="title" style="text-decoration: none;">Kyle Musco</a>
-                <div class="subtitle">Computer Engineer</div>
-
-                <a href="index.html" class="nav-item">About</a>
-                <a href="experience.html" class="nav-item">Experience</a>
-                <a href="projects.html" class="nav-item">Projects</a>
-                <a href="img/Kyle Musco - Resume.pdf" class="nav-item">Resume</a>
-            </div>
+        <link href="https://fonts.googleapis.com/css?family=Inconsolata:400,700" rel="stylesheet" type="text/css">
+        <link rel="stylesheet" href="css/main.css">
+        <link rel="icon" type="img/ico" href="img/favicon.ico">
+    </head>
+    <body>
+        <!-- Header -->
+        <div class="navbar container">
+            <a id="author-name" class="left" href="https://kylemusco.com">Kyle Musco</a>
+            <ul class="right navbar-ul">
+                <li class="right nav-list"><a target="_blank" href="Kyle Musco - Resume.pdf">Resume</a></li>
+                <li class="right nav-list"><a href="projects.html">Projects</a> / </li>
+            </ul>
         </div>
+        <hr>
 
-        <div class="content" id="content">
-            <div class="view-title">Projects</div>
-
-            <div class="project-nav">
-                <div id="all" class="project-nav-item active">All</div>
-                <div id="hackathons" class="project-nav-item">Hackathons</div>
-                <div id="hardware" class="project-nav-item">Hardware</div>
-                <div id="networking" class="project-nav-item">Networking</div>
-                <div id="software" class="project-nav-item">Software</div>
-            </div>
-
-            <div class="project-container" id="project-container">
-
-                <!-- Navigator -->
-                <a id="navigator-url" href="projects/navigator.html" class="project-link">
-                <div class="project-box" tags="software all" key="navigator">
-                    <div class="project-title">
-                        <img src="img/kmdev/navigator/navigator.png" class="ironride-logo">
-                    </div>
-                    <div class="project-img">
-                        <img src="img/projects/navigator/navigatoricon.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        A laboratory management web application created for MRG Labs to streamline their analysis process. Navigator is used by several Fortune 500 companies.
-                    </div>
-                </div>
-                </a>
-
-                <!-- FAST -->
-                <a id="fast-url" href="https://fastmentalfitness.com" target="_blank" class="project-link">
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        FAST
-                    </div>
-                    <div class="project-img">
-                        <img src="img/kmdev/fast/fasticon.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        A test administration and analysis platform designed for a psychologist. Provides immediate feedback for users and statistics for administrators.
-                    </div>
-                </div>
-                </a>
-
-                <!-- IronRide -->
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        <img src="img/kmdev/ironride/ironride-logo.png" class="ironride-logo">
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/kmdev/ironride/ironrideicon.png" class="project-img">
-                    </div>
-                    <div class="project-description">
-                        An app for Harley Davidson owners to connect with other riders, find new rides and document their own.
-                    </div>
-                </div>
-
-                <!-- Commonwealth -->
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        <img src="img/kmdev/commonwealth/logo.png" class="ironride-logo">
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/kmdev/commonwealth/commonwealthicon.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        An online store for Commonwealth Trailer Parts, a trailer part distributer.
-                    </div>
-                </div>
-
-                <!-- MI-12 -->
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        MI-12 Ventures
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/kmdev/mi12/mi12icon.png" class="moena-img">
-                    </div>
-                    <div class="project-description">
-                        A website for MI-12 Ventures, an angel investment firm.
-                    </div>
-                </div>
-
-                <!-- Y-Fi -->
-                <div class="project-box" tags="networking all">
-                    <div class="project-title">
-                        <img src="img/projects/yfi/yfi.png" class="yfi-img">
-                    </div>
-                    <div class="project-img">
-                        <img src="img/projects/yfi/map.png" class="project-img">
-                    </div>
-                    <div class="project-description">
-                        Y-Fi is an initiative to provide free WiFi for downtown York City. I was awarded a $6000 grant to implement a mesh network that covers key downtown locations.
-                    </div>
-                </div>
-
-                <!-- Moena LLC -->
-                <div class="project-box" tags="hardware networking all">
-                    <div class="project-title">
-                        Moena LLC
-                    </div>
-                    <div class="project-img">
-                        <img src="img/projects/moena/moena.png" class="moena-img">
-                    </div>
-                    <div class="project-description">
-                        Moena provides businesses a way to monetize their WiFi by allowing them to promote themselves and display 3rd party advertisements to customers as they browse the web.
-                    </div>
-                </div>
-
-                <!-- YCP Hacks 2017 -->
-                <div class="project-box" tags="hackathons all">
-                    <div class="project-title">
-                        <img src="img/projects/ycphacks/logo2017.png" class="ironride-logo">
-                    </div>
-                    <div class="project-img">
-                        <img src="img/projects/ycphacks/ycphacks2017.jpg" class="moena-img">
-                    </div>
-                    <div class="project-description">
-                        I advised the student team and implemented an online account management system to manage email campaigns, handle travel and diet requests, and track attendance.
-                    </div>
-                </div>
-
-                <!-- Quill -->
-                <div class="project-box" tags="hackathons software all">
-                    <div class="project-title">
-                        Quill
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/quill/ycphacks.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        A fork of HackMIT's Quill project, branded for YCP Hacks 2017. I added several features to improve user management and sending mass emails.
-                    </div>
-                </div>
-
-                <!-- Spacefolio -->
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        Spacefolio
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/spacefolio/spacefolio.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        My old portfolio website.
-                    </div>
-                </div>
-
-                <!-- Greenhouse -->
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        Greenhouse UI
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/greenhouse/icon.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        A web application that monitors an automated greenhouse built for a local elementary school. Created as part of my Senior Capstone project.
-                    </div>
-                </div>
-
-                <!-- Shuttle Tracker -->
-                <div class="project-box" tags="hardware all">
-                    <div class="project-title">
-                        Shuttle Tracker
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/shuttle/tracker.jpg" class="shuttle-img">
-                    </div>
-                    <div class="project-description">
-                        A GPS tracker that uses WiFi probing requests to estimate how many people are on the shuttle. Posts location and number of riders to web application over 3G.
-                    </div>
-                </div>
-
-                <!-- YCP Hacks 2016 -->
-                <div class="project-box" tags="hackathons all">
-                    <div class="project-title">
-                        <img src="img/projects/ycphacks/logo.png" class="ironride-logo">
-                    </div>
-                    <div class="project-img">
-                        <img src="img/projects/ycphacks/ycphacks.jpg" class="moena-img">
-                    </div>
-                    <div class="project-description">
-                        I was 1 of 4 students who organized York College's first hackathon at the Yorktowne Hotel. 
-                    </div>
-                </div>
-
-                <!-- YCP Hacks 2016 Website -->
-                <div class="project-box" tags="hackathons software all">
-                    <div class="project-title">
-                        YCP Hacks Website
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/ycphacks/ycphackswebsite.png" class="quill-img">
-                    </div>
-                    <div class="project-description">
-                        I created the homepage for YCP Hacks 2016.
-                    </div>
-                </div>
-
-                <!-- Commonwealth Webscraper -->
-                <div class="project-box" tags="software all">
-                    <div class="project-title">
-                        Webscraper
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/cop/webscraper/webscrapericon.png" class="webscraper-img">
-                    </div>
-                    <div class="project-description">
-                        A webscraper to audit Commonwealth websites for Open Data compliance. Done for my internship with the Office of Administration for the Commonwealth of Pennsylvania.
-                    </div>
-                </div>
-
-                <!-- Nixie Clock -->
-                <div class="project-box" tags="hardware all">
-                    <div class="project-title">
-                        Nixie Tube Clock
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/clock/nixie.png" class="moena-img">
-                    </div>
-                    <div class="project-description">
-                        A clock that uses antique NI-14 nixie tubes. I built this from a kit to further my understanding of electrical engineering.
-                    </div>
-                </div>
-
-                <!-- Robocar -->
-                <div class="project-box" tags="hardware all">
-                    <div class="project-title">
-                        Robocar
-                    </div>
-                    <div class="project-img" style="background-color:#272727;">
-                        <img src="img/projects/robocar/icon.png" class="moena-img">
-                    </div>
-                    <div class="project-description">
-                        A Raspberry Pi powered remote controlled car. Controlled by web application over WiFi.
-                    </div>
-                </div>
-
-            </div>
+        <!-- Content -->
+        <div class="container">
+            <h2>Projects</h2>
+            <ul>
+                <li>
+                    <a href="" title="Navigator">Navigator</a>
+                    <p>
+                        Laboratory management web application for MRG Laboratories
+                    </p><br>
+                </li>
+                <li>
+                    <a href="" title="Tesla Sentry Viewer">Tesla Sentry Cloud Storage</a>
+                    <p>
+                        Node server for storing video recorded from Tesla vehicles
+                    </p><br>
+                </li>
+                <li>
+                    <a href="" title="Apartment Price Tracker">Apartment Price Tracker</a>
+                    <p>
+                        Node server for tracking room prices at my apartment
+                    </p><br>
+                </li>
+                <li>
+                    <a href="" title="FAST">FAST</a>
+                    <p>
+                        Test management and analysis platform for psychologists
+                    </p><br>
+                </li>
+                <li>
+                    <a href="" title="Ironride">Ironride</a>
+                    <p>
+                        Instagram clone for Harley Davidson riders
+                    </p><br>
+                </li>
+                <li>
+                    <a href="" title="Y-Fi">Y-Fi</a>
+                    <p>
+                        Public WiFi mesh network for The City of York, PA
+                    </p><br>
+                </li>
+                <li>
+                    <a href="" title="YCP Hacks 2016">YCP Hacks 2016</a>
+                    <p>
+                        Organized York College of Pennsylvania's first hackathon
+                    </p><br>
+                </li>
+            </ul>
         </div>
-    </div>   
-</body>
+    </body>
 </html>
