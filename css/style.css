@@ -724,12 +724,12 @@ body {
       font-size: 70px;
     }
     
-    .title {
+    /* .title {
       top: 80px;
       left: 0;
       width: 100%;
       text-align: center;
-    }
+    } */
 
     .mobile-title {
       font-size: 70px;

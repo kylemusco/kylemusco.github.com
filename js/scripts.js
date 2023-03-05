@@ -21,27 +21,27 @@ $(document).ready( function() {
 function mobileHome() {
     // Fix title font size
     $('.title').find('div').each( function(i) {
-        // Kyle Musco
-        if( i==0 ) {
-            $(this).find('span').each( function() {
-                $(this).css('font-size', '100px');
-            });
-
-        // Title description
-        } else if( i==1 ) {
-            $(this).css('margin-top','20px');
-
-            $(this).find('span').each( function() {
-                $(this).css('font-size', '25px');
-            });
-        }
+        $(this).find('span').each( function() {
+            $(this).css('font-size', '80px');
+            $(this).css('margin-top', '50px');
+        });
     });
 
-    // Remove side nav
-    $('#nav-container').remove();
+    $('.subtitle').find('div').each( function(i) {
+        $(this).css('margin-top','80px');
+
+        $(this).find('span').each( function() {
+            $(this).css('font-size', '25px');
+        });
+    });
+
+    // Update side nav
+    // $('#nav-container').remove();
+    $('#nav-container').css('height', '800px')
+    $('#nav-container').css('font-size', '40px')
 
     // Add mobile nav
-    $('body').append('<div id="mobile-nav-container" class="mobile-nav-container"><div id="mobile-nav-btn" class="mobile-nav-btn"><div></div><div></div><div></div></div></div>');
+    // $('body').append('<div id="mobile-nav-container" class="mobile-nav-container"><div id="mobile-nav-btn" class="mobile-nav-btn"><div></div><div></div><div></div></div></div>');
 }
 
 /* Display nav bar */
