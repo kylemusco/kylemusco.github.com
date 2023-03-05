@@ -1,18 +1,9 @@
-<!DOCTYPE html>
-<html >
+<html>
 <head>
   <meta charset="UTF-8">
-  <meta property="og:url"                content="http://www.kylemusco.com" />
-  <meta property="og:type"               content="Portfolio" />
-  <meta property="og:title"              content="Kyle Musco's Portfolio" />
-  <meta property="og:description"        content="A portfolio of my work experience and personal projects" />
-  <meta property="og:image"              content="http://www.kylemusco.com/images/metaimage.png" />
-
-
   <title>Kyle Musco's Portfolio</title>
   <meta charset="utf-8">
   <script src='https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
-  <link rel="icon" type="image/png" href="images/space.png" />
 
   <!-- Fonts -->
   <link href="http://fonts.googleapis.com/css?family=Quicksand:300%2C400%2C700" rel="stylesheet" property="stylesheet" type="text/css" media="all">
@@ -30,13 +21,13 @@
   <script src='js/anime.js'></script>
   <script src='js/texteffects.js'></script>
   <script src='js/scripts.js'></script>
-</head>
-
-<body>
-	<!-- Containing div for space background -->
-  	<div id ="space" style="position: absolute; z-index: 0; top: 0; left: 0;" ></div>
   
-  	<!-- Shaders for Galaxy -->
+</head>
+<body>
+    <!-- Containing div for space background -->
+  	<div id ="space" style="position: absolute; z-index: 0; top: 0; left: 0;" ></div>
+
+      <!-- Shaders for Galaxy -->
 	<script id='vShader' type='x-vertex/x-shader'>
 		uniform float size;
 		uniform float t;
@@ -79,7 +70,7 @@
 				
 			float c=distance(gl_PointCoord,vec2(.5));
 			float starlook=-(c-.5)*1.2*gas; 
-			float gaslook=(1.-gas)/(c*10.5);
+			float gaslook=(1.-gas)/(c*10.);
 			float texture=starlook+gaslook;
 						
 			gl_FragColor=vec4(.35,.29,b,1.)*texture*(1.-a*.35);
@@ -88,48 +79,15 @@
     	}
 	</script>
 
-	<!-- Containing div for galaxy -->
-    <div id ="galaxy" style="position: absolute; z-index: 1; top: 0; left: 0;" ></div>
 
-	<div class="title">
-        <div effect="space" duration="1200" style="margin-left: 2px; margin-right: 2px; font-size: 35px; color: white;">KYLE MUSCO</div>
-    </div>
+    <button style="position: absolute; bottom: 0; right: 0; z-index: 999999999;" onclick="displayProjectDetails('navigator')">TEST</button>
 
-	<div class="subtitle">
-		<div effect="space" duration="1500" style="margin-left: 1px; margin-right: 1px; font-size: 8px; color: white;">SENIOR iOS ENGINEER | BEACON AI</div>
-	</div>
-
-	<!-- Navigation div -->
-	<div class="nav-container" id="nav-container">
-		<ul id="nav-list" class="nav-list">
-			<!-- <li id="experience">Experience</li>
-			<li id="projects">Projects</li> -->
-			<a href="Kyle Musco - Resume.pdf" target="_blank">
-				<li id="resume">Resume</li>
-			</a>
-			<a href="https://github.com/kylemusco" target="_blank">
-				<li id="contact">Github</li>
-			</a>
-		</ul>
-	</div>
-
-	<!-- Debug tool for moving and zooming to points in the galaxy -->
-	<div style="position: absolute; bottom: 0; right: 0; z-index: 999; display: none;">
-			<input type="text" id="x">
-			<input type="text" id="y">
-			<button onclick="moveBox()">move</button>
-            <button onclick="cameraZoom(-75,73)">zoom</button>
-			<button onclick="cameraReset()">reset</button>
-    </div>
-
-	<!-- Content Container - Content is appended here when user selects nav item -->
-	<div class='content' id='content'></div>
-
-  	<script src='js/three.min.js'></script>
+    <script src='js/three.min.js'></script>
 	<script  src="js/space.js"></script>
     <script  src="js/galaxy.js"></script>
 
-	
-	
+    <!-- Appended elements -->
+
+
 </body>
 </html>

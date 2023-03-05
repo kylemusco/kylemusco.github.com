@@ -1,0 +1,1020 @@
+body{
+  margin:0;
+  overflow:hidden;
+  font-family: 'Quicksand';
+  color: white;
+}
+
+/* Container for 'Kyle Musco' and description */
+.title {
+  position: absolute;
+  top: 20px;
+  right: 45px;
+  line-height: 30px;
+}
+
+.subtitle {
+  position: absolute;
+  top: 58px;
+  right: 50px;
+}
+
+
+
+/* Container for nav items */
+.nav-container {
+  position: absolute;
+  right: 50px;
+  top: 0px;
+  font-size: 20px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
+
+.nav-list {
+  height: 100px
+}
+
+.nav-list a {
+  text-decoration: none;
+}
+
+.left-nav-container {
+  position: absolute;
+  left: 40px; 
+  top: 0;
+  font-size: 20px;
+  height: 100%;
+  width: 200px;
+  z-index: 100;
+  display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+   justify-content: space-around;
+}
+
+.left-nav-container-inner {
+  width: 100%;
+  display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+   justify-content: space-around;
+}
+
+/* UL for nav items */
+.nav-container ul {
+  text-transform: uppercase;
+  text-decoration: none;
+  text-align: right;
+}
+
+/* LI for nav items */
+.nav-container li {
+  list-style: none;
+  margin-bottom: 30px;
+  font-weight: 400;
+  color: lightgrey;
+  opacity: .8;
+  letter-spacing: 1.1px;
+  transition: all .5s ease-in-out;
+}
+
+/* Hover styling for LI nav items */
+.nav-container li:hover {
+  cursor: pointer;
+  color: white;
+  opacity: 1;
+}
+
+/* Selected nav item */
+.nav-container .selected {
+  color: white;
+  opacity: 1;
+}
+
+/* Nav items for project navbar */
+.left-nav-subitem,
+.left-nav-item {
+  width: 100%;
+  height: 50px;
+  color: #d3d3d3;
+  opacity: .8;
+  text-transform: uppercase;
+  transition: all .5s ease-in-out;
+}
+
+/* Make text smaller for subitems */
+.left-nav-subitem {
+  font-size: 12px;
+  line-height: 22px;
+  height: 22px;
+}
+
+.left-nav-subitem:hover {
+  cursor: pointer;
+  color: white;
+  opacity: 1;
+}
+
+/* Make font white on select */
+.subitem-selected {
+  color: white;
+  opacity: 1;
+}
+
+/* Change cursor and color on hover */
+.left-nav-item:hover {
+  cursor: pointer;
+  color: white;
+  opacity: 1;
+}
+
+.left-nav-subitems {
+  margin-left: 10px;
+  height: 0px;
+  overflow: hidden;
+  transition: all .5s ease-in-out;
+}
+
+
+
+
+
+
+
+
+/* Experience Styling */
+
+/* Container for Experience Timeline */
+.experience-timeline {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100%;
+    width: 130px;
+    z-index: 100;
+    display: none;
+    padding: 25px;
+    padding-left: 5px;
+}
+
+/* Div for 'Present' and 'Past' headers */
+.experience-header {
+  width: 100%;
+  text-align: center;
+  font-size: 22px;
+  letter-spacing: 1.1px;
+}
+
+/* Div to contain company list */
+.experience-company-list {
+  width: 100%;
+  height: 70%;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  position: relative;
+  display: -webkit-flex;
+   display: flex;
+   -webkit-flex-direction: column;
+   flex-direction: column;
+}
+
+/* Circle outline for company icons */
+.icon-container {
+  height: 65px;
+  width: 65px;
+  margin: auto;
+  border: solid 3px white;
+  border-radius: 100%;
+  background-color: black;
+  z-index: 101;
+  position: relative;
+}
+
+.icon-container:hover {
+  cursor: pointer;
+}
+
+/* Div to connect company icon circles */
+.timeline-line {
+  position: absolute;
+  height: 100%;
+  width: 3px;
+  border: solid 1px white;
+  background-color: white;
+  border-radius: 50%;
+  left: 48%;
+  top: 0;
+}
+
+/* Styling for company icons */
+.company-icon,
+.company-icon-white {
+  height: 35px;
+  width: 35px;
+  margin-top: 15px;
+  margin-left: 15px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.company-icon {
+  opacity: 0;
+  transition: all .3s ease-in-out;
+}
+
+.company-icon:hover {
+  opacity: 1;
+}
+
+/* Container for company name */
+.timeline-company-name-single {
+  width: 120px;
+  height: 25px;
+  line-height: 14px;
+  margin-left: 90px;
+  margin-top: 28px;
+  font-size: 12px;
+  color: #AFAFAF;
+  letter-spacing: 1.1px;
+  transition: all .3s ease-in-out;
+}
+
+.timeline-company-name-double {
+  width: 130px;
+  height: 25px;
+  line-height: 14px;
+  margin-left: 90px;
+  margin-top: 20px;
+  font-size: 12px;
+  color: #AFAFAF;
+  letter-spacing: 1.1px;
+  transition: all .3s ease-in-out;
+}
+
+/* Containing div for company content */
+.experience-content-container {
+  height: 100%;
+  width: 70%;
+  position: absolute;
+  left: 225px;
+  z-index: 100;
+  display: none;
+}
+
+/* Holds all title elements for company content */
+.experience-title-container {
+  width: 100%;
+  height: 175px;
+  bottom: 0;
+  position: absolute;
+}
+
+/* Company image styling */
+.company-logo {
+  height: 40px;
+  margin-left: 50px;
+}
+
+.company-logo-url {
+  text-decoration: none;
+}
+
+.experience-subtitle {
+  height: 20px;
+  margin-left: 50px;
+  font-size: 12px;
+}
+
+.experience-description {
+  margin-left: 40px;
+  margin-top: 10px;
+  width: 80%;
+  background-color: rgba(0,0,0,.4);
+  padding: 10px;
+}
+
+
+
+
+/* Project Styling */
+.project-container {
+  background-color: white;
+  height: 0px;
+  display: none;
+  width: 200px;
+  position: absolute;
+  transition: 0.3s; 
+  overflow: hidden;
+  border-radius: 2px;
+  box-shadow: 4px 4px 6px 0px rgba(0,0,0,.2);
+}
+
+.project-container:hover {
+  cursor: pointer;
+}
+
+.project-container:hover .hover-container {
+  margin-top: -12.5em;
+  display: block;
+}
+
+/* Container for project hover description */
+.hover-container {
+  background-color: rgba(0,0,0,.9);
+  width: 100%;
+  height: 100%;
+  transition: 0.3s; 
+  z-index: 9999;
+  position: absolute;
+}
+
+/* Content inside hover container */
+.hover-content {
+  font-size: 13px;
+  letter-spacing: .1px;
+  color: white;
+  position: relative;
+  margin-top: 15px;
+  margin-left: 15px;
+}
+
+/* DETAILS button inside hover-content */
+.more-details-btn {
+  width: 100px;
+  height: 25px;
+  font-size: 10px;
+  line-height: 25px;
+  border: solid .5px white;
+  text-align: center;
+  transition: all .3s ease-in-out;
+}
+
+.more-details-btn:hover {
+  -webkit-box-shadow: 0px 0px 30px 0px rgba(255,255,255,.3);
+  -moz-box-shadow: 0px 0px 30px 0px rgba(255,255,255,.3);
+  box-shadow: 0px 0px 30px 0px rgba(255,255,255,.3);
+}
+
+
+.navigator-img {
+  height: 100px;
+  margin-left: 26px;
+  margin-top: 8px;
+  margin-bottom: 12px;
+  z-index: 10;
+}
+
+.navigator-logo {
+  height: 60px;
+  margin-left: 69px;
+  margin-top: 12px;
+}
+
+.fast-logo {
+  height: 35px;
+  margin-left: 57px;
+  margin-top: 19px;
+  margin-bottom: 13px;
+}
+
+.fast-img {
+  height: 100px;
+  margin-left: 26px;
+  margin-top: 8px;
+  margin-bottom: 17px;
+  z-index: 10;
+}
+
+.ironride-logo {
+  height: 35px;
+  margin-left: 73px;
+  margin-top: 13px;
+  margin-bottom: 3px;
+}
+
+.ironride-img {
+  height: 130px;
+  margin-left: 43px;
+  margin-top: 0px;
+  margin-bottom: 11px;
+  z-index: 10;
+}
+
+.commonwealth-logo {
+  height: 35px;
+  margin-left: 50px;
+  margin-top: 19px;
+  margin-bottom: 13px;
+}
+
+.commonwealth-img {
+  height: 100px;
+  margin-left: 26px;
+  margin-top: 8px;
+  margin-bottom: 17px;
+  z-index: 10;
+}
+
+.webscraper-logo {
+  height: 35px;
+  margin-left: 22px;
+  margin-top: 19px;
+  margin-bottom: 10px;
+}
+
+.webscraper-img {
+  height: 100px;
+  margin-left: 26px;
+  margin-top: 8px;
+  margin-bottom: 20px;
+  z-index: 10;
+}
+
+.code4pa-img {
+  height: 150px;
+  margin-top: 25px;
+  margin-bottom: 21px;
+}
+
+.conversion-img {
+  height: 80px;
+  margin-left: 16px;
+  margin-top: 26px;
+  margin-bottom: 38px;
+}
+
+.project-title-small,
+.project-title {
+  width: 100%;
+  height: 50px;
+  margin-top: 2px;
+  line-height: 50px;
+  font-size: 22px;
+  text-align: center;
+  color: black;
+}
+
+.project-title-small {
+  font-size: 16px;
+}
+
+
+
+.pos-img {
+  width: 100%;
+  margin-bottom: -19px;
+}
+
+.hardware-img {
+  width: 100%;
+  margin-bottom: 5px;
+  margin-top:13px;
+}
+
+.chiller-img {
+  height: 125px;
+  margin-left: 15px;
+  margin-bottom: 16px;
+  margin-top: 3px;
+}
+
+.stuff {
+  position: absolute; 
+  top: 300px; 
+  width: 100%; 
+  text-align: center; 
+  color: white; 
+  font-size: 40px;
+}
+
+/* Div to contain project description */
+.project-desc-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: scroll;
+  display: none;
+  z-index: 999999;
+  background-color: white;
+}
+
+.back-btn {
+  text-transform: uppercase;
+  width: 100px;
+  height: 40px;
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-bottom: 1px;
+  z-index: 999;
+  position: absolute;
+}
+
+.back-btn:hover {
+  cursor: pointer;
+}
+
+.back-btn-icon {
+  height: 10px;
+  margin-right: 10px;
+}
+
+/* Content container for project details */
+.project-details-content {
+  width: 82%;
+  height: 100%;
+  top: 0;
+  right: 0;
+  position: absolute;
+  overflow-x: hidden;
+}
+
+.project-desc-title {
+  margin-top: 120px;
+  font-size: 40px;
+  color: white;
+}
+
+.navigator-logo-div {
+  margin-left: 4%;
+  margin-top: 100px;
+}
+
+.navigator-overview-text {
+  margin-left: 4%;
+  width: 500px;
+  font-size: 18px;
+  margin-top: 2%;
+}
+
+.navigator-overview-img {
+  height: 50%;
+  position: absolute;
+  top: 15%;
+  right: -350px;
+}
+
+
+.scrolldown-container {
+  width: 100%;
+  height: 40px;
+  position: absolute;
+  bottom: 50px;
+  left: 0;
+  display: flex;
+  justify-content: space-around;
+}
+
+.scrolldown-icon {
+  position: relative;
+  height: 40px;
+  width: 40px;
+}
+
+.scrolldown-icon:hover {
+  cursor: pointer;
+}
+
+.scrolldown-icon a {
+  padding-top: 80px;
+}
+.scrolldown-icon span {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 20px;
+  height: 20px;
+  margin-left: -12px;
+  border-left: 1px solid #fff;
+  border-bottom: 1px solid #fff;
+  -webkit-transform: rotate(-45deg);
+  transform: rotate(-45deg);
+  -webkit-animation: sdb07 2s infinite;
+  animation: sdb07 2s infinite;
+  opacity: 0;
+  box-sizing: border-box;
+}
+.scrolldown-icon span:nth-of-type(1) {
+  -webkit-animation-delay: 0s;
+  animation-delay: 0s;
+}
+.scrolldown-icon span:nth-of-type(2) {
+  top: 16px;
+  -webkit-animation-delay: .15s;
+  animation-delay: .15s;
+}
+.scrolldown-icon span:nth-of-type(3) {
+  top: 32px;
+  -webkit-animation-delay: .3s;
+  animation-delay: .3s;
+}
+@-webkit-keyframes sdb07 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+@keyframes sdb07 {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.demo a {
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  z-index: 2;
+  display: inline-block;
+  -webkit-transform: translate(0, -50%);
+  transform: translate(0, -50%);
+  color: #fff;
+  font : normal 400 20px/1 'Josefin Sans'
+}
+
+body {
+  padding: 200px;
+}
+
+.x-container {
+  width: 40px;
+  height: 40px;
+  border: solid 3px black;
+  border-radius: 3px;
+  color: black;
+  transition: all 1s ease-in-out;
+}
+
+.start-position:first-child {
+  margin-top: 4px;
+}
+
+.start-position {
+  border-bottom: 3px solid black;
+  height: 5px;
+  width: 30px;
+  margin: auto;
+  margin-top: 1px;
+  transition: all .5s ease-in-out;
+}
+
+.rotate-down {
+    border-bottom: 3px solid black;
+    height: 5px;
+    width: 42px;
+    margin-top: 14px;
+    margin-left: 5px;
+    -ms-transform: rotate(45deg); /* IE 9 */
+    -webkit-transform: rotate(45deg); /* Safari */
+    transform: rotate(45deg);
+    transition: all .5s ease-in-out;
+}
+
+.rotate-up {
+    border-bottom: 3px solid black;
+    height: 5px;
+    width: 42px;
+    margin-top: -16px;
+    margin-left: 5px;
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Safari */
+    transform: rotate(-45deg);
+    transition: all .5s ease-in-out;
+}
+
+.content {
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+
+@media only screen 
+  and (max-device-width: 736px) { 
+
+    html
+    {
+      -webkit-tap-highlight-color:transparent;
+    }
+
+    .space {
+      font-size: 70px;
+    }
+    
+    .title {
+      top: 80px;
+      left: 0;
+      width: 100%;
+      text-align: center;
+    }
+
+    .mobile-title {
+      font-size: 70px;
+    }
+
+    .mobile-nav-container {
+      width: 100%;
+      height: 200px;
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      justify-content: space-around;
+      z-index: 999999;
+    }
+
+    .mobile-nav-btn {
+      height: 120px;
+      width: 120px;
+      border: solid 6px white;
+      border-radius: 50%;
+      background-color: transparent;
+      position: absolute;
+      left: 40px;
+      bottom: 40px;
+      z-index: 99999;
+      cursor: pointer;
+    
+    }
+
+    .mobile-nav-btn div {
+      height: 15px;
+      width: 45%;
+      border-bottom: solid 6px white;
+      margin: auto;
+      cursor: pointer;
+    }
+
+    .mobile-nav-btn div:first-child {
+      margin-top: 20px;
+    }
+
+    .mobile-nav-item-container {
+      width: 180px;
+      height: 220px;
+      position: absolute;
+      left: 40px;
+      bottom: 40px;
+    }
+
+    .mobile-nav-item {
+      height: 180px;
+      width: 180px;
+      border: solid 6px white;
+      opacity: 1;
+      border-radius: 50%;
+      background-color: transparent;
+    }
+
+    .mobile-nav-item-small {
+      height: 120px;
+      width: 120px;
+      border: solid 6px white;
+      border-radius: 50%;
+      background-color: transparent;
+      position: absolute;
+      bottom: 92px;
+    }
+
+    .experience-icon {
+      height: 100px;
+      margin-left: 62px;
+      margin-top: 42px;
+    }
+
+    .projects-icon {
+      height: 90px;
+      margin-left: 45px;
+      margin-top: 40px;
+    }
+
+    .resume-icon {
+      height: 90px;
+      margin-left: 55px;
+      margin-top: 44px;
+    }
+
+    .contact-icon {
+      height: 92px;
+      margin-left: 46px;
+      margin-top: 39px;
+    }
+
+    .arrow-icon {
+      height: 50px;
+      margin-left: 43px;
+      margin-top: 35px;
+    }
+
+    .close:hover {
+      cursor: pointer;
+    }
+
+    .nav-description {
+      width: 100%;
+      text-align: center;
+      font-size: 25px;
+      margin-top: 18px;
+    }
+
+    .experience-container {
+      width: 100%;
+      position: absolute;
+      top: 155px;
+      left: 0;
+      z-index: 999999;
+
+    }
+
+    .experience-item {
+      width: 95%;
+      margin: auto;
+      height: 240px;
+      background-color: black;
+      border: solid 5px white;
+      border-radius: 15px;
+      margin-top: 20px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+    .experience-top {
+      width: 100%;
+      padding: 15px;
+    }
+
+    .experience-item-logo {
+      height: 50px;
+    }
+
+    .experience-period {
+      float: right;
+      width: 65%;
+      padding-top: 2px;
+      margin-right: 40px;
+      text-align: right;
+      font-size: 25px;
+    }
+
+    .experience-item-description {
+      width: 95%;
+      padding-left: 20px;
+      padding-right: 20px;
+      padding-top: 10px;
+      font-size: 25px;
+    }
+
+    .experience-desc-title {
+      height: 100px;
+      margin-top: -50px;
+    }
+
+    /* Project Styling */
+    .project-container {
+      background-color: white;
+      height: 0px;
+      display: none;
+      width: 200px;
+      position: absolute;
+      overflow: visible;
+      transition: 0.3s; 
+      border-radius: 2px;
+      box-shadow: 4px 4px 6px 0px rgba(0,0,0,.2);
+    }
+
+    .project-container:hover {
+      cursor: pointer;
+    }
+
+    .project-container:hover .hover-container {
+      margin-top: 0;
+      display: block;
+    }
+
+    /* Container for project hover description */
+    .hover-container {
+      background-color: rgba(0,0,0,.9);
+      width: 400px;
+      height: 300px;
+      transition: 0.3s; 
+      z-index: 9999;
+      position: relative;
+      display: block;
+    }
+
+    /* Content inside hover container */
+    .hover-content {
+      font-size: 25px;
+      padding: 15px;
+      letter-spacing: .1px;
+      color: white;
+      position: relative;
+      margin-top: 0px;
+      margin-left: 0px;
+    }
+
+    /* DETAILS button inside hover-content */
+    .more-details-btn {
+      width: 150px;
+      height: 50px;
+      font-size: 20px;
+      line-height: 50px;
+      border: solid 1px white;
+      text-align: center;
+      transition: all .3s ease-in-out;
+    }
+
+    .more-details-btn:hover {
+      -webkit-box-shadow: 0px 0px 30px 0px rgba(255,255,255,.3);
+      -moz-box-shadow: 0px 0px 30px 0px rgba(255,255,255,.3);
+      box-shadow: 0px 0px 30px 0px rgba(255,255,255,.3);
+    }
+
+    .project-card-container {
+      width: 300px;
+      height: 300px;
+      background-color: white;
+    }
+
+    .navigator-img {
+      height: 140px;
+      margin-left: 15px;
+      margin-top: 15px;
+      margin-bottom: 5px;
+      z-index: 10;
+    }
+
+    .navigator-logo {
+      height: 100px;
+      margin-left: 65px;
+      margin-top: 12px;
+    }
+
+    .fast-logo {
+      height: 50px;
+      margin-left: 55px;
+      margin-top: 19px;
+      margin-bottom: 13px;
+    }
+
+    .fast-img {
+      height: 140px;
+      margin-left: 15px;
+      margin-top: 25px;
+      margin-bottom: 17px;
+      z-index: 10;
+    }
+
+    .ironride-logo {
+      height: 60px;
+      margin-left: 73px;
+      margin-top: 13px;
+      margin-bottom: 3px;
+    }
+
+    .ironride-img {
+      height: 180px;
+      margin-left: 40px;
+      margin-top: 12px;
+      margin-bottom: 11px;
+      z-index: 10;
+    }
+
+    .commonwealth-logo {
+      height: 60px;
+      margin-left: 25px;
+      margin-top: 19px;
+      margin-bottom: 13px;
+    }
+
+    .commonwealth-img {
+      height: 140px;
+      margin-left: 18px;
+      margin-top: 15px;
+      margin-bottom: 17px;
+      z-index: 10;
+    }
+
+
+}
