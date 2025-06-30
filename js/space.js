@@ -38,7 +38,7 @@ $(function () {
 
   $("#space").append(renderer.domElement); 
 
-  var fadeRate  = 0.05;
+  var fadeRate  = 0.005;
 
   // render loop
   function render() { 
