@@ -477,17 +477,17 @@ function addProject() {
 }
 
 /* Handle company icon hover effect */
-$(document).on('mouseover', '.company-icon', function() {
-    //$(this).parent().find('.company-icon').show();
-    $(this).parent().find('.company-icon-white').fadeOut();
+// $(document).on('mouseover', '.company-icon', function() {
+//     //$(this).parent().find('.company-icon').show();
+//     $(this).parent().find('.company-icon-white').fadeOut();
     
-});
+// });
 
-$(document).on('mouseout', '.company-icon', function() {
-    if( $(this).attr('selected') == undefined ) {
-        $(this).parent().find('.company-icon-white').show();
-    }
-});
+// $(document).on('mouseout', '.company-icon', function() {
+//     if( $(this).attr('selected') == undefined ) {
+//         $(this).parent().find('.company-icon-white').show();
+//     }
+// });
 
 /* Handle company icon click */
 $(document).on('click', '.icon-container', function() {
@@ -541,30 +541,30 @@ function setNavSelection() {
 
 /* Handle scroll down in project view */
 var wait = false;
-$(window).bind( 'mousewheel', function(event) {
-    if( wait ) {
-        return;
-    }
-    startWait();
+// $(window).bind( 'mousewheel', function(event) {
+//     if( wait ) {
+//         return;
+//     }
+//     startWait();
 
-    // Scroll up
-    if (event.originalEvent.wheelDelta >= 0) {
-        var el = findNextId( selectedNavItem, -1);
-        if( el != undefined ) {
-            selectedNavItem = el;
-        }
-    }
+//     // Scroll up
+//     if (event.originalEvent.wheelDelta >= 0) {
+//         var el = findNextId( selectedNavItem, -1);
+//         if( el != undefined ) {
+//             selectedNavItem = el;
+//         }
+//     }
 
-    // Scroll down
-    else {
-        var el = findNextId( selectedNavItem, 1);
-        if( el != undefined ) {
-            selectedNavItem = el;
-        }
-    }
+//     // Scroll down
+//     else {
+//         var el = findNextId( selectedNavItem, 1);
+//         if( el != undefined ) {
+//             selectedNavItem = el;
+//         }
+//     }
 
-    displayScrollUpdate(el);
-});
+//     displayScrollUpdate(el);
+// });
 
 /* Set wait to control scrolling on mouse pads */
 function startWait() {
@@ -575,14 +575,14 @@ function startWait() {
 }
 
 /* Scroll down button press */
-$(document).on('click', '.scrolldown-icon', function() {
-    var el = findNextId( selectedNavItem, 1);
-    if( el != undefined ) {
-        selectedNavItem = el;
-    }
+// $(document).on('click', '.scrolldown-icon', function() {
+//     var el = findNextId( selectedNavItem, 1);
+//     if( el != undefined ) {
+//         selectedNavItem = el;
+//     }
 
-    displayScrollUpdate(el);
-});
+//     displayScrollUpdate(el);
+// });
 
 function displayScrollUpdate(el) {
     // Set selectedItem
