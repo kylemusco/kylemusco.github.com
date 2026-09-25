@@ -45,6 +45,16 @@ function inspect() {
     viewport: [innerWidth, innerHeight],
     buffer: canvas ? [canvas.width, canvas.height] : null,
     aspect: current?.camera.aspect,
+    camera: current
+      ? {
+          position: current.camera.position.toArray(),
+          quaternion: current.camera.quaternion.toArray(),
+          fieldOfView: current.camera.fov,
+          near: current.camera.near,
+          far: current.camera.far,
+        }
+      : null,
+    galaxyRotation: points?.parent.rotation.z,
     uniformHeight: points?.material.uniforms.viewportHeight.value,
     pointCount: attribute?.count,
     positionBytes: attribute?.array.byteLength,

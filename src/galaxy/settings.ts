@@ -34,10 +34,11 @@ export const defaultGalaxySettings: GalaxySettings = Object.freeze({
 });
 
 export const defaultCameraSettings: CameraSettings = Object.freeze({
-  position: [0, -180, 150] as const,
+  // Preserve the approved framing in docs/checkpoints/step-5-desktop.jpg.
+  position: [-100, -100, 80] as const,
   target: [0, 0, 0] as const,
-  roll: -0.3,
-  fieldOfView: 45,
+  roll: -0.7,
+  fieldOfView: 70,
   near: 0.5,
   far: 1500,
 });

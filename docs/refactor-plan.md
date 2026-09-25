@@ -39,6 +39,7 @@ work, verification, remaining work, and newly discovered items.
   - Added a seeded spheroid and exponential spiral disk, varied stellar attributes,
     procedural dust/gas, a sparse background, and a refreshed social-preview image.
   - See [the checkpoint report](checkpoints/step-6.md) for evidence and limitations.
+  - Additional realism work is tracked in [the follow-up checklist](checkpoints/step-6-realism.md).
 - [ ] 7. Tune mobile and desktop quality.
   - Adaptive quality tiers, bounded resolution, hidden-tab pause, reduced motion,
     static fallback, and responsive framing.

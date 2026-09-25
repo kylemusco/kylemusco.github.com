@@ -1,0 +1,94 @@
+{
+  "first": {
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "visibility": "visible",
+    "viewport": [
+      1280,
+      720
+    ],
+    "buffer": [
+      1280,
+      720
+    ],
+    "aspect": 1.7777777777777777,
+    "camera": {
+      "position": [
+        -100,
+        -100,
+        80
+      ],
+      "quaternion": [
+        0.41599488467057444,
+        -0.2841923186316793,
+        -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.0006218400000000009,
+    "uniformHeight": 720,
+    "pointCount": 1000000,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 13,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "always",
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  },
+  "second": {
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "visibility": "visible",
+    "viewport": [
+      1280,
+      720
+    ],
+    "buffer": [
+      1280,
+      720
+    ],
+    "aspect": 1.7777777777777777,
+    "camera": {
+      "position": [
+        -100,
+        -100,
+        80
+      ],
+      "quaternion": [
+        0.41599488467057444,
+        -0.2841923186316793,
+        -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.005703192000001078,
+    "uniformHeight": 720,
+    "pointCount": 1000000,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 13,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "always",
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  }
+}

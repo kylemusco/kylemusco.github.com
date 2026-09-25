@@ -158,12 +158,15 @@ test('camera pose establishes position and aim before applying roll, independent
   };
   applyCameraPose(port, defaultCameraSettings);
   assert.deepEqual(calls, [
-    ['position', [0, -180, 150]],
+    ['position', [-100, -100, 80]],
     ['target', [0, 0, 0]],
-    ['roll', -0.3],
+    ['roll', -0.7],
   ]);
   applyCameraPose(port, defaultCameraSettings);
   assert.deepEqual(calls.slice(0, 3), calls.slice(3));
+  assert.equal(defaultCameraSettings.fieldOfView, 70);
+  assert.equal(defaultCameraSettings.near, 0.5);
+  assert.equal(defaultCameraSettings.far, 1500);
 });
 
 test('rotation is consistent at 30, 60, and 120 Hz', () => {
