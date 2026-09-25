@@ -27,9 +27,12 @@ work, verification, remaining work, and newly discovered items.
   - Active page uses the extracted modules via a temporary r77 adapter; jQuery,
     old portfolio handlers, and unused interaction allocations are no longer loaded.
   - See [the checkpoint report](checkpoints/step-4.md) for verification and limits.
-- [ ] 5. Replace the rendering pipeline.
+- [x] 5. Replace the rendering pipeline.
   - One canvas/loop, BufferGeometry/typed arrays, shaders, time-based animation,
     resize handling, cleanup, and graphics recovery.
+  - Modern Three.js/React Three Fiber now render the active page. Removed the
+    temporary adapter; preserved the old public files and URLs.
+  - See [the checkpoint report](checkpoints/step-5.md) for verification and limits.
 - [ ] 6. Create a more realistic galaxy.
   - Three-dimensional spiral structure, stellar variation, bulge/disk, dust/gas,
     restrained bloom, and balanced exposure.

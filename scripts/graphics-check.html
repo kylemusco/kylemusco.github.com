@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Galaxy renderer checks (development only)</title>
+    <link rel="stylesheet" href="/src/styles.css" />
+    <script type="module" src="/scripts/graphics-check.mjs"></script>
+  </head>
+  <body>
+    <div class="galaxy-backdrop" aria-hidden="true" inert>
+      <div id="galaxy"></div>
+    </div>
+    <div id="root"><!--app-html--></div>
+    <aside
+      style="
+        position: fixed;
+        inset: 150px auto auto 20px;
+        z-index: 5;
+        max-width: 90vw;
+        background: #050811;
+        padding: 12px;
+        font-size: 12px;
+      "
+    >
+      <button id="inspect">Inspect renderer</button>
+      <button id="stop">Unmount galaxy</button>
+      <button id="start">Mount galaxy</button>
+      <button id="lose">Lose graphics context</button>
+      <button id="restore">Restore graphics context</button>
+      <button id="shader">Break shader</button>
+      <pre id="result" role="status">Waiting for renderer</pre>
+    </aside>
+  </body>
+</html>

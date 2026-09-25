@@ -3,7 +3,8 @@ import { test } from 'node:test';
 import { applyCameraPose } from '../src/galaxy/camera.ts';
 import { generateGalaxy } from '../src/galaxy/generate.ts';
 import { createRandom } from '../src/galaxy/random.ts';
-import { startLayer } from '../src/galaxy/rendering.ts';
+import { advanceRotation } from '../src/galaxy/motion.ts';
+import { connectGraphicsLifecycle } from '../src/galaxy/graphics.ts';
 import {
   defaultCameraSettings,
   defaultGalaxySettings,
@@ -111,38 +112,48 @@ test('camera pose establishes position and aim before applying roll, independent
   assert.deepEqual(calls.slice(0, 3), calls.slice(3));
 });
 
-test('stopping a render layer cancels frames and disposes once, including late callbacks', () => {
-  const originalRequest = globalThis.requestAnimationFrame;
-  const originalCancel = globalThis.cancelAnimationFrame;
-  const callbacks = new Map();
-  let id = 0;
-  let frames = 0;
-  let disposals = 0;
-  globalThis.requestAnimationFrame = (callback) => {
-    callbacks.set(++id, callback);
-    return id;
-  };
-  globalThis.cancelAnimationFrame = (frameId) => callbacks.delete(frameId);
-  try {
-    const stop = startLayer({
-      frame: () => frames++,
-      dispose: () => disposals++,
-    });
-    const tick = callbacks.get(1);
-    callbacks.delete(1);
-    tick();
-    assert.equal(frames, 1);
-    assert.equal(callbacks.size, 1);
-    stop();
-    stop();
-    tick();
-    assert.equal(callbacks.size, 0);
-    assert.equal(frames, 1);
-    assert.equal(disposals, 1);
-  } finally {
-    if (originalRequest) globalThis.requestAnimationFrame = originalRequest;
-    else delete globalThis.requestAnimationFrame;
-    if (originalCancel) globalThis.cancelAnimationFrame = originalCancel;
-    else delete globalThis.cancelAnimationFrame;
+test('rotation is consistent at 30, 60, and 120 Hz', () => {
+  const results = [30, 60, 120].map((hz) => {
+    let angle = 0;
+    for (let frame = 0; frame < hz * 10; frame++) {
+      angle = advanceRotation(angle, -0.00012, 1 / hz);
+    }
+    return angle;
+  });
+  for (const angle of results) assert.ok(Math.abs(angle - -0.0012) < 1e-12);
+});
+
+test('stalled, negative, and invalid frame times cannot cause rotation jumps', () => {
+  assert.equal(advanceRotation(1, 2, 100), 1.2);
+  for (const delta of [-1, NaN, Infinity]) {
+    assert.equal(advanceRotation(1, 2, delta), 1);
   }
+});
+
+test('context loss pauses rendering, restoration resumes it, and cleanup detaches listeners', () => {
+  const canvas = Object.assign(new EventTarget(), { style: {}, dataset: {} });
+  const originalError = () => {};
+  const renderer = {
+    domElement: canvas,
+    debug: { onShaderError: originalError },
+  };
+  const calls = [];
+  const dispose = connectGraphicsLifecycle(renderer, {
+    stop: () => calls.push('stop'),
+    resume: () => calls.push('resume'),
+  });
+  const lost = new Event('webglcontextlost', { cancelable: true });
+  canvas.dispatchEvent(lost);
+  assert.ok(lost.defaultPrevented);
+  assert.equal(canvas.style.visibility, 'hidden');
+  assert.equal(canvas.dataset.graphics, 'lost');
+  canvas.dispatchEvent(new Event('webglcontextrestored'));
+  assert.deepEqual(calls, ['stop', 'resume']);
+  assert.equal(canvas.dataset.graphics, 'restoring');
+  assert.throws(() => renderer.debug.onShaderError(), /shader/);
+  dispose();
+  assert.equal(renderer.debug.onShaderError, originalError);
+  canvas.dispatchEvent(new Event('webglcontextlost'));
+  canvas.dispatchEvent(new Event('webglcontextrestored'));
+  assert.deepEqual(calls, ['stop', 'resume']);
 });
