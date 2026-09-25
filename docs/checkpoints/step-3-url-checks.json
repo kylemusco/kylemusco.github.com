@@ -1,0 +1,116 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "contentType": "text/html",
+    "verified": true
+  },
+  {
+    "path": "/2022/",
+    "status": 200,
+    "contentType": "text/html",
+    "verified": true
+  },
+  {
+    "path": "/2022/Kyle%20Musco%20-%20Resume.pdf",
+    "status": 200,
+    "contentType": "application/pdf",
+    "verified": true
+  },
+  {
+    "path": "/2022/projects.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8",
+    "verified": true
+  },
+  {
+    "path": "/Kyle%20Musco%20-%20Resume.pdf",
+    "status": 200,
+    "contentType": "application/pdf",
+    "verified": true
+  },
+  {
+    "path": "/css/style.css",
+    "status": 200,
+    "contentType": "text/css",
+    "verified": true
+  },
+  {
+    "path": "/css/texteffects.css",
+    "status": 200,
+    "contentType": "text/css",
+    "verified": true
+  },
+  {
+    "path": "/images/metaimage.png",
+    "status": 200,
+    "contentType": "image/png",
+    "verified": true
+  },
+  {
+    "path": "/images/space.png",
+    "status": 200,
+    "contentType": "image/png",
+    "verified": true
+  },
+  {
+    "path": "/images/space_icon.png",
+    "status": 200,
+    "contentType": "image/png",
+    "verified": true
+  },
+  {
+    "path": "/js/animation.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/anime.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/galaxy.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/resources/experience.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/resources/projects.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/scripts.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/space.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/texteffects.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  },
+  {
+    "path": "/js/three.min.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "verified": true
+  }
+]

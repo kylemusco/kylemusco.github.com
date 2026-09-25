@@ -1,57 +1,52 @@
 <!doctype html>
-<html>
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta property="og:url" content="http://www.kylemusco.com" />
-    <meta property="og:type" content="Portfolio" />
-    <meta property="og:title" content="Kyle Musco's Portfolio" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#050811" />
+    <title>Kyle Musco | Senior iOS Engineer</title>
+    <meta
+      name="description"
+      content="Kyle Musco, Senior iOS Engineer at ForeFlight. View my resume and GitHub, set against a spiral galaxy."
+    />
+    <link rel="canonical" href="https://www.kylemusco.com/" />
+    <meta property="og:url" content="https://www.kylemusco.com/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Kyle Musco | Senior iOS Engineer" />
     <meta
       property="og:description"
-      content="A portfolio of my work experience and personal projects"
+      content="Senior iOS Engineer at ForeFlight. View my resume and GitHub."
     />
     <meta
       property="og:image"
-      content="http://www.kylemusco.com/images/metaimage.png"
+      content="https://www.kylemusco.com/images/metaimage.png"
     />
-
-    <title>Kyle Musco's Portfolio</title>
-    <meta charset="utf-8" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <meta
+      property="og:image:alt"
+      content="A spiral galaxy on Kyle Musco's personal website"
+    />
+    <meta name="twitter:card" content="summary_large_image" />
     <link rel="icon" type="image/png" href="/images/space_icon.png" />
-
-    <!-- Fonts -->
-    <link
-      href="https://fonts.googleapis.com/css?family=Quicksand:300%2C400%2C700"
-      rel="stylesheet"
-      property="stylesheet"
-      type="text/css"
-      media="all"
-    />
-
-    <!-- CSS -->
-    <link rel="stylesheet" href="/css/style.css" />
-    <link rel="stylesheet" href="/css/texteffects.css" />
-
-    <!-- Content Resources -->
-    <script src="/js/resources/experience.js"></script>
-    <script src="/js/resources/projects.js"></script>
-
-    <!-- JS -->
-    <script src="/js/animation.js"></script>
-    <script src="/js/anime.js"></script>
-    <script src="/js/texteffects.js"></script>
-    <script src="/js/scripts.js"></script>
+    <link rel="stylesheet" href="/src/styles.css" />
     <script type="module" src="/src/main.tsx"></script>
+    <!-- Only the legacy renderer still needs jQuery; replace it in steps 4–5. -->
+    <script
+      defer
+      src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"
+    ></script>
+    <script defer src="/js/three.min.js"></script>
+    <script defer src="/js/space.js"></script>
+    <script defer src="/js/galaxy.js"></script>
   </head>
-
   <body>
-    <!-- Containing div for space background -->
-    <div
-      id="space"
-      style="position: absolute; z-index: 0; top: 0; left: 0"
-    ></div>
-
-    <!-- Shaders for Galaxy -->
+    <div class="galaxy-backdrop" aria-hidden="true" inert>
+      <div id="space"></div>
+      <div id="galaxy"></div>
+    </div>
+    <div id="root"><!--app-html--></div>
     <script id="vShader" type="x-vertex/x-shader">
       uniform float size;
       uniform float t;
@@ -102,57 +97,5 @@
         if(z>0.)gl_FragColor*=cos(1.5*z/322.)*(1.-.001*length(mPosition));
           }
     </script>
-
-    <!-- Containing div for galaxy -->
-    <div
-      id="galaxy"
-      style="position: absolute; z-index: 1; top: 0; left: 0"
-    ></div>
-
-    <div class="title">
-      <!-- The legacy character animation requires exact text-node whitespace. -->
-      <!-- prettier-ignore -->
-      <div effect="space" duration="1200" style="margin-left: 2px; margin-right: 2px; font-size: 35px; color: white;">KYLE MUSCO</div>
-    </div>
-
-    <div class="subtitle">
-      <!-- prettier-ignore -->
-      <div effect="space" duration="1500" style="margin-left: 1px; margin-right: 1px; font-size: 8px; color: white;">SENIOR IOS ENGINEER | FOREFLIGHT</div>
-    </div>
-
-    <!-- React owns navigation; the legacy galaxy remains during migration. -->
-    <div id="root"></div>
-    <noscript>
-      <div class="nav-container">
-        <ul class="nav-list">
-          <li><a href="/Kyle%20Musco%20-%20Resume.pdf">Resume</a></li>
-          <li><a href="https://github.com/kylemusco">Github</a></li>
-        </ul>
-      </div>
-    </noscript>
-
-    <!-- Debug tool for moving and zooming to points in the galaxy -->
-    <div
-      style="
-        position: absolute;
-        bottom: 0;
-        right: 0;
-        z-index: 999;
-        display: none;
-      "
-    >
-      <input type="text" id="x" />
-      <input type="text" id="y" />
-      <button onclick="moveBox()">move</button>
-      <button onclick="cameraZoom(-75, 73)">zoom</button>
-      <button onclick="cameraReset()">reset</button>
-    </div>
-
-    <!-- Content Container - Content is appended here when user selects nav item -->
-    <div class="content" id="content"></div>
-
-    <script src="/js/three.min.js"></script>
-    <script src="/js/space.js"></script>
-    <script src="/js/galaxy.js"></script>
   </body>
 </html>

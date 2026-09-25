@@ -15,9 +15,12 @@ work, verification, remaining work, and newly discovered items.
   - React now owns profile navigation; the legacy galaxy remains active.
   - Static files moved to `public/` with original URLs and bytes preserved.
   - See [the checkpoint report](checkpoints/step-2.md) for validation and follow-up.
-- [ ] 3. Build an accessible, responsive page shell.
+- [x] 3. Build an accessible, responsive page shell.
   - Semantic HTML, responsive layout, readable overlays, keyboard/touch access,
     viewport/safe-area support, resilient résumé access, and refreshed metadata.
+  - The React profile is pre-rendered into the HTML, with no-script resilience,
+    system fonts, visible keyboard focus, and mobile link placement.
+  - See [the checkpoint report](checkpoints/step-3.md) for validation and limits.
 - [ ] 4. Separate galaxy generation, rendering, and controls.
   - Typed settings, seeded generation, independent modules, and no per-frame
     React state updates.

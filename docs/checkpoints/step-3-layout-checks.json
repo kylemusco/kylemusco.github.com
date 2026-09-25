@@ -1,0 +1,257 @@
+[
+  {
+    "label": "320x568 production",
+    "header": {
+      "bottom": 116.1953125,
+      "height": 96.1953125,
+      "left": 20,
+      "right": 300,
+      "top": 20,
+      "width": 280,
+      "x": 20,
+      "y": 20
+    },
+    "headingCount": 1,
+    "links": [
+      {
+        "name": "Resume (PDF, opens in a new tab)",
+        "rect": {
+          "bottom": 474,
+          "height": 56,
+          "left": 20,
+          "right": 300,
+          "top": 418,
+          "width": 280,
+          "x": 20,
+          "y": 418
+        }
+      },
+      {
+        "name": "GitHub (opens in a new tab)",
+        "rect": {
+          "bottom": 544,
+          "height": 56,
+          "left": 20,
+          "right": 300,
+          "top": 488,
+          "width": 280,
+          "x": 20,
+          "y": 488
+        }
+      }
+    ],
+    "mainCount": 1,
+    "page": {
+      "height": 568,
+      "width": 320
+    },
+    "viewport": {
+      "height": 568,
+      "width": 320
+    }
+  },
+  {
+    "label": "844x390 after resize without reload",
+    "header": {
+      "bottom": 140.6640625,
+      "height": 108.6640625,
+      "left": 487.9609375,
+      "right": 804,
+      "top": 32,
+      "width": 316.0390625,
+      "x": 487.9609375,
+      "y": 32
+    },
+    "headingCount": 1,
+    "links": [
+      {
+        "name": "Resume (PDF, opens in a new tab)",
+        "rect": {
+          "bottom": 266.3359375,
+          "height": 56,
+          "left": 628,
+          "right": 804,
+          "top": 210.3359375,
+          "width": 176,
+          "x": 628,
+          "y": 210.3359375
+        }
+      },
+      {
+        "name": "GitHub (opens in a new tab)",
+        "rect": {
+          "bottom": 336.3359375,
+          "height": 56,
+          "left": 628,
+          "right": 804,
+          "top": 280.3359375,
+          "width": 176,
+          "x": 628,
+          "y": 280.3359375
+        }
+      }
+    ],
+    "mainCount": 1,
+    "page": {
+      "height": 390,
+      "width": 844
+    },
+    "viewport": {
+      "height": 390,
+      "width": 844
+    }
+  },
+  {
+    "label": "320x568 script-free fixture with 200% text, final",
+    "header": {
+      "bottom": 367.59375,
+      "height": 347.59375,
+      "left": 20,
+      "right": 300,
+      "top": 20,
+      "width": 280,
+      "x": 20,
+      "y": 20
+    },
+    "headingCount": 1,
+    "links": [
+      {
+        "name": "Resume (PDF, opens in a new tab)",
+        "rect": {
+          "bottom": 575.59375,
+          "height": 112,
+          "left": 20,
+          "right": 300,
+          "top": 463.59375,
+          "width": 280,
+          "x": 20,
+          "y": 463.59375
+        }
+      },
+      {
+        "name": "GitHub (opens in a new tab)",
+        "rect": {
+          "bottom": 715.59375,
+          "height": 112,
+          "left": 20,
+          "right": 300,
+          "top": 603.59375,
+          "width": 280,
+          "x": 20,
+          "y": 603.59375
+        }
+      }
+    ],
+    "mainCount": 1,
+    "page": {
+      "height": 739,
+      "width": 320
+    },
+    "viewport": {
+      "height": 568,
+      "width": 320
+    }
+  },
+  {
+    "label": "390x844 production, final",
+    "header": {
+      "bottom": 116.1953125,
+      "height": 96.1953125,
+      "left": 20,
+      "right": 370,
+      "top": 20,
+      "width": 350,
+      "x": 20,
+      "y": 20
+    },
+    "headingCount": 1,
+    "links": [
+      {
+        "name": "Resume (PDF, opens in a new tab)",
+        "rect": {
+          "bottom": 820,
+          "height": 56,
+          "left": 20,
+          "right": 188,
+          "top": 764,
+          "width": 168,
+          "x": 20,
+          "y": 764
+        }
+      },
+      {
+        "name": "GitHub (opens in a new tab)",
+        "rect": {
+          "bottom": 820,
+          "height": 56,
+          "left": 202,
+          "right": 370,
+          "top": 764,
+          "width": 168,
+          "x": 202,
+          "y": 764
+        }
+      }
+    ],
+    "mainCount": 1,
+    "page": {
+      "height": 844,
+      "width": 390
+    },
+    "viewport": {
+      "height": 844,
+      "width": 390
+    }
+  },
+  {
+    "label": "1280x720 production, final",
+    "header": {
+      "bottom": 143.1953125,
+      "height": 111.1953125,
+      "left": 909.4765625,
+      "right": 1240,
+      "top": 32,
+      "width": 330.5234375,
+      "x": 909.4765625,
+      "y": 32
+    },
+    "headingCount": 1,
+    "links": [
+      {
+        "name": "Resume (PDF, opens in a new tab)",
+        "rect": {
+          "bottom": 432.6015625,
+          "height": 56,
+          "left": 1064,
+          "right": 1240,
+          "top": 376.6015625,
+          "width": 176,
+          "x": 1064,
+          "y": 376.6015625
+        }
+      },
+      {
+        "name": "GitHub (opens in a new tab)",
+        "rect": {
+          "bottom": 502.6015625,
+          "height": 56,
+          "left": 1064,
+          "right": 1240,
+          "top": 446.6015625,
+          "width": 176,
+          "x": 1064,
+          "y": 446.6015625
+        }
+      }
+    ],
+    "mainCount": 1,
+    "page": {
+      "height": 720,
+      "width": 1280
+    },
+    "viewport": {
+      "height": 720,
+      "width": 1280
+    }
+  }
+]
