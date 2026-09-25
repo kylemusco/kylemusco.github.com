@@ -3,11 +3,13 @@ export type Vector3Tuple = readonly [number, number, number];
 export interface GalaxySettings {
   readonly seed: number;
   readonly starCount: number;
-  readonly majorAxis: number;
-  readonly minorAxis: number;
-  readonly bulbFraction: number;
+  readonly radius: number;
+  readonly armCount: number;
   readonly armTwist: number;
-  readonly ellipticity: number;
+  readonly armSpread: number;
+  readonly diskThickness: number;
+  readonly bulgeRadius: number;
+  readonly bulgeFraction: number;
 }
 
 export interface CameraSettings {
@@ -22,18 +24,20 @@ export interface CameraSettings {
 export const defaultGalaxySettings: GalaxySettings = Object.freeze({
   seed: 20260925,
   starCount: 1_000_000,
-  majorAxis: 164.5323350334049,
-  minorAxis: 96.43237102686038,
-  bulbFraction: 0.11835327566655209,
-  armTwist: 15,
-  ellipticity: 0.22489109300655016,
+  radius: 105,
+  armCount: 2,
+  armTwist: 3.6,
+  armSpread: 0.2,
+  diskThickness: 1.7,
+  bulgeRadius: 14,
+  bulgeFraction: 0.22,
 });
 
 export const defaultCameraSettings: CameraSettings = Object.freeze({
-  position: [-100, -100, 80] as const,
+  position: [0, -180, 150] as const,
   target: [0, 0, 0] as const,
-  roll: -0.7,
-  fieldOfView: 70,
+  roll: -0.3,
+  fieldOfView: 45,
   near: 0.5,
   far: 1500,
 });

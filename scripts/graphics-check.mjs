@@ -16,6 +16,7 @@ const result = document.getElementById('result');
 let stop = mountGalaxy(container);
 let extension;
 let lastContext;
+let lastRenderer;
 let geometryDisposals = 0;
 let materialDisposals = 0;
 const watched = new WeakSet();
@@ -26,12 +27,14 @@ function state() {
 
 function inspect() {
   const current = state();
-  const points = current?.scene.children.find((child) => child.isPoints);
-  if (points && !watched.has(points)) {
-    watched.add(points);
-    points.geometry.addEventListener('dispose', () => geometryDisposals++);
-    points.material.addEventListener('dispose', () => materialDisposals++);
-  }
+  const points = current?.scene.getObjectByName('galaxy-stars');
+  current?.scene.traverse((object) => {
+    if (object.geometry && !watched.has(object)) {
+      watched.add(object);
+      object.geometry.addEventListener('dispose', () => geometryDisposals++);
+      object.material.addEventListener('dispose', () => materialDisposals++);
+    }
+  });
   const canvas = container.querySelector('canvas');
   const attribute = points?.geometry.getAttribute('position');
   const report = {
@@ -45,7 +48,16 @@ function inspect() {
     uniformHeight: points?.material.uniforms.viewportHeight.value,
     pointCount: attribute?.count,
     positionBytes: attribute?.array.byteLength,
+    totalStarBytes: points
+      ? Object.values(points.geometry.attributes).reduce(
+          (total, a) => total + a.array.byteLength,
+          0,
+        )
+      : 0,
+    textureCount: current?.gl.info.memory.textures,
+    previousMemory: lastRenderer ? { ...lastRenderer.info.memory } : null,
     drawCalls: current?.gl.info.render.calls,
+    exposure: current?.gl.toneMappingExposure,
     geometryCount: current?.gl.info.memory.geometries,
     frameSubscribers: current?.internal.subscribers.length,
     frameloop: current?.frameloop,
@@ -59,7 +71,8 @@ function inspect() {
 
 document.getElementById('inspect').onclick = inspect;
 document.getElementById('stop').onclick = () => {
-  lastContext = state()?.gl.getContext();
+  lastRenderer = state()?.gl;
+  lastContext = lastRenderer?.getContext();
   stop();
   stop();
   setTimeout(inspect, 100);
@@ -83,7 +96,7 @@ document.getElementById('restore').onclick = () => {
   setTimeout(inspect, 500);
 };
 document.getElementById('shader').onclick = () => {
-  const points = state()?.scene.children.find((child) => child.isPoints);
+  const points = state()?.scene.getObjectByName('galaxy-stars');
   if (!points) return;
   points.material.fragmentShader = 'deliberately invalid GLSL';
   points.material.needsUpdate = true;

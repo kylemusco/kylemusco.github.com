@@ -22,38 +22,90 @@ test('generation is repeatable, independent, and preserves prefixes across quali
     generateGalaxy({ ...settings, starCount: 100 }).positions,
     first.positions.slice(0, 300),
   );
+  for (const key of ['colors', 'sizes', 'luminosities']) {
+    assert.deepEqual(first[key], repeated[key]);
+    assert.deepEqual(
+      generateGalaxy({ ...settings, starCount: 100 })[key],
+      first[key].slice(0, key === 'colors' ? 300 : 100),
+    );
+  }
+  assert.notEqual(first.settings, settings);
   first.positions.fill(0);
   assert.notDeepEqual(first.positions, repeated.positions);
   assert.equal(first.count, 1000);
   assert.equal(repeated.positions.length, 3000);
 });
 
-test('stars are finite, bounded, and three dimensional, including a circular galaxy', () => {
+test('all star attributes are finite and bounded across seeds and shape limits', () => {
   for (const seed of [0, 1, 0xffffffff]) {
-    for (const minorAxis of [0.001, 96, defaultGalaxySettings.majorAxis]) {
+    for (const radius of [1, 105, 1000]) {
       const settings = {
         ...defaultGalaxySettings,
         seed,
-        minorAxis,
+        radius,
+        bulgeRadius: radius * 0.13,
         starCount: 2000,
       };
-      const { positions } = generateGalaxy(settings);
-      for (const position of positions) {
-        assert.ok(Number.isFinite(position));
-        assert.ok(Math.abs(position) <= settings.majorAxis * 1.1);
+      const data = generateGalaxy(settings);
+      for (const attribute of [
+        data.positions,
+        data.colors,
+        data.sizes,
+        data.luminosities,
+      ]) {
+        assert.ok(attribute.every(Number.isFinite));
       }
       assert.ok(
-        positions.some((value, index) => index % 3 === 2 && value !== 0),
+        data.positions.every(
+          (value) =>
+            Math.abs(value) <= Math.max(radius, settings.diskThickness * 4.2),
+        ),
       );
+      assert.ok(data.colors.every((value) => value >= 0 && value <= 1));
+      assert.ok(data.sizes.every((value) => value > 0 && value <= 1.36));
+      assert.ok(data.luminosities.every((value) => value > 0 && value <= 1.5));
     }
   }
+  const empty = generateGalaxy({ ...defaultGalaxySettings, starCount: 0 });
   assert.equal(
-    generateGalaxy({ ...defaultGalaxySettings, starCount: 0 }).positions.length,
+    empty.positions.length +
+      empty.colors.length +
+      empty.sizes.length +
+      empty.luminosities.length,
     0,
   );
 });
 
-test('invalid settings fail before large allocations or invalid coordinates', () => {
+test('the bulge is thicker and warmer than the thin spiral disk', () => {
+  const settings = { ...defaultGalaxySettings, starCount: 30_000 };
+  const bulge = generateGalaxy({ ...settings, bulgeFraction: 1 });
+  const disk = generateGalaxy({ ...settings, bulgeFraction: 0 });
+  function varianceZ(data) {
+    let total = 0;
+    for (let i = 2; i < data.positions.length; i += 3)
+      total += data.positions[i] ** 2;
+    return total / data.count;
+  }
+  assert.ok(varianceZ(bulge) > varianceZ(disk) * 4);
+  assert.ok(bulge.colors[0] > bulge.colors[2]);
+  let blue = 0;
+  let nearArm = 0;
+  for (let i = 0; i < disk.count; i++) {
+    if (disk.colors[i * 3 + 2] > disk.colors[i * 3]) blue++;
+    const x = disk.positions[i * 3],
+      y = disk.positions[i * 3 + 1];
+    const radius = Math.hypot(x, y) / settings.radius;
+    const phase =
+      (Math.atan2(y, x) - settings.armTwist * Math.log(1 + radius / 0.18)) *
+      settings.armCount;
+    if (Math.abs(Math.atan2(Math.sin(phase), Math.cos(phase))) < 1) nearArm++;
+  }
+  assert.ok(blue > disk.count * 0.4);
+  assert.ok(nearArm > disk.count * 0.7);
+  assert.ok(nearArm < disk.count * 0.95, 'retain diffuse inter-arm stars');
+});
+
+test('invalid settings fail before allocations or invalid coordinates', () => {
   for (const change of [
     { seed: -1 },
     { seed: 2 ** 32 },
@@ -61,13 +113,15 @@ test('invalid settings fail before large allocations or invalid coordinates', ()
     { starCount: -1 },
     { starCount: 1.5 },
     { starCount: 1_000_001 },
-    { majorAxis: Infinity },
-    { minorAxis: 0 },
-    { minorAxis: 200 },
-    { bulbFraction: NaN },
-    { bulbFraction: 1.1 },
-    { ellipticity: -1 },
-    { ellipticity: Infinity },
+    { radius: Infinity },
+    { radius: 0 },
+    { armCount: 0 },
+    { armCount: 1.5 },
+    { bulgeFraction: NaN },
+    { bulgeFraction: 1.1 },
+    { bulgeRadius: 200 },
+    { diskThickness: -1 },
+    { armSpread: Infinity },
     { armTwist: NaN },
   ]) {
     assert.throws(
@@ -104,9 +158,9 @@ test('camera pose establishes position and aim before applying roll, independent
   };
   applyCameraPose(port, defaultCameraSettings);
   assert.deepEqual(calls, [
-    ['position', [-100, -100, 80]],
+    ['position', [0, -180, 150]],
     ['target', [0, 0, 0]],
-    ['roll', -0.7],
+    ['roll', -0.3],
   ]);
   applyCameraPose(port, defaultCameraSettings);
   assert.deepEqual(calls.slice(0, 3), calls.slice(3));

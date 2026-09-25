@@ -33,9 +33,12 @@ work, verification, remaining work, and newly discovered items.
   - Modern Three.js/React Three Fiber now render the active page. Removed the
     temporary adapter; preserved the old public files and URLs.
   - See [the checkpoint report](checkpoints/step-5.md) for verification and limits.
-- [ ] 6. Create a more realistic galaxy.
+- [x] 6. Create a more realistic galaxy.
   - Three-dimensional spiral structure, stellar variation, bulge/disk, dust/gas,
     restrained bloom, and balanced exposure.
+  - Added a seeded spheroid and exponential spiral disk, varied stellar attributes,
+    procedural dust/gas, a sparse background, and a refreshed social-preview image.
+  - See [the checkpoint report](checkpoints/step-6.md) for evidence and limitations.
 - [ ] 7. Tune mobile and desktop quality.
   - Adaptive quality tiers, bounded resolution, hidden-tab pause, reduced motion,
     static fallback, and responsive framing.

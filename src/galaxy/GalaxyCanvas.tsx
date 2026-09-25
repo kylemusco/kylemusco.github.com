@@ -46,11 +46,11 @@ export function GalaxyCanvas({
       <Canvas
         fallback={null}
         dpr={1}
-        flat
         gl={{
           alpha: true,
           antialias: false,
           powerPreference: 'high-performance',
+          toneMappingExposure: 0.9,
         }}
         camera={{
           fov: defaultCameraSettings.fieldOfView,

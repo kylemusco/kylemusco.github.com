@@ -43,20 +43,22 @@ reports Node 22 after upgrading, run `nvm use` in this directory. npm 11's
 install-script policy explicitly skips the optional `fsevents` install hook;
 the package ships a prebuilt macOS watcher that loads without it.
 
-## Current architecture (checkpoint 5)
+## Current architecture (checkpoint 6)
 
 ```text
 index.html                 Metadata and static fallback backdrop
 src/App.tsx                Responsive profile, heading, and navigation
 src/main.tsx               Hydrates the profile and starts the client-only galaxy
 src/galaxy/settings.ts     Typed galaxy/camera configuration and defaults
-src/galaxy/generate.ts     Pure seeded generation into XYZ Float32Array data
+src/galaxy/generate.ts     Seeded 3D positions, stellar colors, sizes, and luminosities
 src/galaxy/camera.ts       Camera pose application through a renderer-independent port
 src/galaxy/start.ts        Loads the graphics chunk and handles startup cancellation
 src/galaxy/mount.tsx       Generates once and owns the graphics React root
 src/galaxy/GalaxyCanvas.tsx Single R3F canvas and graphics error boundary
 src/galaxy/GalaxyScene.tsx BufferGeometry, camera pose, and one frame callback
-src/galaxy/shaders.ts      Modern point-sprite GLSL
+src/galaxy/shaders.ts      Stellar light, dust extinction, and diffuse gas GLSL
+src/galaxy/BackgroundStars.tsx Distant seeded background stars
+src/galaxy/postprocessing.ts HDR bloom and final tone mapping
 src/galaxy/graphics.ts     Context loss/restoration and shader-error handling
 src/galaxy/motion.ts       Time-based rotation with stalled-frame protection
 src/styles.css             Responsive layout, focus styles, and safe-area spacing
@@ -85,7 +87,8 @@ hit testing. The heading animation, Google Fonts request, old page stylesheet,
 and unused portfolio resource/navigation scripts are no longer loaded.
 
 The galaxy now runs through typed modules. `generateGalaxy(settings)` takes no
-browser or Three.js dependencies and returns its own interleaved XYZ buffer.
+browser or Three.js dependencies and returns its own position, color, size, and
+luminosity buffers, plus a snapshot of the settings used to generate them.
 The same seed/settings reproduce the same positions; a smaller star count
 retains the beginning of the same sequence. Generation validates numerical
 inputs before allocating. Treat the generated buffer as rest positions; later
@@ -98,32 +101,35 @@ small camera port; animation runs outside React state. The client entry owns
 startup and disposes it on Vite module replacement. StrictMode remains enabled
 for both the profile and the separately mounted graphics root.
 
-The active renderer uses modern Three.js and React Three Fiber. One canvas,
-one R3F frame subscriber, and one draw call render the galaxy. The generated
-position buffer is attached directly to BufferGeometry without copying it into
-per-star objects. R3F measures the canvas container and updates both the drawing
-buffer and perspective camera aspect on resize. Shader point sizing follows
-the buffer height. Rotation uses radians per second and clamps stalled frames;
-there are no per-frame React state updates or additional animation loops.
+The active renderer uses modern Three.js and React Three Fiber. A thick warm
+bulge, thin exponential disk, and cooler spiral arms replace the legacy ellipse
+pattern. Stars vary in size and brightness. A procedural diffuse layer adds
+dust lanes and small gas-emission regions, while sparse background stars sit
+on a distant sphere. This is an illustrative model, not a physical simulation.
 
-The old background sphere/renderer has been removed; the CSS starfield remains
-behind the transparent galaxy canvas and supplies the fallback. Context loss
-pauses the frame scheduler and hides the canvas. Browser context restoration
-rebuilds Three.js resources and resumes rendering from the retained CPU buffer.
-If initialization or shader/rendering fails, the profile stays usable over the
-static background. R3F disposes geometry, materials, renderer resources, and the
-WebGL context when the graphics root unmounts.
+One canvas and one R3F frame subscriber render the scene and its HDR bloom / tone
+mapping passes. Typed attributes attach directly to BufferGeometry without
+creating per-star objects. R3F updates the drawing buffer and perspective camera
+on resize; bloom targets follow those dimensions. Rotation uses radians per
+second and clamps stalled frames. No per-frame React state updates are used.
+
+Context loss pauses the frame scheduler and hides the canvas, revealing the
+CSS starfield fallback. Restoration rebuilds resources from the retained CPU
+buffers. Initialization/shader failures also keep the profile usable. R3F owns
+the scene resources and WebGL context; the postprocessing effect disposes all
+of its targets and materials on unmount. See the
+[step 6 checkpoint](docs/checkpoints/step-6.md) for verified cleanup and costs.
 
 The homepage no longer loads r77, jQuery, or the original galaxy/space scripts.
-The old public files and their URLs remain intact. The legacy typed adapter and
-inline shaders have been removed from maintained source. The current galaxy
-shape and approximate palette are intentionally retained until step 6.
+All original public files and URLs remain intact. Social metadata now references
+`/images/galaxy-preview.jpg`, a fresh capture of the new galaxy and current profile;
+`/images/metaimage.png` remains available unchanged.
 
 DPR is currently fixed at 1, and particle counts/mobile rotation still use the
 previous user-agent policy. Adaptive quality, reduced motion, hidden-tab pause,
 and responsive artistic framing remain step 7. The separate graphics chunk
 currently triggers Vite's size warning, and R3F's internal use of `THREE.Clock`
-triggers a deprecation warning; see [the step 5 checkpoint](docs/checkpoints/step-5.md)
+triggers a deprecation warning; see [the step 6 checkpoint](docs/checkpoints/step-6.md)
 for evidence and follow-ups.
 
 For repeatable graphics checks, run the development server and open
