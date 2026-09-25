@@ -1,6 +1,7 @@
 import { StrictMode } from 'react';
 import { hydrateRoot } from 'react-dom/client';
 import App from './App';
+import { startGalaxy } from './galaxy/start';
 
 const root = document.getElementById('root');
 
@@ -14,3 +15,6 @@ hydrateRoot(
     <App />
   </StrictMode>,
 );
+
+const stopGalaxy = startGalaxy();
+if (import.meta.hot) import.meta.hot.dispose(stopGalaxy);

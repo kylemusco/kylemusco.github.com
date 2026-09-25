@@ -21,9 +21,12 @@ work, verification, remaining work, and newly discovered items.
   - The React profile is pre-rendered into the HTML, with no-script resilience,
     system fonts, visible keyboard focus, and mobile link placement.
   - See [the checkpoint report](checkpoints/step-3.md) for validation and limits.
-- [ ] 4. Separate galaxy generation, rendering, and controls.
+- [x] 4. Separate galaxy generation, rendering, and controls.
   - Typed settings, seeded generation, independent modules, and no per-frame
     React state updates.
+  - Active page uses the extracted modules via a temporary r77 adapter; jQuery,
+    old portfolio handlers, and unused interaction allocations are no longer loaded.
+  - See [the checkpoint report](checkpoints/step-4.md) for verification and limits.
 - [ ] 5. Replace the rendering pipeline.
   - One canvas/loop, BufferGeometry/typed arrays, shaders, time-based animation,
     resize handling, cleanup, and graphics recovery.

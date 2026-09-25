@@ -23,14 +23,15 @@ development server binds only to localhost and fails if the port is occupied.
 Vite refreshes changes automatically. The profile also participates in HTML
 generation, so editing `App.tsx` can restart the development server.
 
-| Command                 | Purpose                                                    |
-| ----------------------- | ---------------------------------------------------------- |
-| `npm run dev`           | Start the Vite development server                          |
-| `npm run check`         | Run strict TypeScript, typed ESLint, and formatting checks |
-| `npm run format`        | Format maintained source/configuration/documentation       |
-| `npm run build`         | Typecheck, produce `dist/`, and verify preserved assets    |
-| `npm run preview`       | Preview the production build locally on port 4173          |
-| `npm run verify:assets` | Check original static files in `public/` and `dist/`       |
+| Command                 | Purpose                                                     |
+| ----------------------- | ----------------------------------------------------------- |
+| `npm run dev`           | Start the Vite development server                           |
+| `npm run check`         | Run TypeScript, typed ESLint, focused tests, and formatting |
+| `npm test`              | Check seeded generation, camera ordering, and loop cleanup  |
+| `npm run format`        | Format maintained source/configuration/documentation        |
+| `npm run build`         | Typecheck, produce `dist/`, and verify preserved assets     |
+| `npm run preview`       | Preview the production build locally on port 4173           |
+| `npm run verify:assets` | Check original static files in `public/` and `dist/`        |
 
 Use `npm ci` with the committed lockfile for reproducible installs. Dependency
 upgrades should be intentional and checked for peer compatibility. TypeScript
@@ -42,12 +43,18 @@ reports Node 22 after upgrading, run `nvm use` in this directory. npm 11's
 install-script policy explicitly skips the optional `fsevents` install hook;
 the package ships a prebuilt macOS watcher that loads without it.
 
-## Current architecture (checkpoint 3)
+## Current architecture (checkpoint 4)
 
 ```text
 index.html                 Metadata, decorative backdrop, legacy shaders
 src/App.tsx                Responsive profile, heading, and navigation
-src/main.tsx               Hydrates the generated profile HTML
+src/main.tsx               Hydrates the profile and starts the client-only galaxy
+src/galaxy/settings.ts     Typed galaxy/camera configuration and defaults
+src/galaxy/generate.ts     Pure seeded generation into XYZ Float32Array data
+src/galaxy/camera.ts       Camera pose application through a renderer-independent port
+src/galaxy/rendering.ts    Render-layer lifecycle and cancellable frame scheduling
+src/galaxy/start.ts        Composes generation, rendering, and startup/cleanup
+src/galaxy/legacy/         Temporary adapter around the preserved Three.js r77
 src/styles.css             Responsive layout, focus styles, and safe-area spacing
 vite.config.ts             Generates profile HTML for development and builds
 public/
@@ -73,13 +80,34 @@ The decorative canvas layer is excluded from the accessibility tree and pointer
 hit testing. The heading animation, Google Fonts request, old page stylesheet,
 and unused portfolio resource/navigation scripts are no longer loaded.
 
-The existing galaxy still uses jQuery and Three.js r77 until steps 4–5. These
-scripts are deferred so they do not block HTML parsing. Modern Three.js and
-React Three Fiber are installed but not yet imported into the active page.
-StrictMode remains enabled for the React shell. A static starfield remains if
-the renderer fails; renderer resize/projection handling, motion preferences,
-and adaptive quality are still scheduled for later steps. The CSS currently
-fits the old canvases to the viewport; it does not update their camera aspect.
+The galaxy now runs through typed modules. `generateGalaxy(settings)` takes no
+browser or Three.js dependencies and returns its own interleaved XYZ buffer.
+The same seed/settings reproduce the same positions; a smaller star count
+retains the beginning of the same sequence. Generation validates numerical
+inputs before allocating. Treat the generated buffer as rest positions; later
+interaction code should use separate displacement/velocity buffers. No such
+interaction buffers are allocated until that feature is implemented.
+
+Camera pose and projection settings are separate from galaxy shape, so moving
+the camera does not require regenerating stars. The renderer implements the
+small camera port; animation runs outside React state. The client entry owns
+startup and disposes it on Vite module replacement. StrictMode remains enabled
+for the independently hydrated React profile.
+
+The temporary `legacy/` adapter alone loads Three.js r77. jQuery, the original
+galaxy/space scripts, dormant attraction code, portfolio handlers, and global
+prototype overrides are no longer loaded by the homepage. Original public
+files remain unchanged for URL/archive compatibility. The adapter retains the
+existing appearance, two canvases/loops, frame-based rotation, and user-agent
+quality policy until the upcoming rendering and quality steps. It converts
+the generated buffer to r77 vertex objects, but no longer allocates the two
+unused velocity/acceleration vectors per star. Modern Three.js and React Three
+Fiber are installed but not yet imported into the active page.
+
+A static starfield remains if initialization fails. Resize/projection handling,
+graphics recovery, motion preferences, and adaptive quality remain scheduled
+for steps 5–7. CSS currently fits the canvases to the viewport without updating
+their camera aspect. See [the step 4 checkpoint](docs/checkpoints/step-4.md).
 
 The old `css/`, `js/`, `images/`, résumé, and `2022/` files moved under `public/`.
 Vite serves those directories at the same URL paths and copies them unchanged

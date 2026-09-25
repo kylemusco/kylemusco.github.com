@@ -16,7 +16,8 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify:assets": "node scripts/verify-static-assets.mjs",
-    "check": "npm run typecheck && npm run lint && npm run format:check"
+    "test": "node --test scripts/galaxy.test.mjs",
+    "check": "npm run typecheck && npm run lint && npm run test && npm run format:check"
   },
   "dependencies": {
     "@react-three/fiber": "9.8.1",
