@@ -36,6 +36,11 @@ upgrades should be intentional and checked for peer compatibility. TypeScript
 6.0 is selected because the current typescript-eslint peer range excludes
 TypeScript 7. React 19.3 and React Three Fiber 9.8 have compatible peer ranges.
 
+Verified with Node **24.21.0** and npm **11.19.0**. If an existing terminal still
+reports Node 22 after upgrading, run `nvm use` in this directory. npm 11's
+install-script policy explicitly skips the optional `fsevents` install hook;
+the package ships a prebuilt macOS watcher that loads without it.
+
 ## Checkpoint 2 architecture
 
 ```text

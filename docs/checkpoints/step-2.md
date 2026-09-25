@@ -41,10 +41,19 @@
 
 - Step 3 is next: responsive, accessible page shell and metadata. The original
   mobile overlap, resizing defect, and legacy animations remain scheduled work.
-- The active shell initially had Node 22.5.1, below current Vite's requirement.
-  Validation used the available Node 24.19.0 runtime. Install/use Node 24 through
-  nvm using the commands in the root README; no system default was changed by
-  this checkpoint.
+- The owner has upgraded to Node 24.21.0 with npm 11.19.0. The original checkpoint
+  used the bundled Node 24.19.0 runtime; clean installation, checks, build, asset
+  verification, and dependency resolution now also pass using the owner's nvm
+  installation. `.nvmrc`, the engine range, and Node type definitions already
+  targeted Node 24, so no dependency or lockfile changes were needed.
+- npm 11 surfaced an unreviewed install-hook warning for optional `fsevents`.
+  Added an explicit `allowScripts.fsevents: false` entry following
+  [npm's install-script policy](https://docs.npmjs.com/cli/v11/commands/npm-install-scripts/).
+  The shipped native watcher loads successfully without an install hook, and
+  clean installation no longer emits that warning.
+- During reinstall verification, macOS `.DS_Store` files appeared in dependency
+  directories during cleanup and npm reported `ENOTEMPTY`. Retrying `npm ci`
+  completed successfully; this did not require a project configuration change.
 - Current typescript-eslint supports TypeScript below 6.1, so TypeScript 6.0.3
   was selected instead of the incompatible latest TypeScript 7.
 - Modern Three.js/R3F are installed but intentionally not imported yet. The
