@@ -9,9 +9,12 @@ work, verification, remaining work, and newly discovered items.
     local performance samples, URL checks, and reproducible measurement helper.
   - See [the baseline report](baseline/README.md) for evidence and limitations.
   - Physical-device mobile performance remains unmeasured; include it in step 9.
-- [ ] 2. Establish the modern project foundation.
+- [x] 2. Establish the modern project foundation.
   - Vite, React, strict TypeScript, compatible stable Three.js/React Three Fiber,
     dependency lockfile, linting/formatting, and documented commands.
+  - React now owns profile navigation; the legacy galaxy remains active.
+  - Static files moved to `public/` with original URLs and bytes preserved.
+  - See [the checkpoint report](checkpoints/step-2.md) for validation and follow-up.
 - [ ] 3. Build an accessible, responsive page shell.
   - Semantic HTML, responsive layout, readable overlays, keyboard/touch access,
     viewport/safe-area support, resilient résumé access, and refreshed metadata.

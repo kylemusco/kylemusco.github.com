@@ -1,0 +1,135 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "contentType": "text/html",
+    "bytes": 4846,
+    "verified": true
+  },
+  {
+    "path": "/2022/",
+    "status": 200,
+    "contentType": "text/html",
+    "bytes": 2860,
+    "verified": true
+  },
+  {
+    "path": "/2022/Kyle%20Musco%20-%20Resume.pdf",
+    "status": 200,
+    "contentType": "application/pdf",
+    "bytes": 87252,
+    "verified": true
+  },
+  {
+    "path": "/2022/projects.html",
+    "status": 200,
+    "contentType": "text/html;charset=utf-8",
+    "bytes": 2599,
+    "verified": true
+  },
+  {
+    "path": "/Kyle%20Musco%20-%20Resume.pdf",
+    "status": 200,
+    "contentType": "application/pdf",
+    "bytes": 101845,
+    "verified": true
+  },
+  {
+    "path": "/css/style.css",
+    "status": 200,
+    "contentType": "text/css",
+    "bytes": 17175,
+    "verified": true
+  },
+  {
+    "path": "/css/texteffects.css",
+    "status": 200,
+    "contentType": "text/css",
+    "bytes": 131,
+    "verified": true
+  },
+  {
+    "path": "/images/metaimage.png",
+    "status": 200,
+    "contentType": "image/png",
+    "bytes": 178664,
+    "verified": true
+  },
+  {
+    "path": "/images/space.png",
+    "status": 200,
+    "contentType": "image/png",
+    "bytes": 244807,
+    "verified": true
+  },
+  {
+    "path": "/images/space_icon.png",
+    "status": 200,
+    "contentType": "image/png",
+    "bytes": 20788,
+    "verified": true
+  },
+  {
+    "path": "/js/animation.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 3373,
+    "verified": true
+  },
+  {
+    "path": "/js/anime.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 11233,
+    "verified": true
+  },
+  {
+    "path": "/js/galaxy.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 14604,
+    "verified": true
+  },
+  {
+    "path": "/js/resources/experience.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 11713,
+    "verified": true
+  },
+  {
+    "path": "/js/resources/projects.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 3288,
+    "verified": true
+  },
+  {
+    "path": "/js/scripts.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 22946,
+    "verified": true
+  },
+  {
+    "path": "/js/space.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 1734,
+    "verified": true
+  },
+  {
+    "path": "/js/texteffects.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 2495,
+    "verified": true
+  },
+  {
+    "path": "/js/three.min.js",
+    "status": 200,
+    "contentType": "text/javascript",
+    "bytes": 507487,
+    "verified": true
+  }
+]

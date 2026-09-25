@@ -103,7 +103,12 @@ performance improvements. Match browser, viewport, DPR, and cache conditions.
 
 ## Reproduce
 
-From the project root:
+The Python instructions below apply to the original baseline checkout
+(`e59497a`). Starting with step 2, use `npm run dev` as described in the root
+README to serve the current TypeScript entry. The measurement page is still
+available at `/docs/baseline/measure.html` on that development server.
+
+From the baseline checkout's project root:
 
 ```sh
 python3 -m http.server 4173 --bind 127.0.0.1
