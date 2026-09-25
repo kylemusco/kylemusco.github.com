@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Galaxy baseline measurement</title>
+    <style>
+      html, body { margin: 0; background: #000; color: #fff; }
+      iframe { display: block; width: 100vw; height: 100vh; border: 0; }
+      details { position: fixed; bottom: 0; left: 0; max-height: 50vh; max-width: 100vw; overflow: auto; background: #111; font: 12px monospace; }
+      summary { padding: 8px; cursor: pointer; }
+      pre { padding: 8px; white-space: pre-wrap; }
+    </style>
+  </head>
+  <body>
+    <iframe title="Unmodified homepage under measurement"></iframe>
+    <details>
+      <summary id="status">Measuring: keep this tab visible for about 8 seconds…</summary>
+      <pre id="report"></pre>
+    </details>
+    <script>
+      // Local review tool only. No production scripts are changed or instrumented.
+      const frame = document.querySelector('iframe');
+      let remainedVisible = document.visibilityState === 'visible';
+      document.addEventListener('visibilitychange', () => {
+        if (document.visibilityState !== 'visible') remainedVisible = false;
+      });
+      frame.addEventListener('load', () => {
+        const page = frame.contentWindow;
+        // Allow startup animation/compilation to settle before measuring cadence.
+        setTimeout(() => {
+          const intervals = [];
+          let first;
+          let previous;
+          function sample(now) {
+            if (first === undefined) first = now;
+            if (previous !== undefined) intervals.push(now - previous);
+            previous = now;
+            if (now - first < 5000) {
+              page.requestAnimationFrame(sample);
+              return;
+            }
+            const sorted = [...intervals].sort((a, b) => a - b);
+            const percentile = (p) => sorted[Math.ceil(sorted.length * p) - 1];
+            const nav = page.performance.getEntriesByType('navigation')[0];
+            const memory = page.performance.memory;
+            const report = {
+              capturedAt: new Date().toISOString(),
+              userAgent: page.navigator.userAgent,
+              viewport: { width: page.innerWidth, height: page.innerHeight, devicePixelRatio: page.devicePixelRatio },
+              remainedVisible,
+              startup: {
+                domContentLoadedMs: nav?.domContentLoadedEventEnd ?? null,
+                loadMs: nav?.loadEventEnd ?? null,
+                paints: page.performance.getEntriesByType('paint').map(({ name, startTime }) => ({ name, ms: startTime })),
+              },
+              cadence: {
+                durationMs: now - first,
+                samples: intervals.length,
+                averageFps: 1000 * intervals.length / (now - first),
+                medianFrameMs: percentile(0.5),
+                p95FrameMs: percentile(0.95),
+                framesOver50Ms: intervals.filter((ms) => ms > 50).length,
+              },
+              memory: memory ? {
+                usedJSHeapBytes: memory.usedJSHeapSize,
+                totalJSHeapBytes: memory.totalJSHeapSize,
+                jsHeapSizeLimit: memory.jsHeapSizeLimit,
+              } : null,
+              scene: {
+                threeRevision: page.THREE?.REVISION ?? null,
+                stars: page.globalstars?.length ?? null,
+                velocityObjects: page.velocities?.length ?? null,
+                accelerationObjects: page.accelerations?.length ?? null,
+                interactionEnabled: page.partyTime ?? null,
+                canvases: [...page.document.querySelectorAll('canvas')].map((canvas) => ({ width: canvas.width, height: canvas.height })),
+              },
+              notes: [
+                'Unthrottled same-origin iframe on the local desktop; not a physical mobile device.',
+                'FPS is requestAnimationFrame callback cadence, not GPU render time.',
+                'Startup is navigation timing for this load; browser cache is not cleared.',
+                'performance.memory is approximate, may include the parent/shared context, and excludes GPU allocations.',
+              ],
+            };
+            document.querySelector('#report').textContent = JSON.stringify(report, null, 2);
+            document.querySelector('#status').textContent = 'Measurement complete — expand for JSON';
+            document.querySelector('details').open = true;
+          }
+          page.requestAnimationFrame(sample);
+        }, 2000);
+      }, { once: true });
+      frame.src = '../../';
+    </script>
+  </body>
+</html>

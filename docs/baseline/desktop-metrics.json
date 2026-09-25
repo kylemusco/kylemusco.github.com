@@ -1,0 +1,60 @@
+{
+  "capturedAt": "2026-09-25T15:28:56.254Z",
+  "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/153.0.0.0 Safari/537.36",
+  "viewport": {
+    "width": 1280,
+    "height": 720,
+    "devicePixelRatio": 2
+  },
+  "remainedVisible": true,
+  "startup": {
+    "domContentLoadedMs": 241.29999999701977,
+    "loadMs": 241.5,
+    "paints": [
+      {
+        "name": "first-paint",
+        "ms": 276
+      },
+      {
+        "name": "first-contentful-paint",
+        "ms": 276
+      }
+    ]
+  },
+  "cadence": {
+    "durationMs": 5008.4,
+    "samples": 601,
+    "averageFps": 119.99840268349175,
+    "medianFrameMs": 8.300000000000182,
+    "p95FrameMs": 9.300000000000182,
+    "framesOver50Ms": 0
+  },
+  "memory": {
+    "usedJSHeapBytes": 452623115,
+    "totalJSHeapBytes": 478266735,
+    "jsHeapSizeLimit": 4395630592
+  },
+  "scene": {
+    "threeRevision": "77",
+    "stars": 1000000,
+    "velocityObjects": 1000000,
+    "accelerationObjects": 1000000,
+    "interactionEnabled": false,
+    "canvases": [
+      {
+        "width": 1280,
+        "height": 720
+      },
+      {
+        "width": 1280,
+        "height": 720
+      }
+    ]
+  },
+  "notes": [
+    "Unthrottled same-origin iframe on the local desktop; not a physical mobile device.",
+    "FPS is requestAnimationFrame callback cadence, not GPU render time.",
+    "Startup is navigation timing for this load; browser cache is not cleared.",
+    "performance.memory is approximate, may include the parent/shared context, and excludes GPU allocations."
+  ]
+}

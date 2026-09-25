@@ -1,0 +1,97 @@
+[
+  {
+    "path": "/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "path": "/2022/",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "path": "/2022/Kyle%20Musco%20-%20Resume.pdf",
+    "status": 200,
+    "contentType": "application/pdf"
+  },
+  {
+    "path": "/2022/projects.html",
+    "status": 200,
+    "contentType": "text/html"
+  },
+  {
+    "path": "/Kyle%20Musco%20-%20Resume.pdf",
+    "status": 200,
+    "contentType": "application/pdf"
+  },
+  {
+    "path": "/css/style.css",
+    "status": 200,
+    "contentType": "text/css"
+  },
+  {
+    "path": "/css/texteffects.css",
+    "status": 200,
+    "contentType": "text/css"
+  },
+  {
+    "path": "/images/metaimage.png",
+    "status": 200,
+    "contentType": "image/png"
+  },
+  {
+    "path": "/images/space.png",
+    "status": 200,
+    "contentType": "image/png"
+  },
+  {
+    "path": "/images/space_icon.png",
+    "status": 200,
+    "contentType": "image/png"
+  },
+  {
+    "path": "/js/animation.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/anime.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/galaxy.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/resources/experience.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/resources/projects.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/scripts.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/space.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/texteffects.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  },
+  {
+    "path": "/js/three.min.js",
+    "status": 200,
+    "contentType": "text/javascript"
+  }
+]

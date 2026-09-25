@@ -1,0 +1,341 @@
+{
+  "sourceCommit": "3d9ad556570d506b899401c20fcf4c885a96cb5b",
+  "excludedDirectory": "2019",
+  "files": [
+    {
+      "path": "2022/Kyle Musco - Resume.pdf",
+      "bytes": 87252,
+      "sha256": "7aaad77c5a985b87e9097aecec5586875b7306df3a3de8497cc5c5c29841bd31"
+    },
+    {
+      "path": "2022/css/main.css",
+      "bytes": 1324,
+      "sha256": "6b9418fff3d069754f08f14fdd87c52e3fd5aa1374ac42a1d256f844f9e06054"
+    },
+    {
+      "path": "2022/img/FluentStream/Chats View.png",
+      "bytes": 66616,
+      "sha256": "ed081681f4f57be7ef440b2938eac453f23cdb4ee0b28a1453a49030bfe1d22b"
+    },
+    {
+      "path": "2022/img/FluentStream/Message View.png",
+      "bytes": 19874,
+      "sha256": "8bfc9daf6d90f46e9ded70e444383222ef82524d584dbf99d3dbfd2346ca4acf"
+    },
+    {
+      "path": "2022/img/favicon.ico",
+      "bytes": 2407,
+      "sha256": "6fc5a427fcf6bde5de2b47a8880d3e56dfca38a67d7b1e36d595a8e1b4aab2c4"
+    },
+    {
+      "path": "2022/index.html",
+      "bytes": 2860,
+      "sha256": "d13afc1bd94bf879470d112443e25c1b3e607c7601f5e08ac2bc29b469e78ac5"
+    },
+    {
+      "path": "2022/projects.html",
+      "bytes": 2599,
+      "sha256": "b648ee5d1ca63cbff230168f7290229518a495edef9835869fbe9a49e31eb2fd"
+    },
+    {
+      "path": "Kyle Musco - Resume.pdf",
+      "bytes": 101845,
+      "sha256": "91783b9cae5df6f0c099454301531fe3829a7c03c01c21a0c27fab4decda6db3"
+    },
+    {
+      "path": "css/style.css",
+      "bytes": 17175,
+      "sha256": "de503e9b53bc33662e309454532871277698d52fc581b7ec736c2c17e5dfa9b7"
+    },
+    {
+      "path": "css/texteffects.css",
+      "bytes": 131,
+      "sha256": "8bce4980ff8e96dcce315c7a9ae41f3c9aab871d70ee589c0ae19956c30ee112"
+    },
+    {
+      "path": "images/back.png",
+      "bytes": 493,
+      "sha256": "762d4909d4983c0d3e24675067fa1e8a61f34d89bd9cc5105a10b6425f8b6f7d"
+    },
+    {
+      "path": "images/cop/code4pa/code4pa.png",
+      "bytes": 7785,
+      "sha256": "405cd88bae2267273d682af40611c88e7e035f8c21778d3942f39f209e892628"
+    },
+    {
+      "path": "images/cop/icon.png",
+      "bytes": 7766,
+      "sha256": "1a7ef56a54f11433af1031a0a7cf67f3d2d6e09b34d7495e24fbcd9671a11aa2"
+    },
+    {
+      "path": "images/cop/logo.png",
+      "bytes": 59115,
+      "sha256": "f7c9591608b75fd5ad4a8f207343012f6b2af4883acfcc55903fd55900b6e350"
+    },
+    {
+      "path": "images/cop/oa-white.png",
+      "bytes": 21327,
+      "sha256": "92652237efc8b502f88a7f36ab7ee338b3cc1cc2296bf9adc72a1fed5cdbc14f"
+    },
+    {
+      "path": "images/cop/webscraper/webscraper-logo.png",
+      "bytes": 37240,
+      "sha256": "72d55def42b59c84a75e6a8c96fc6ef91bf580d0b66626cfd3137f5c7b837070"
+    },
+    {
+      "path": "images/cop/webscraper/webscraper.png",
+      "bytes": 54995,
+      "sha256": "2629752d61ea506a87f71f5db9c0e581cde099cbd1a3d2de3ed65598f8a05aff"
+    },
+    {
+      "path": "images/icons/arrow.png",
+      "bytes": 341,
+      "sha256": "40b0e7319df3a1bd16c62054f26723e10bff2219d12e65e15984be2be09c0322"
+    },
+    {
+      "path": "images/icons/contact.png",
+      "bytes": 880,
+      "sha256": "ad07b4525b3f521e5a693112dd574f379f1cb33ccda18e60a9ca17f9ca7ad8aa"
+    },
+    {
+      "path": "images/icons/experience.png",
+      "bytes": 1028,
+      "sha256": "770b60ec1b64b0549473d45d90e29d5319f2c54bfc1bb9429decbe201d059069"
+    },
+    {
+      "path": "images/icons/projects.png",
+      "bytes": 1079,
+      "sha256": "b86325df0436262e83b559ea1ec33a69688108b2926545b6210f17a15a762322"
+    },
+    {
+      "path": "images/icons/resume.png",
+      "bytes": 609,
+      "sha256": "011c191dffd7e05f1ce36a3ed7759c647a5f721596b3c6e08a58754f926adc07"
+    },
+    {
+      "path": "images/jci/chiller.png",
+      "bytes": 742650,
+      "sha256": "0a5cb9743710867b05cef969b16ba0391991540a6b7608dc11452a15c31e4cdf"
+    },
+    {
+      "path": "images/jci/icon.png",
+      "bytes": 279745,
+      "sha256": "d67a1b2c069de87e8615c86ea515db92ddeb14bdbc5e0107e5182d8b76e00324"
+    },
+    {
+      "path": "images/jci/iconwhite.png",
+      "bytes": 271834,
+      "sha256": "2345f9fd3dac38529431100088c1c3c38b6c51cebe90c12ae6cb0de5665d44c2"
+    },
+    {
+      "path": "images/jci/logo.png",
+      "bytes": 599256,
+      "sha256": "d5f016fb1bc2fd9b124933df360cce4a2da9d3be316573a5ce22d2d4659a8be8"
+    },
+    {
+      "path": "images/kioware/conversion.png",
+      "bytes": 11412,
+      "sha256": "6cc7f2d99dd3088ed86c1c6f5ee6c9a64bf4dcc27851ad5ec425e0a79042dc7e"
+    },
+    {
+      "path": "images/kioware/hardware.png",
+      "bytes": 104215,
+      "sha256": "804db3acdb41fcd91f58e7a760151739ac40665640ba482666bfc2c67b03eab5"
+    },
+    {
+      "path": "images/kioware/icon.png",
+      "bytes": 3410,
+      "sha256": "3e617dc1932541c5e119c923101ecc4a8cc9aefe4c134ca4a89ad20911002f4c"
+    },
+    {
+      "path": "images/kioware/iconwhite.png",
+      "bytes": 27380,
+      "sha256": "3eef76461d820a0e33bba8295315d7787bd312618edb09982074e64b3ab821da"
+    },
+    {
+      "path": "images/kioware/logo.png",
+      "bytes": 19241,
+      "sha256": "f1ae8a1fae2ad441ffca1d004c4001abc8a24751d069e83d2a30384e872b4333"
+    },
+    {
+      "path": "images/kioware/pos.jpg",
+      "bytes": 224354,
+      "sha256": "9cfd45d5ac5875fe885e2f4e70ad704dee7236f4399409698f83de35e653b49d"
+    },
+    {
+      "path": "images/metaimage.png",
+      "bytes": 178664,
+      "sha256": "aec4812b33d419a92e22919c194d2a4371e6d8eb0fe03ddc0f024ea139a55038"
+    },
+    {
+      "path": "images/mobile/cop.png",
+      "bytes": 26442,
+      "sha256": "6fea154727e11bc565a301c0179812106e295fcfd86fe804844500a0f3cc2ddd"
+    },
+    {
+      "path": "images/mobile/jci.png",
+      "bytes": 37171,
+      "sha256": "3319d78866ce693645cdd884565d11097bc4da34d489cf76f657ef8cdbdfc844"
+    },
+    {
+      "path": "images/mobile/kioware.png",
+      "bytes": 13358,
+      "sha256": "bd9b74548bad69da26ac7fa6ed93f4e0a719f4c15042bf363f129551ec6b3289"
+    },
+    {
+      "path": "images/mobile/moena.png",
+      "bytes": 3904,
+      "sha256": "53197db0ad8c1cebbc252ddc93e29965f87d5e96089b9617e4f25a95a38e50e9"
+    },
+    {
+      "path": "images/mobile/patton.png",
+      "bytes": 8098,
+      "sha256": "9df50c5783dab557342453b13ceb8154101562c3f735d54177c904346bd59d86"
+    },
+    {
+      "path": "images/moena/fast/fast-interface.png",
+      "bytes": 87974,
+      "sha256": "7a9a8b5fedfb65ddc88dd474101bc38b90f417c72fd4192dd2a015be139d84a9"
+    },
+    {
+      "path": "images/moena/fast/fast.png",
+      "bytes": 16818,
+      "sha256": "8723a6cd9104512ecc1c7a786482b1944a1d872b01aa6987a04deee3e674dc48"
+    },
+    {
+      "path": "images/moena/icon-white.png",
+      "bytes": 781,
+      "sha256": "da4f108ccfb1dd7efb5ed2320f545661469582df7d3fe78eeebf98f925220bf1"
+    },
+    {
+      "path": "images/moena/icon.png",
+      "bytes": 863,
+      "sha256": "c433fc37fc419bc9a9a8200be2fb99e6b0c862ab887b4d75db14368a91f189f4"
+    },
+    {
+      "path": "images/moena/ironride/ironride-logo.png",
+      "bytes": 32268,
+      "sha256": "b24fc4562510c07799a98b0c0b11f8cf857a0f1065f3834beafe2e9e41a25570"
+    },
+    {
+      "path": "images/moena/ironride/ironride.png",
+      "bytes": 926335,
+      "sha256": "ca038f78135d976ef020e81987cd27245edbe83c0454df1e5cd84e59642e9d55"
+    },
+    {
+      "path": "images/moena/keystone/Commonwealth.png",
+      "bytes": 109330,
+      "sha256": "52b802085c47ce909edf5648798762e004a19e605f16406d467c74b4e0ebec74"
+    },
+    {
+      "path": "images/moena/keystone/commonwealth-logo.png",
+      "bytes": 124276,
+      "sha256": "4c1ab98b4717ec913d1d46abfb371444b5a656a703de34a94e1a0b6d8e1b3ae2"
+    },
+    {
+      "path": "images/moena/logo.png",
+      "bytes": 7395,
+      "sha256": "84af4e073be8e5ffe0b7fe1c71b625350a2b2cb15478a8afecccd850bbe9de00"
+    },
+    {
+      "path": "images/moena/navigator/mrglogo.png",
+      "bytes": 436800,
+      "sha256": "04722d636c50aa56ad43dba5cdf634d44d86a612436b500b39112664fcc9fdf3"
+    },
+    {
+      "path": "images/moena/navigator/navigator-interface.png",
+      "bytes": 73380,
+      "sha256": "ecbd93f903268e92fd6d6d8a031f8bd139f5f528bedc07e87bf8225b30602765"
+    },
+    {
+      "path": "images/moena/navigator/navigator-large.png",
+      "bytes": 506885,
+      "sha256": "0d8383f7fce5e1ff0d3965179983e9ee93186b924c54e73379414c54cddb1465"
+    },
+    {
+      "path": "images/moena/navigator/navigator-white.png",
+      "bytes": 12357,
+      "sha256": "4294c012acd17fa01f3f48ec73582ce7be3be1b56252912e289d59657fdf257f"
+    },
+    {
+      "path": "images/moena/navigator/navigator.png",
+      "bytes": 9163,
+      "sha256": "9f831ab8b3436dc46c8f06c1e63550dfe7300f3c1434b8a1e9af2a536de4e99c"
+    },
+    {
+      "path": "images/moena/navigator/preventative-maintenance.png",
+      "bytes": 281623,
+      "sha256": "ad12cc01c9672c0ea86fd57aac02c45c7720fbd792672d02d1e707a3b12c2a78"
+    },
+    {
+      "path": "images/patton/icon.png",
+      "bytes": 3092,
+      "sha256": "3d12a9b8ab5750ffcee743886c7d95976403f82a97b85474ba6b57c64fdf4c0c"
+    },
+    {
+      "path": "images/patton/logo.png",
+      "bytes": 30494,
+      "sha256": "7aeed8c937358ed5ff6372be42589db38a86989b9bc2dda53a3443bd158836d9"
+    },
+    {
+      "path": "images/space.png",
+      "bytes": 244807,
+      "sha256": "0f4f984b3a9ef74dbd314f8c36efafe5fc0ee57c1a8adc11aa3b0b649ebea5e7"
+    },
+    {
+      "path": "images/space_icon.png",
+      "bytes": 20788,
+      "sha256": "a125521775f0423524b4a78f0455ce948243e46b88f8a11106d8b8547fc5f3a9"
+    },
+    {
+      "path": "index.html",
+      "bytes": 4285,
+      "sha256": "4e90489fa1476ef597ff362ef51ebb61af190d532bb57345f952f707c1b9b456"
+    },
+    {
+      "path": "js/animation.js",
+      "bytes": 3373,
+      "sha256": "96d55dc13f601a88cf8db2bbafe90ee3b6b8041e3a29af81290f805af88783eb"
+    },
+    {
+      "path": "js/anime.js",
+      "bytes": 11233,
+      "sha256": "7813f21ffc8ab5a9c4808a33cae9e6234b4ab3b14245a8900bdd62879642077c"
+    },
+    {
+      "path": "js/galaxy.js",
+      "bytes": 14604,
+      "sha256": "2ecd33af330d1716a1392a7326438117d1e7f45c387dafb0679be5745463c67d"
+    },
+    {
+      "path": "js/resources/experience.js",
+      "bytes": 11713,
+      "sha256": "0b5b73c4317f840c1b2256718cc555fec37673771123cd84351e1c4eddabea33"
+    },
+    {
+      "path": "js/resources/projects.js",
+      "bytes": 3288,
+      "sha256": "38594427a2c0548383d6e582fcf2fa2deb62f4ac3a5d3ca338a22184e0690484"
+    },
+    {
+      "path": "js/scripts.js",
+      "bytes": 22946,
+      "sha256": "6e535f17a5fee8a81bad6de2364856ca72462a72b1847c60dfead5b2c0f7beb8"
+    },
+    {
+      "path": "js/space.js",
+      "bytes": 1734,
+      "sha256": "0900490a97c28a8993779315b7f7fcb56bfbb40c3d7f47a3f940572a3649b33c"
+    },
+    {
+      "path": "js/texteffects.js",
+      "bytes": 2495,
+      "sha256": "74bfd2e53eedd95f7997712f0535c5a3a5484d60c519623b4f0516822107927f"
+    },
+    {
+      "path": "js/three.min.js",
+      "bytes": 507487,
+      "sha256": "90c65508d25cb0de65fd15f346ad463db367b1ac50dc9c4f090f0f5f767fa767"
+    }
+  ]
+}
