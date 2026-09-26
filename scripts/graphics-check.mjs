@@ -1,8 +1,24 @@
 // Development-only browser fixture. Vite's production entry excludes this file.
 // _roots is used only here to inspect R3F resources, never in application code.
-import { _roots, addAfterEffect } from '@react-three/fiber';
+import { _roots, addAfterEffect, addEffect } from '@react-three/fiber';
 import { mountGalaxy } from '../src/galaxy/mount.tsx';
 import { defaultGalaxySettings } from '../src/galaxy/settings.ts';
+
+if (new URLSearchParams(location.search).has('no-worker')) {
+  window.Worker = class {
+    constructor() {
+      throw new Error('Simulated worker denial');
+    }
+  };
+}
+if (new URLSearchParams(location.search).has('no-hdr')) {
+  const extension = WebGL2RenderingContext.prototype.getExtension;
+  WebGL2RenderingContext.prototype.getExtension = function (name) {
+    return name === 'EXT_color_buffer_float'
+      ? null
+      : extension.call(this, name);
+  };
+}
 
 // Exercise the application's normal reduced-motion path without changing the OS.
 if (new URLSearchParams(location.search).has('reduced-motion')) {
@@ -30,14 +46,29 @@ let startup;
 let mountTime;
 let performanceSample;
 let cancelSample;
-function mount(settings) {
+let cancelPressure;
+let maxStartupTickGap;
+function mount(settings, quality) {
   cancelSample?.();
+  cancelPressure?.();
   performanceSample = undefined;
   startup = undefined;
   const started = performance.now();
+  let previousTick = started;
+  maxStartupTickGap = 0;
+  const ticker = setInterval(() => {
+    const now = performance.now();
+    maxStartupTickGap = Math.max(maxStartupTickGap, now - previousTick);
+    previousTick = now;
+  }, 25);
   const observer = new MutationObserver(() => {
+    if (container.dataset.generation === 'failed') {
+      clearInterval(ticker);
+      observer.disconnect();
+    }
     if (container.querySelector('canvas')?.dataset.graphics === 'ready') {
       startup = performance.now() - started;
+      clearInterval(ticker);
       observer.disconnect();
     }
   });
@@ -46,10 +77,11 @@ function mount(settings) {
     attributes: true,
     childList: true,
   });
-  const dispose = mountGalaxy(container, settings);
+  const dispose = mountGalaxy(container, settings, quality);
   mountTime = performance.now() - started;
   return () => {
     observer.disconnect();
+    clearInterval(ticker);
     dispose();
   };
 }
@@ -81,6 +113,9 @@ function inspect() {
     canvases: container.querySelectorAll('canvas').length,
     roots: _roots.size,
     graphics: canvas?.dataset.graphics ?? 'fallback',
+    generation: container.dataset.generation,
+    quality: canvas?.dataset.quality,
+    hdr: canvas?.dataset.hdr,
     visibility: canvas ? getComputedStyle(canvas).visibility : null,
     viewport: [innerWidth, innerHeight],
     buffer: canvas ? [canvas.width, canvas.height] : null,
@@ -90,6 +125,7 @@ function inspect() {
           position: current.camera.position.toArray(),
           quaternion: current.camera.quaternion.toArray(),
           fieldOfView: current.camera.fov,
+          zoom: current.camera.zoom,
           near: current.camera.near,
           far: current.camera.far,
         }
@@ -97,6 +133,13 @@ function inspect() {
     galaxyRotation: points?.parent.rotation.z,
     uniformHeight: points?.material.uniforms.viewportHeight.value,
     pointCount: attribute?.count,
+    drawnStars: points?.geometry.drawRange.count,
+    mediumSamples: points?.material.uniforms.mediumSamples.value,
+    mediumVolumeSamples:
+      current?.scene.getObjectByName('diffuse-medium')?.material.uniforms
+        .mediumSamples.value,
+    stellarSamples: points?.material.uniforms.stellarSamples.value,
+    dpr: current?.viewport.dpr,
     positionBytes: attribute?.array.byteLength,
     totalStarBytes: points
       ? Object.values(points.geometry.attributes).reduce(
@@ -112,7 +155,8 @@ function inspect() {
     frameSubscribers: current?.internal.subscribers.length,
     frameloop: current?.frameloop,
     startupMs: startup,
-    generationAndMountMs: mountTime,
+    mountRequestMs: mountTime,
+    maxStartupTickGapMs: maxStartupTickGap,
     performanceSample,
     userAgent: navigator.userAgent,
     reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
@@ -127,13 +171,46 @@ function inspect() {
 }
 
 document.getElementById('inspect').onclick = inspect;
+document.addEventListener('visibilitychange', () => setTimeout(inspect, 0));
 document.getElementById('stop').onclick = () => {
   cancelSample?.();
+  cancelPressure?.();
   lastRenderer = state()?.gl;
   lastContext = lastRenderer?.getContext();
   stop();
   stop();
   setTimeout(inspect, 100);
+};
+
+for (const level of ['balanced', 'low']) {
+  document.getElementById(level).onclick = () => {
+    stop();
+    stop = mount(undefined, level);
+    setTimeout(inspect, 1000);
+  };
+}
+document.getElementById('cancel').onclick = () => {
+  stop();
+  stop = mount();
+  stop();
+  setTimeout(inspect, 1000);
+};
+document.getElementById('pressure').onclick = () => {
+  cancelPressure?.();
+  state()?.setFrameloop('always');
+  const finish = performance.now() + 10000;
+  const release = addEffect(() => {
+    if (performance.now() > finish) {
+      release();
+      inspect();
+      return;
+    }
+    const until = performance.now() + 32;
+    while (performance.now() < until) {
+      /* Bounded synthetic load, fixture only. */
+    }
+  });
+  cancelPressure = release;
 };
 document.getElementById('start').onclick = () => {
   stop();

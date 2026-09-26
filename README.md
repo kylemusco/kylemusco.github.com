@@ -43,7 +43,7 @@ reports Node 22 after upgrading, run `nvm use` in this directory. npm 11's
 install-script policy explicitly skips the optional `fsevents` install hook;
 the package ships a prebuilt macOS watcher that loads without it.
 
-## Current architecture (checkpoint 6)
+## Current architecture (checkpoint 7)
 
 ```text
 index.html                 Metadata and static fallback backdrop
@@ -53,10 +53,16 @@ src/galaxy/settings.ts     Typed galaxy/camera configuration and defaults
 src/galaxy/generate.ts     Seeded 3D positions, stellar colors, sizes, and luminosities
 src/galaxy/camera.ts       Camera pose application through a renderer-independent port
 src/galaxy/start.ts        Loads the graphics chunk and handles startup cancellation
-src/galaxy/mount.tsx       Generates once and owns the graphics React root
+src/galaxy/mount.tsx       Owns worker generation and the graphics React root
+src/galaxy/generation.ts  Cancellable worker request and transferred buffers
+src/galaxy/generate.worker.ts Runs generation off the main thread
+src/galaxy/quality.ts     Capability hints, pixel budgets, measured quality steps
 src/galaxy/GalaxyCanvas.tsx Single R3F canvas and graphics error boundary
 src/galaxy/GalaxyScene.tsx BufferGeometry, camera pose, and one frame callback
-src/galaxy/shaders.ts      Stellar light, dust extinction, and diffuse gas GLSL
+src/galaxy/morphology.ts  Shared seeded arm, dust, association, and disk map
+src/galaxy/stellar.ts     Mixed stellar populations and sparse bright sources
+src/galaxy/star-shaders.ts Perspective sprites and camera-ray extinction
+src/galaxy/medium-shaders.ts Bounded volumetric light and dust GLSL
 src/galaxy/BackgroundStars.tsx Distant seeded background stars
 src/galaxy/postprocessing.ts HDR bloom and final tone mapping
 src/galaxy/graphics.ts     Context loss/restoration and shader-error handling
@@ -103,8 +109,8 @@ for both the profile and the separately mounted graphics root.
 
 The active renderer uses modern Three.js and React Three Fiber. A thick warm
 bulge, thin exponential disk, and cooler spiral arms replace the legacy ellipse
-pattern. Stars vary in size and brightness. A procedural diffuse layer adds
-dust lanes and small gas-emission regions, while sparse background stars sit
+pattern. Stars vary in size and brightness. A sampled volume adds
+dust lanes, rounded central light, and small gas-emission regions, while sparse background stars sit
 on a distant sphere. This is an illustrative model, not a physical simulation.
 
 One canvas and one R3F frame subscriber render the scene and its HDR bloom / tone
@@ -118,24 +124,39 @@ CSS starfield fallback. Restoration rebuilds resources from the retained CPU
 buffers. Initialization/shader failures also keep the profile usable. R3F owns
 the scene resources and WebGL context; the postprocessing effect disposes all
 of its targets and materials on unmount. See the
-[step 6 checkpoint](docs/checkpoints/step-6.md) for verified cleanup and costs.
+[step 7 checkpoint](docs/checkpoints/step-7.md) for verified cleanup and costs.
 
 The homepage no longer loads r77, jQuery, or the original galaxy/space scripts.
 All original public files and URLs remain intact. Social metadata now references
 `/images/galaxy-preview.jpg`, a fresh capture of the new galaxy and current profile;
 `/images/metaimage.png` remains available unchanged.
 
-DPR is currently fixed at 1, and particle counts/mobile rotation still use the
-previous user-agent policy. Adaptive quality, reduced motion, hidden-tab pause,
-and responsive artistic framing remain step 7. The separate graphics chunk
-currently triggers Vite's size warning, and R3F's internal use of `THREE.Clock`
-triggers a deprecation warning; see [the step 6 checkpoint](docs/checkpoints/step-6.md)
-for evidence and follow-ups.
+Initial quality uses coarse-pointer, CPU-core, optional memory, and data-saving
+hints, without user-agent detection. High/balanced/low tiers generate at most
+1,000,000/400,000/150,000 stars in a module worker and cap rendering at
+2,000,000/1,000,000/500,000 pixels. Their DPR ceilings are 1.5/1.25/1.0.
+Sustained slow frames reduce draw count, sampling, resolution, and eventually
+bloom without regenerating buffers. Quality only steps down during a visit;
+reloading reassesses initial capabilities. If even the lowest tier stays too
+slow, the static background remains available.
+
+Portrait uses camera zoom to fit more of the galaxy while preserving the approved
+position, aim, roll, and desktop view. Desktop and mobile animate at the same
+rate. Reduced motion renders on demand; hidden tabs pause and reset timing
+samples on return. Devices without floating-point render targets use an 8-bit
+color target without bloom. Worker denial or WebGL failure retains the fallback.
+
+The separate graphics chunk still triggers Vite's size warning, and R3F's
+internal use of `THREE.Clock` triggers a deprecation warning. Physical-phone
+profiling and the broader browser matrix remain in step 9; see the
+[step 7 checkpoint](docs/checkpoints/step-7.md) for evidence and limitations.
 
 For repeatable graphics checks, run the development server and open
 `http://127.0.0.1:5173/scripts/graphics-check.html`. Its controls inspect rendering,
 resize, unmount/remount, lose/restore a real WebGL context, and intentionally
-break a shader. Add `?no-webgl` to test unavailable graphics. This fixture uses
+break a shader. It also mounts each quality tier, cancels pending workers, and
+applies a bounded synthetic frame load. Query flags `?no-webgl`, `?no-worker`,
+`?no-hdr`, and `?reduced-motion` exercise capability and preference paths. This fixture uses
 R3F internals only for inspection; neither it nor its controls ship in `dist/`.
 
 The old `css/`, `js/`, `images/`, résumé, and `2022/` files moved under `public/`.
@@ -152,7 +173,10 @@ npm run preview
 ```
 
 The build is a static website; deploy the **contents of `dist/`** at the domain
-root. Node is needed for building, not for serving the output. The default root
+root. Node is needed for building, not for serving the output. Serve the generated
+worker JavaScript from `dist/assets/` as JavaScript alongside the other assets.
+If the host sets a Content Security Policy, allow same-origin module workers
+(`worker-src 'self'`). The default root
 base path preserves existing résumé and archive URLs. Do not serve the source
 `index.html` through Apache directly anymore: it now references a TypeScript
 module that Vite must process.

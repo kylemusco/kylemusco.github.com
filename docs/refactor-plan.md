@@ -42,11 +42,14 @@ work, verification, remaining work, and newly discovered items.
   - Completed all seven [realism follow-up tasks](checkpoints/step-6-realism.md):
     restored step 5 camera, shared morphology, mixed stellar populations,
     volumetric dust/light, subtle bloom, mobile motion, and renderer validation.
-- [ ] 7. Tune mobile and desktop quality.
+- [x] 7. Tune mobile and desktop quality.
   - Adaptive quality tiers, bounded resolution, hidden-tab pause, reduced motion,
     static fallback, and responsive framing.
-  - Hidden-tab pause and reduced motion landed during step 6 realism integration.
-    Adaptive quality, portrait framing, and physical-device profiling remain.
+  - Added capability-based tiers, measured step-downs, bounded DPR/pixel budgets,
+    module-worker generation, and portrait zoom that preserves the camera pose.
+  - Verified reduced motion, fallback paths, cancellation, and cleanup. See the
+    [step 7 checkpoint](checkpoints/step-7.md) for results and testing limits.
+    Physical-device profiling and the broader browser matrix remain step 9.
 - [ ] 8. Prepare extension points for later features.
   - Validated customization settings/presets/reset, camera controller interfaces,
     and a disabled desktop-only pointer repulsion interface with recovery.
