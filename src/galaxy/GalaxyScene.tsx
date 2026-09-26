@@ -13,7 +13,7 @@ import {
   Points,
   PerspectiveCamera,
 } from 'three';
-import { applyCameraPose, responsiveCameraZoom } from './camera.ts';
+import { applyCameraSettings, responsiveCameraZoom } from './camera.ts';
 import {
   boundedDpr,
   createQualityMonitor,
@@ -27,7 +27,11 @@ import {
   galaxyAngularVelocity,
   motionFrameloop,
 } from './motion.ts';
-import { defaultCameraSettings } from './settings.ts';
+import type { CameraSettings } from './settings.ts';
+import {
+  connectPointerRepulsion,
+  type PointerRepulsionPort,
+} from './repulsion.ts';
 import { starFragmentShader, starVertexShader } from './star-shaders.ts';
 import { mediumVertexShader, mediumFragmentShader } from './medium-shaders.ts';
 import { BackgroundStars } from './BackgroundStars.tsx';
@@ -61,8 +65,19 @@ function frameCamera(camera: unknown, aspect: number) {
   camera.updateProjectionMatrix();
 }
 
+function projectCamera(camera: unknown, settings: CameraSettings) {
+  if (!(camera instanceof PerspectiveCamera)) return;
+  camera.fov = settings.fieldOfView;
+  camera.near = settings.near;
+  camera.far = settings.far;
+  camera.updateProjectionMatrix();
+}
+
 interface GalaxySceneProps {
   data: GalaxyData;
+  cameraSettings: CameraSettings;
+  repulsionEnabled: boolean;
+  repulsionPort: PointerRepulsionPort | undefined;
   rotate: boolean;
   quality: QualityLevel;
   onQualityChange: (quality: QualityLevel) => void;
@@ -71,6 +86,9 @@ interface GalaxySceneProps {
 
 export function GalaxyScene({
   data,
+  cameraSettings,
+  repulsionEnabled,
+  repulsionPort,
   rotate,
   quality,
   onQualityChange,
@@ -140,7 +158,8 @@ export function GalaxyScene({
     return () => window.removeEventListener('resize', resize);
   }, [
     quality,
-    data.count,
+    data,
+    uniforms,
     gl,
     camera,
     size.width,
@@ -160,17 +179,24 @@ export function GalaxyScene({
   }, [gl, scene, camera]);
 
   useEffect(() => {
-    applyCameraPose(
+    applyCameraSettings(
       {
+        setProjection: () => projectCamera(camera, cameraSettings),
         setPosition: (position) => camera.position.set(...position),
         lookAt: (target) => camera.lookAt(...target),
         setRoll: (roll) => {
           camera.rotateZ(roll);
         },
       },
-      defaultCameraSettings,
+      cameraSettings,
     );
-  }, [camera]);
+    invalidate();
+  }, [camera, cameraSettings, invalidate]);
+
+  useEffect(() => {
+    if (!repulsionEnabled || !repulsionPort) return;
+    return connectPointerRepulsion(gl.domElement, repulsionPort);
+  }, [gl, repulsionEnabled, repulsionPort, data, cameraSettings]);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -289,7 +315,7 @@ export function GalaxyScene({
           />
         </mesh>
         <points ref={points} name="galaxy-stars" renderOrder={1}>
-          <bufferGeometry>
+          <bufferGeometry key={texture.uuid}>
             <bufferAttribute
               attach="attributes-position"
               args={[data.positions, 3]}

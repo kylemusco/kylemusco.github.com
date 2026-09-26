@@ -5,7 +5,7 @@ import {
   type MorphologyMap,
 } from './morphology.ts';
 import { stellarAppearance } from './stellar.ts';
-import type { GalaxySettings } from './settings.ts';
+import { validateGalaxySettings, type GalaxySettings } from './settings.ts';
 
 export interface GalaxyData {
   readonly count: number;
@@ -19,40 +19,9 @@ export interface GalaxyData {
   readonly morphology: MorphologyMap;
 }
 
-function validateSettings(settings: GalaxySettings): void {
-  if (
-    !Number.isInteger(settings.seed) ||
-    settings.seed < 0 ||
-    settings.seed > 0xffffffff ||
-    !Number.isInteger(settings.starCount) ||
-    settings.starCount < 0 ||
-    settings.starCount > 1_000_000
-  )
-    throw new RangeError(
-      'Use a uint32 seed and a star count from 0 to 1,000,000.',
-    );
-  const ranges: [number, number, number][] = [
-    [settings.radius, 1, 1000],
-    [settings.armCount, 1, 6],
-    [settings.armTwist, 0, 8],
-    [settings.armSpread, 0.02, 1],
-    [settings.diskThickness, 0.1, 20],
-    [settings.bulgeRadius, 0.1, settings.radius],
-    [settings.bulgeFraction, 0, 1],
-  ];
-  if (
-    !Number.isInteger(settings.armCount) ||
-    ranges.some(([v, min, max]) => !Number.isFinite(v) || v < min || v > max)
-  ) {
-    throw new RangeError(
-      'Galaxy dimensions or shape parameters are out of range.',
-    );
-  }
-}
-
 /** An illustrative galaxy model, not an N-body or radiative-transfer simulation. */
 export function generateGalaxy(settings: GalaxySettings): GalaxyData {
-  validateSettings(settings);
+  validateGalaxySettings(settings);
   const random = createRandom(settings.seed);
   const appearanceRandom = createRandom(settings.seed ^ 0xc271f913);
   const morphology = createMorphology(settings);

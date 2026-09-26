@@ -17,3 +17,17 @@ export function applyCameraPose(camera: CameraPort, settings: CameraSettings) {
   camera.lookAt(settings.target);
   camera.setRoll(settings.roll);
 }
+
+export interface CameraProjectionPort extends CameraPort {
+  setProjection(
+    settings: Pick<CameraSettings, 'fieldOfView' | 'near' | 'far'>,
+  ): void;
+}
+
+export function applyCameraSettings(
+  camera: CameraProjectionPort,
+  settings: CameraSettings,
+) {
+  applyCameraPose(camera, settings);
+  camera.setProjection(settings);
+}

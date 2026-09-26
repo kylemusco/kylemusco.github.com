@@ -3,7 +3,8 @@ import type { ReactNode } from 'react';
 import { Canvas } from '@react-three/fiber';
 import { GalaxyScene } from './GalaxyScene.tsx';
 import type { GalaxyData } from './generate.ts';
-import { defaultCameraSettings } from './settings.ts';
+import { defaultCameraSettings, type CameraSettings } from './settings.ts';
+import type { PointerRepulsionPort } from './repulsion.ts';
 import type { QualityLevel } from './quality.ts';
 
 class GraphicsBoundary extends Component<
@@ -29,10 +30,16 @@ export function GalaxyCanvas({
   data,
   rotate,
   initialQuality,
+  cameraSettings,
+  repulsionEnabled,
+  repulsionPort,
 }: {
   data: GalaxyData;
   rotate: boolean;
   initialQuality: QualityLevel;
+  cameraSettings: CameraSettings;
+  repulsionEnabled: boolean;
+  repulsionPort: PointerRepulsionPort | undefined;
 }) {
   const [quality, setQuality] = useState(initialQuality);
   const [failed, setFailed] = useState(false);
@@ -66,6 +73,9 @@ export function GalaxyCanvas({
       >
         <GalaxyScene
           data={data}
+          cameraSettings={cameraSettings}
+          repulsionEnabled={repulsionEnabled}
+          repulsionPort={repulsionPort}
           rotate={rotate}
           quality={quality}
           onQualityChange={setQuality}

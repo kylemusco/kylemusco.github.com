@@ -1,17 +1,25 @@
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import { GalaxyCanvas } from './GalaxyCanvas.tsx';
-import { generateGalaxyAsync } from './generation.ts';
+import { createGalaxyController } from './controller.ts';
+import type { PointerRepulsionPort } from './repulsion.ts';
 import { initialQuality, qualityProfiles } from './quality.ts';
 import type { QualityLevel } from './quality.ts';
-import { defaultGalaxySettings } from './settings.ts';
+import { defaultGalaxySettings, galaxySettings } from './settings.ts';
 import type { GalaxySettings } from './settings.ts';
 
-export function mountGalaxy(
+export function mountGalaxyControlled(
   container: HTMLElement,
-  settings?: GalaxySettings,
-  qualityOverride?: QualityLevel,
-): () => void {
+  {
+    settings,
+    quality: qualityOverride,
+    repulsionPort,
+  }: {
+    settings?: GalaxySettings;
+    quality?: QualityLevel;
+    repulsionPort?: PointerRepulsionPort;
+  } = {},
+) {
   const hints = navigator as Navigator & {
     deviceMemory?: number;
     connection?: { saveData?: boolean };
@@ -26,40 +34,64 @@ export function mountGalaxy(
       coarsePointer: matchMedia('(pointer: coarse)').matches,
       saveData: hints.connection?.saveData ?? false,
     });
-  const generation = generateGalaxyAsync(
+  const initialSettings = galaxySettings(
     settings ?? {
       ...defaultGalaxySettings,
       starCount: qualityProfiles[quality].stars,
     },
   );
-  container.dataset.generation = 'pending';
   const root = createRoot(container);
   let disposed = false;
-  void generation.result
-    .then((data) => {
+  const controls = createGalaxyController({
+    settings: initialSettings,
+    onChange(snapshot) {
       if (disposed) return;
-      container.dataset.generation = 'ready';
+      container.dataset.generation = snapshot.generation;
+      if (!snapshot.data) return;
       root.render(
         <StrictMode>
-          <GalaxyCanvas data={data} rotate initialQuality={quality} />
+          <GalaxyCanvas
+            data={snapshot.data}
+            cameraSettings={snapshot.camera}
+            repulsionEnabled={snapshot.repulsionEnabled}
+            repulsionPort={repulsionPort}
+            rotate
+            initialQuality={quality}
+          />
         </StrictMode>,
       );
-    })
-    .catch((error: unknown) => {
-      if (disposed) return;
-      container.dataset.generation = 'failed';
+    },
+  });
+  const ready = controls.updateGalaxy({});
+  // Startup has a static fallback; callers can also await ready to report failure.
+  void ready.catch((error: unknown) => {
+    if (!disposed)
       console.error(
         'Galaxy generation failed; using the static background.',
         error,
       );
-    });
-  return () => {
-    if (disposed) return;
-    disposed = true;
-    generation.cancel();
-    if (container.dataset.generation === 'pending')
-      container.dataset.generation = 'cancelled';
-    // R3F releases geometry/materials, the renderer, and its WebGL context.
-    root.unmount();
+  });
+  return {
+    controls,
+    ready,
+    dispose: () => {
+      if (disposed) return;
+      controls.dispose();
+      disposed = true;
+      // R3F releases geometry/materials, the renderer, and its WebGL context.
+      root.unmount();
+    },
   };
+}
+
+/** The landing page only needs lifecycle cleanup; future controls use the handle. */
+export function mountGalaxy(
+  container: HTMLElement,
+  settings?: GalaxySettings,
+  quality?: QualityLevel,
+): () => void {
+  return mountGalaxyControlled(container, {
+    ...(settings ? { settings } : {}),
+    ...(quality ? { quality } : {}),
+  }).dispose;
 }
