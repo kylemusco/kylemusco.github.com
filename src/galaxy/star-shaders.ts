@@ -20,7 +20,7 @@ export const starVertexShader = /* glsl */ `
     // projected energy. Clamping all stars to a full-brightness pixel aliases.
     float coverage = min(1.0, diameter * diameter / (footprint * footprint));
     float unresolved = 1.0 - smoothstep(0.35, 0.7, luminosity);
-    float populationScale = mix(1.0, clamp(densityScale, 1.0, 4.0), unresolved);
+    float populationScale = mix(1.0, clamp(densityScale, 1.0, 8.0), unresolved);
     light = starColor * luminosity * stellarTransmission(position)
       * coverage * populationScale;
   }

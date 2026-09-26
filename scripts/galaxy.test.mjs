@@ -16,7 +16,6 @@ import { connectGraphicsLifecycle } from '../src/galaxy/graphics.ts';
 import {
   defaultCameraSettings,
   defaultGalaxySettings,
-  getInitialGalaxySettings,
 } from '../src/galaxy/settings.ts';
 
 test('generation is repeatable, independent, and preserves prefixes across quality levels', () => {
@@ -209,16 +208,6 @@ test('PRNG values remain in the unit interval and streams do not share state', (
   const expected = Array.from({ length: 10_000 }, first);
   assert.deepEqual(Array.from({ length: 10_000 }, second), expected);
   assert.ok(expected.every((value) => value >= 0 && value < 1));
-});
-
-test('device configuration returns independent settings without changing defaults', () => {
-  const mobile = getInitialGalaxySettings('iPhone');
-  const desktop = getInitialGalaxySettings('Macintosh');
-  assert.equal(mobile.starCount, 600_000);
-  assert.equal(desktop.starCount, 1_000_000);
-  assert.equal(defaultGalaxySettings.starCount, 1_000_000);
-  assert.equal(mobile.seed, desktop.seed);
-  assert.notEqual(desktop, getInitialGalaxySettings('Macintosh'));
 });
 
 test('camera pose establishes position and aim before applying roll, independently of generation', () => {

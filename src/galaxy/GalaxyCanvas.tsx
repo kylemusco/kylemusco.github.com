@@ -4,6 +4,7 @@ import { Canvas } from '@react-three/fiber';
 import { GalaxyScene } from './GalaxyScene.tsx';
 import type { GalaxyData } from './generate.ts';
 import { defaultCameraSettings } from './settings.ts';
+import type { QualityLevel } from './quality.ts';
 
 class GraphicsBoundary extends Component<
   { children: ReactNode },
@@ -27,10 +28,13 @@ class GraphicsBoundary extends Component<
 export function GalaxyCanvas({
   data,
   rotate,
+  initialQuality,
 }: {
   data: GalaxyData;
   rotate: boolean;
+  initialQuality: QualityLevel;
 }) {
+  const [quality, setQuality] = useState(initialQuality);
   const [failed, setFailed] = useState(false);
   const onFailure = useCallback((error: unknown) => {
     console.error(
@@ -60,7 +64,13 @@ export function GalaxyCanvas({
         }}
         events={() => ({ enabled: false, priority: 0 })}
       >
-        <GalaxyScene data={data} rotate={rotate} onFailure={onFailure} />
+        <GalaxyScene
+          data={data}
+          rotate={rotate}
+          quality={quality}
+          onQualityChange={setQuality}
+          onFailure={onFailure}
+        />
       </Canvas>
     </GraphicsBoundary>
   );

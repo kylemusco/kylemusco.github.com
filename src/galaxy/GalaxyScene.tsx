@@ -10,8 +10,16 @@ import {
   Vector3,
   Group,
   ShaderMaterial,
+  Points,
+  PerspectiveCamera,
 } from 'three';
-import { applyCameraPose } from './camera.ts';
+import { applyCameraPose, responsiveCameraZoom } from './camera.ts';
+import {
+  boundedDpr,
+  createQualityMonitor,
+  qualityProfiles,
+} from './quality.ts';
+import type { QualityLevel } from './quality.ts';
 import type { GalaxyData } from './generate.ts';
 import { connectGraphicsLifecycle } from './graphics.ts';
 import {
@@ -25,16 +33,55 @@ import { mediumVertexShader, mediumFragmentShader } from './medium-shaders.ts';
 import { BackgroundStars } from './BackgroundStars.tsx';
 import { createPostProcessing } from './postprocessing.ts';
 
+function applyQuality(
+  points: Points | null,
+  medium: ShaderMaterial | null,
+  level: QualityLevel,
+  count: number,
+) {
+  if (!points || !(points.material instanceof ShaderMaterial)) return;
+  const profile = qualityProfiles[level];
+  const visible = Math.min(count, profile.stars);
+  points.geometry.setDrawRange(0, visible);
+  points.material.uniforms.densityScale!.value =
+    1_000_000 / Math.max(1, visible);
+  points.material.uniforms.mediumSamples!.value = profile.mediumSamples;
+  points.material.uniforms.stellarSamples!.value = profile.stellarSamples;
+  if (medium) medium.uniforms.mediumSamples!.value = profile.mediumSamples;
+}
+
+function updateLocalCamera(material: ShaderMaterial | null, position: Vector3) {
+  const uniform = material?.uniforms.localCamera;
+  if (uniform?.value instanceof Vector3) uniform.value.copy(position);
+}
+
+function frameCamera(camera: unknown, aspect: number) {
+  if (!(camera instanceof PerspectiveCamera)) return;
+  camera.zoom = responsiveCameraZoom(aspect);
+  camera.updateProjectionMatrix();
+}
+
 interface GalaxySceneProps {
   data: GalaxyData;
   rotate: boolean;
+  quality: QualityLevel;
+  onQualityChange: (quality: QualityLevel) => void;
   onFailure: (error: unknown) => void;
 }
 
-export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
+export function GalaxyScene({
+  data,
+  rotate,
+  quality,
+  onQualityChange,
+  onFailure,
+}: GalaxySceneProps) {
+  const points = useRef<Points>(null);
+  const monitor = useMemo(() => createQualityMonitor(quality), [quality]);
   const group = useRef<Group>(null);
   const pipeline = useRef<ReturnType<typeof createPostProcessing> | null>(null);
   const material = useRef<ShaderMaterial>(null);
+  const mediumMaterial = useRef<ShaderMaterial>(null);
   const failed = useRef(false);
   const motionAllowed = useRef(rotate);
   const texture = useMemo(() => {
@@ -62,6 +109,8 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
       localCamera: { value: new Vector3() },
       diskHeight: { value: data.settings.diskThickness / data.settings.radius },
       bulgeScale: { value: data.settings.bulgeRadius / data.settings.radius },
+      mediumSamples: { value: qualityProfiles.high.mediumSamples },
+      stellarSamples: { value: qualityProfiles.high.stellarSamples },
       densityScale: { value: 1_000_000 / Math.max(1, data.count) },
     }),
     [data, texture],
@@ -69,8 +118,37 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
   const gl = useThree((state) => state.gl);
   const camera = useThree((state) => state.camera);
   const scene = useThree((state) => state.scene);
+  const size = useThree((state) => state.size);
+  const setDpr = useThree((state) => state.setDpr);
   const setFrameloop = useThree((state) => state.setFrameloop);
   const invalidate = useThree((state) => state.invalidate);
+
+  useEffect(() => {
+    applyQuality(points.current, mediumMaterial.current, quality, data.count);
+    gl.domElement.setAttribute('data-quality', quality);
+    monitor.reset();
+    const resize = () => {
+      setDpr(
+        boundedDpr(quality, size.width, size.height, window.devicePixelRatio),
+      );
+      frameCamera(camera, size.width / size.height);
+      monitor.reset();
+      invalidate();
+    };
+    resize();
+    window.addEventListener('resize', resize);
+    return () => window.removeEventListener('resize', resize);
+  }, [
+    quality,
+    data.count,
+    gl,
+    camera,
+    size.width,
+    size.height,
+    setDpr,
+    invalidate,
+    monitor,
+  ]);
 
   useEffect(() => {
     const post = createPostProcessing(gl, scene, camera);
@@ -97,6 +175,7 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
     const updateMotion = () => {
+      monitor.reset();
       motionAllowed.current = rotate && !preference.matches;
       if (
         failed.current ||
@@ -123,7 +202,7 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
       preference.removeEventListener('change', updateMotion);
       document.removeEventListener('visibilitychange', updateMotion);
     };
-  }, [gl, rotate, setFrameloop, invalidate]);
+  }, [gl, rotate, setFrameloop, invalidate, monitor]);
 
   // Positive priority takes over R3F's render call, not its frame scheduler.
   // This keeps rendering failures inside our fallback boundary and uses one loop.
@@ -145,6 +224,8 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
         group.current.updateWorldMatrix(true, false);
         uniforms.localCamera.value.copy(state.camera.position);
         group.current.worldToLocal(uniforms.localCamera.value);
+        updateLocalCamera(material.current, uniforms.localCamera.value);
+        updateLocalCamera(mediumMaterial.current, uniforms.localCamera.value);
       }
       const height = material.current?.uniforms.viewportHeight;
       if (height) height.value = state.size.height * state.viewport.dpr;
@@ -154,7 +235,18 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
         state.size.width,
         state.size.height,
         state.viewport.dpr,
+        qualityProfiles[quality].bloom,
       );
+      if (
+        motionAllowed.current &&
+        state.frameloop === 'always' &&
+        !document.hidden
+      ) {
+        const next = monitor.sample(delta);
+        if (next === 'fallback')
+          throw new Error('Galaxy exceeded the minimum animation budget.');
+        if (next) onQualityChange(next);
+      }
       if (state.gl.domElement.dataset.graphics !== 'ready') {
         state.gl.domElement.dataset.graphics = 'ready';
         state.gl.domElement.style.visibility = 'visible';
@@ -185,6 +277,7 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
             ]}
           />
           <shaderMaterial
+            ref={mediumMaterial}
             uniforms={uniforms}
             vertexShader={mediumVertexShader}
             fragmentShader={mediumFragmentShader}
@@ -195,7 +288,7 @@ export function GalaxyScene({ data, rotate, onFailure }: GalaxySceneProps) {
             depthTest={false}
           />
         </mesh>
-        <points name="galaxy-stars" renderOrder={1}>
+        <points ref={points} name="galaxy-stars" renderOrder={1}>
           <bufferGeometry>
             <bufferAttribute
               attach="attributes-position"

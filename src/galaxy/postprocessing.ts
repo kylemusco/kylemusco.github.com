@@ -1,4 +1,4 @@
-import { Vector2 } from 'three';
+import { Vector2, WebGLRenderTarget, UnsignedByteType } from 'three';
 import type { Camera, Scene, WebGLRenderer } from 'three';
 import { EffectComposer } from 'three/addons/postprocessing/EffectComposer.js';
 import { RenderPass } from 'three/addons/postprocessing/RenderPass.js';
@@ -11,14 +11,21 @@ export function createPostProcessing(
   scene: Scene,
   camera: Camera,
 ) {
-  const composer = new EffectComposer(gl);
+  const hdr = gl.extensions.has('EXT_color_buffer_float');
+  gl.domElement.setAttribute('data-hdr', String(hdr));
+  const composer = new EffectComposer(
+    gl,
+    hdr ? undefined : new WebGLRenderTarget(1, 1, { type: UnsignedByteType }),
+  );
   const previousAutoReset = gl.info.autoReset;
   gl.info.autoReset = false;
   const scenePass = new RenderPass(scene, camera);
-  const bloom = new UnrealBloomPass(new Vector2(1, 1), 0.18, 0.45, 0.95);
+  const bloom = hdr
+    ? new UnrealBloomPass(new Vector2(1, 1), 0.18, 0.45, 0.95)
+    : null;
   const output = new OutputPass();
   composer.addPass(scenePass);
-  composer.addPass(bloom);
+  if (bloom) composer.addPass(bloom);
   composer.addPass(output);
   let width = 0,
     height = 0,
@@ -29,6 +36,7 @@ export function createPostProcessing(
       nextWidth: number,
       nextHeight: number,
       nextRatio: number,
+      bloomEnabled: boolean,
     ) {
       if (width !== nextWidth || height !== nextHeight || ratio !== nextRatio) {
         width = nextWidth;
@@ -39,14 +47,15 @@ export function createPostProcessing(
       }
       gl.info.reset();
       // Development fixture toggles this scene flag for a bloom comparison.
-      bloom.enabled = scene.userData.bloomEnabled !== false;
+      if (bloom)
+        bloom.enabled = bloomEnabled && scene.userData.bloomEnabled !== false;
       composer.render(delta);
     },
     dispose() {
       scenePass.dispose();
-      bloom.dispose();
+      bloom?.dispose();
       // Three r186's bloom dispose omits its high-pass material.
-      bloom.materialHighPassFilter.dispose();
+      bloom?.materialHighPassFilter.dispose();
       output.dispose();
       composer.dispose();
       gl.info.autoReset = previousAutoReset;

@@ -5,6 +5,8 @@ export const mediumGLSL = /* glsl */ `
   uniform float galaxyRadius;
   uniform float bulgeScale;
   uniform float diskHeight;
+  uniform float mediumSamples;
+  uniform float stellarSamples;
   uniform vec3 localCamera;
 
   vec4 mediumStructure(vec2 p) {
@@ -41,9 +43,10 @@ export const mediumGLSL = /* glsl */ `
     float start = max(interval.x, 0.0);
     float end = min(interval.y, distanceToCamera);
     if (end <= start) return 1.0;
-    float stepLength = (end - start) / 6.0;
+    float stepLength = (end - start) / stellarSamples;
     float opticalDepth = 0.0;
     for (int i = 0; i < 6; i++) {
+      if (float(i) >= stellarSamples) break;
       vec3 p = origin + direction * (start + (float(i) + 0.5) * stepLength);
       opticalDepth += mediumDust(p, mediumStructure(p.xy)) * stepLength;
     }
@@ -99,24 +102,27 @@ export const mediumFragmentShader = /* glsl */ `
     vec3 light = vec3(0.0);
     float transmission = 1.0;
 
-    // Concentrate 24 samples in the thin disk, with 8 on each bulge shoulder.
+    // Allocate 60% of the bounded sample budget to the thin disk.
     // This avoids undersampling dust when the enclosing bulge is much thicker.
+    float shoulder = floor(mediumSamples * 0.2);
+    float diskSamples = mediumSamples - shoulder * 2.0;
     for (int i = 0; i < 40; i++) {
+      if (float(i) >= mediumSamples) break;
       float segmentStart;
       float stepLength;
       float index;
-      if (i < 8) {
+      if (float(i) < shoulder) {
         segmentStart = start;
-        stepLength = (diskStart - start) / 8.0;
+        stepLength = (diskStart - start) / shoulder;
         index = float(i);
-      } else if (i < 32) {
+      } else if (float(i) < shoulder + diskSamples) {
         segmentStart = diskStart;
-        stepLength = (diskEnd - diskStart) / 24.0;
-        index = float(i - 8);
+        stepLength = (diskEnd - diskStart) / diskSamples;
+        index = float(i) - shoulder;
       } else {
         segmentStart = diskEnd;
-        stepLength = (end - diskEnd) / 8.0;
-        index = float(i - 32);
+        stepLength = (end - diskEnd) / shoulder;
+        index = float(i) - shoulder - diskSamples;
       }
       vec3 p = origin + direction * (segmentStart + (index + 0.5) * stepLength);
       vec4 structure = mediumStructure(p.xy);

@@ -42,13 +42,3 @@ export const defaultCameraSettings: CameraSettings = Object.freeze({
   near: 0.5,
   far: 1500,
 });
-
-// Retain the previous device policy until the adaptive quality work in step 7.
-export function getInitialGalaxySettings(userAgent: string): GalaxySettings {
-  return {
-    ...defaultGalaxySettings,
-    starCount: /iPhone|iPad|iPod|Android/i.test(userAgent)
-      ? 600_000
-      : 1_000_000,
-  };
-}
