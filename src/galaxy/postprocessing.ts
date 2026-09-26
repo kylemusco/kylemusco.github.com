@@ -15,7 +15,7 @@ export function createPostProcessing(
   const previousAutoReset = gl.info.autoReset;
   gl.info.autoReset = false;
   const scenePass = new RenderPass(scene, camera);
-  const bloom = new UnrealBloomPass(new Vector2(1, 1), 0.24, 0.5, 0.85);
+  const bloom = new UnrealBloomPass(new Vector2(1, 1), 0.18, 0.45, 0.95);
   const output = new OutputPass();
   composer.addPass(scenePass);
   composer.addPass(bloom);
@@ -38,6 +38,8 @@ export function createPostProcessing(
         composer.setSize(width, height);
       }
       gl.info.reset();
+      // Development fixture toggles this scene flag for a bloom comparison.
+      bloom.enabled = scene.userData.bloomEnabled !== false;
       composer.render(delta);
     },
     dispose() {

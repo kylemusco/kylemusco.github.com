@@ -3,15 +3,18 @@ import { createRoot } from 'react-dom/client';
 import { GalaxyCanvas } from './GalaxyCanvas.tsx';
 import { generateGalaxy } from './generate.ts';
 import { getInitialGalaxySettings } from './settings.ts';
+import type { GalaxySettings } from './settings.ts';
 
-export function mountGalaxy(container: HTMLElement): () => void {
+export function mountGalaxy(
+  container: HTMLElement,
+  settings: GalaxySettings = getInitialGalaxySettings(navigator.userAgent),
+): () => void {
   // Generate once per mount, outside React's render/StrictMode replay.
-  const data = generateGalaxy(getInitialGalaxySettings(navigator.userAgent));
-  const rotate = !/iPhone|iPad|iPod|Android/i.test(navigator.userAgent);
+  const data = generateGalaxy(settings);
   const root = createRoot(container);
   root.render(
     <StrictMode>
-      <GalaxyCanvas data={data} rotate={rotate} />
+      <GalaxyCanvas data={data} rotate />
     </StrictMode>,
   );
   let disposed = false;

@@ -16,7 +16,7 @@
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "verify:assets": "node scripts/verify-static-assets.mjs",
-    "test": "node --test scripts/galaxy.test.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "check": "npm run typecheck && npm run lint && npm run test && npm run format:check"
   },
   "dependencies": {

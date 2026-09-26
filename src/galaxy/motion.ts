@@ -5,3 +5,13 @@ export function advanceRotation(angle: number, speed: number, delta: number) {
     : 0;
   return angle + speed * elapsed;
 }
+/** Slow, visible motion shared by desktop and mobile. */
+export const galaxyAngularVelocity = -0.006;
+
+export function motionFrameloop(
+  hidden: boolean,
+  reduced: boolean,
+  rotate: boolean,
+) {
+  return hidden ? 'never' : reduced || !rotate ? 'demand' : 'always';
+}

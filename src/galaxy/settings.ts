@@ -24,12 +24,12 @@ export interface CameraSettings {
 export const defaultGalaxySettings: GalaxySettings = Object.freeze({
   seed: 20260925,
   starCount: 1_000_000,
-  radius: 105,
+  radius: 145,
   armCount: 2,
   armTwist: 3.6,
   armSpread: 0.2,
   diskThickness: 1.7,
-  bulgeRadius: 14,
+  bulgeRadius: 17,
   bulgeFraction: 0.22,
 });
 

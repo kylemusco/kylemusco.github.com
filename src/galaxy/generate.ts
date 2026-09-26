@@ -1,4 +1,10 @@
 import { createRandom } from './random.ts';
+import {
+  createMorphology,
+  sampleMorphology,
+  type MorphologyMap,
+} from './morphology.ts';
+import { stellarAppearance } from './stellar.ts';
 import type { GalaxySettings } from './settings.ts';
 
 export interface GalaxyData {
@@ -10,6 +16,7 @@ export interface GalaxyData {
   readonly colors: Float32Array;
   readonly sizes: Float32Array;
   readonly luminosities: Float32Array;
+  readonly morphology: MorphologyMap;
 }
 
 function validateSettings(settings: GalaxySettings): void {
@@ -47,6 +54,8 @@ function validateSettings(settings: GalaxySettings): void {
 export function generateGalaxy(settings: GalaxySettings): GalaxyData {
   validateSettings(settings);
   const random = createRandom(settings.seed);
+  const appearanceRandom = createRandom(settings.seed ^ 0xc271f913);
+  const morphology = createMorphology(settings);
   let spare: number | undefined;
   function normal() {
     if (spare !== undefined) {
@@ -66,50 +75,43 @@ export function generateGalaxy(settings: GalaxySettings): GalaxyData {
   for (let index = 0; index < settings.starCount; index++) {
     const bulge = random() < settings.bulgeFraction;
     const offset = index * 3;
-    let young = false;
+    let association = 0;
     if (bulge) {
       // A thick spheroid with a soft central concentration, not a flat bright ring.
       positions[offset] = normal() * settings.bulgeRadius * 0.55;
       positions[offset + 1] = normal() * settings.bulgeRadius * 0.55;
       positions[offset + 2] = normal() * settings.bulgeRadius * 0.35;
     } else {
-      // Truncated exponential disk: radius density is r*exp(-r/scale).
-      let radius: number;
-      do {
-        radius = -0.23 * Math.log(Math.max(1e-8, random() * random()));
-      } while (radius > 1);
-      const arm = Math.floor(random() * settings.armCount);
-      const scattered = random() < 0.22;
-      const winding = settings.armTwist * Math.log(1 + radius / 0.18);
-      const ripple = 0.1 * Math.sin(radius * 22 + arm * 2);
-      const angle = scattered
-        ? random() * Math.PI * 2
-        : (arm * Math.PI * 2) / settings.armCount +
-          winding +
-          ripple +
-          normal() * settings.armSpread;
-      positions[offset] = Math.cos(angle) * radius * settings.radius;
-      positions[offset + 1] = Math.sin(angle) * radius * settings.radius;
+      // The smooth old disk supplies inter-arm stars. Its denser component is
+      // sampled from the exact map used by dust and unresolved luminous layers.
+      const followsArms = random() < 0.6;
+      let radius = 0,
+        x = 0,
+        y = 0;
+      let field: [number, number, number, number] = [0, 0, 0, 0];
+      for (let attempt = 0; attempt < 16; attempt++) {
+        do {
+          radius = -0.245 * Math.log(Math.max(1e-8, random() * random()));
+        } while (radius > 1);
+        const angle = random() * Math.PI * 2;
+        x = Math.cos(angle) * radius;
+        y = Math.sin(angle) * radius;
+        field = sampleMorphology(morphology, x, y);
+        if (!followsArms || random() < 0.14 + field[0] * 0.86) break;
+      }
+      positions[offset] = x * settings.radius;
+      positions[offset + 1] = y * settings.radius;
       positions[offset + 2] =
-        normal() * settings.diskThickness * (0.4 + radius);
-      young = !scattered && random() < 0.7;
+        normal() *
+        settings.diskThickness *
+        (0.5 + radius * 0.65) *
+        (1 - field[2] * 0.45);
+      association = field[2];
     }
-    const temperature = random();
-    // Warm old stars dominate the bulge; the arms mix cool blue and warm stars.
-    const warm = bulge || (!young && temperature < 0.75);
-    colors[offset] = warm ? 1 : 0.48 + temperature * 0.22;
-    colors[offset + 1] = warm
-      ? 0.65 + temperature * 0.2
-      : 0.68 + temperature * 0.22;
-    colors[offset + 2] = warm ? 0.36 + temperature * 0.3 : 1;
-    const bright = random();
-    sizes[index] =
-      bright > 0.9996 ? 0.65 + random() * 0.7 : 0.08 + random() * 0.16;
-    const luminosity =
-      bright > 0.9996
-        ? 0.4 + random() * 1.1
-        : 0.008 + Math.pow(random(), 3) * 0.065;
-    luminosities[index] = luminosity * (bulge ? 0.55 : 1);
+    const appearance = stellarAppearance(appearanceRandom, bulge, association);
+    colors.set(appearance.color, offset);
+    sizes[index] = appearance.size;
+    luminosities[index] = appearance.luminosity;
   }
   return {
     count: settings.starCount,
@@ -118,5 +120,6 @@ export function generateGalaxy(settings: GalaxySettings): GalaxyData {
     colors,
     sizes,
     luminosities,
+    morphology,
   };
 }
