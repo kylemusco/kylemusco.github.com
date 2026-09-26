@@ -1,7 +1,20 @@
 // Development-only browser fixture. Vite's production entry excludes this file.
 // _roots is used only here to inspect R3F resources, never in application code.
-import { _roots } from '@react-three/fiber';
+import { _roots, addAfterEffect } from '@react-three/fiber';
 import { mountGalaxy } from '../src/galaxy/mount.tsx';
+import { defaultGalaxySettings } from '../src/galaxy/settings.ts';
+
+// Exercise the application's normal reduced-motion path without changing the OS.
+if (new URLSearchParams(location.search).has('reduced-motion')) {
+  const match = window.matchMedia.bind(window);
+  window.matchMedia = (query) => {
+    const media = match(query);
+    if (query === '(prefers-reduced-motion: reduce)') {
+      Object.defineProperty(media, 'matches', { value: true });
+    }
+    return media;
+  };
+}
 
 if (new URLSearchParams(location.search).has('no-webgl')) {
   const getContext = HTMLCanvasElement.prototype.getContext;
@@ -13,7 +26,34 @@ if (new URLSearchParams(location.search).has('no-webgl')) {
 
 const container = document.getElementById('galaxy');
 const result = document.getElementById('result');
-let stop = mountGalaxy(container);
+let startup;
+let mountTime;
+let performanceSample;
+let cancelSample;
+function mount(settings) {
+  cancelSample?.();
+  performanceSample = undefined;
+  startup = undefined;
+  const started = performance.now();
+  const observer = new MutationObserver(() => {
+    if (container.querySelector('canvas')?.dataset.graphics === 'ready') {
+      startup = performance.now() - started;
+      observer.disconnect();
+    }
+  });
+  observer.observe(container, {
+    subtree: true,
+    attributes: true,
+    childList: true,
+  });
+  const dispose = mountGalaxy(container, settings);
+  mountTime = performance.now() - started;
+  return () => {
+    observer.disconnect();
+    dispose();
+  };
+}
+let stop = mount();
 let extension;
 let lastContext;
 let lastRenderer;
@@ -71,6 +111,13 @@ function inspect() {
     geometryCount: current?.gl.info.memory.geometries,
     frameSubscribers: current?.internal.subscribers.length,
     frameloop: current?.frameloop,
+    startupMs: startup,
+    generationAndMountMs: mountTime,
+    performanceSample,
+    userAgent: navigator.userAgent,
+    reducedMotion: matchMedia('(prefers-reduced-motion: reduce)').matches,
+    documentHidden: document.hidden,
+    bloomEnabled: current?.scene.userData.bloomEnabled !== false,
     geometryDisposals,
     materialDisposals,
     previousContextLost: lastContext?.isContextLost(),
@@ -81,6 +128,7 @@ function inspect() {
 
 document.getElementById('inspect').onclick = inspect;
 document.getElementById('stop').onclick = () => {
+  cancelSample?.();
   lastRenderer = state()?.gl;
   lastContext = lastRenderer?.getContext();
   stop();
@@ -89,8 +137,80 @@ document.getElementById('stop').onclick = () => {
 };
 document.getElementById('start').onclick = () => {
   stop();
-  stop = mountGalaxy(container);
+  stop = mount();
   setTimeout(inspect, 500);
+};
+
+function freeze(angle) {
+  const current = state();
+  if (!current) return;
+  current.setFrameloop('never');
+  current.scene.getObjectByName('galaxy').rotation.z = angle;
+  current.advance(performance.now());
+  inspect();
+}
+document.getElementById('phase').onclick = () => freeze(0);
+document.getElementById('advance').onclick = () => freeze(0.35);
+document.getElementById('bloom').onclick = () => {
+  const current = state();
+  if (!current) return;
+  current.scene.userData.bloomEnabled =
+    current.scene.userData.bloomEnabled === false;
+  if (current.frameloop === 'never') current.advance(performance.now());
+  else current.invalidate();
+  inspect();
+};
+document.getElementById('mobile').onclick = () => {
+  cancelSample?.();
+  stop();
+  stop = mount({ ...defaultGalaxySettings, starCount: 600_000 });
+  setTimeout(inspect, 500);
+};
+document.getElementById('hide').onclick = () => {
+  document.querySelector('aside').hidden = true;
+};
+document.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') document.querySelector('aside').hidden = false;
+});
+document.getElementById('record').onclick = () => {
+  const stream = container.querySelector('canvas').captureStream(30);
+  const recorder = new MediaRecorder(stream, { mimeType: 'video/webm' });
+  const chunks = [];
+  recorder.ondataavailable = (event) => chunks.push(event.data);
+  recorder.onstop = () => {
+    stream.getTracks().forEach((track) => track.stop());
+    const reader = new FileReader();
+    reader.onload = () => {
+      document.getElementById('recording').src = reader.result;
+    };
+    reader.readAsDataURL(new Blob(chunks, { type: 'video/webm' }));
+  };
+  state()?.setFrameloop('always');
+  document.querySelector('aside').hidden = true;
+  recorder.start();
+  setTimeout(() => recorder.stop(), 6000);
+};
+document.getElementById('sample').onclick = () => {
+  cancelSample?.();
+  const samples = [];
+  let previous;
+  state()?.setFrameloop('always');
+  const unsubscribe = addAfterEffect(() => {
+    const now = performance.now();
+    if (previous !== undefined) samples.push(now - previous);
+    previous = now;
+    if (samples.length === 180) {
+      unsubscribe();
+      samples.sort((a, b) => a - b);
+      performanceSample = {
+        frames: samples.length,
+        medianMs: samples[90],
+        p95Ms: samples[170],
+      };
+      inspect();
+    }
+  });
+  cancelSample = unsubscribe;
 };
 document.getElementById('lose').onclick = () => {
   extension = state()?.gl.getContext().getExtension('WEBGL_lose_context');

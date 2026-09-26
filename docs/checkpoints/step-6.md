@@ -1,5 +1,9 @@
 # Step 6 — More realistic galaxy
 
+This records the initial step 6 implementation. The completed
+[realism follow-up](step-6-realism.md) supersedes its camera, distribution,
+shading, motion, and performance details; use that report for the current state.
+
 ## Completed
 
 - Replaced the flat ellipse distribution with a seeded three-dimensional model:

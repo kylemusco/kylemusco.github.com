@@ -39,10 +39,14 @@ work, verification, remaining work, and newly discovered items.
   - Added a seeded spheroid and exponential spiral disk, varied stellar attributes,
     procedural dust/gas, a sparse background, and a refreshed social-preview image.
   - See [the checkpoint report](checkpoints/step-6.md) for evidence and limitations.
-  - Additional realism work is tracked in [the follow-up checklist](checkpoints/step-6-realism.md).
+  - Completed all seven [realism follow-up tasks](checkpoints/step-6-realism.md):
+    restored step 5 camera, shared morphology, mixed stellar populations,
+    volumetric dust/light, subtle bloom, mobile motion, and renderer validation.
 - [ ] 7. Tune mobile and desktop quality.
   - Adaptive quality tiers, bounded resolution, hidden-tab pause, reduced motion,
     static fallback, and responsive framing.
+  - Hidden-tab pause and reduced motion landed during step 6 realism integration.
+    Adaptive quality, portrait framing, and physical-device profiling remain.
 - [ ] 8. Prepare extension points for later features.
   - Validated customization settings/presets/reset, camera controller interfaces,
     and a disabled desktop-only pointer repulsion interface with recovery.
