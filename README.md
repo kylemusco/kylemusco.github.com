@@ -159,6 +159,14 @@ applies a bounded synthetic frame load. Query flags `?no-webgl`, `?no-worker`,
 `?no-hdr`, and `?reduced-motion` exercise capability and preference paths. This fixture uses
 R3F internals only for inspection; neither it nor its controls ship in `dist/`.
 
+Validated galaxy settings, presets, camera updates, reset, and a disabled mouse
+interaction adapter are available through `mountGalaxyControlled`. The public
+page keeps its existing presentation; actual control UI and star displacement
+remain a later phase. See the [control API guide](docs/galaxy-controls.md) and
+[step 8 checkpoint](docs/checkpoints/step-8.md). The development fixture's
+**Run control checks** button verifies live updates and resource cleanup;
+**Toggle pointer adapter** enables a counting adapter without moving stars.
+
 The old `css/`, `js/`, `images/`, résumé, and `2022/` files moved under `public/`.
 Vite serves those directories at the same URL paths and copies them unchanged
 into `dist/`. Build verification compares all 66 preserved files with the

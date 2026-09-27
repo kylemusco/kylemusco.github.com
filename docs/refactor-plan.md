@@ -50,10 +50,14 @@ work, verification, remaining work, and newly discovered items.
   - Verified reduced motion, fallback paths, cancellation, and cleanup. See the
     [step 7 checkpoint](checkpoints/step-7.md) for results and testing limits.
     Physical-device profiling and the broader browser matrix remain step 9.
-- [ ] 8. Prepare extension points for later features.
+- [x] 8. Prepare extension points for later features.
   - Validated customization settings/presets/reset, camera controller interfaces,
     and a disabled desktop-only pointer repulsion interface with recovery.
+  - Added cancellable settings updates, shape presets, independent camera changes,
+    reset, and an opt-in mouse adapter contract with recovery and cleanup.
   - Actual customization, camera controls, and repulsion UI remain a later phase.
+    See the [step 8 checkpoint](checkpoints/step-8.md) and
+    [control API guide](galaxy-controls.md).
 - [ ] 9. Validate and prepare the production build.
   - Desktop Chrome/Safari/Firefox/Edge and physical iOS Safari/Android Chrome,
     focused tests, performance results, static hosting instructions, and URL

@@ -1,7 +1,8 @@
 // Development-only browser fixture. Vite's production entry excludes this file.
 // _roots is used only here to inspect R3F resources, never in application code.
 import { _roots, addAfterEffect, addEffect } from '@react-three/fiber';
-import { mountGalaxy } from '../src/galaxy/mount.tsx';
+import { mountGalaxyControlled } from '../src/galaxy/mount.tsx';
+import { boundedDpr } from '../src/galaxy/quality.ts';
 import { defaultGalaxySettings } from '../src/galaxy/settings.ts';
 
 if (new URLSearchParams(location.search).has('no-worker')) {
@@ -48,6 +49,21 @@ let performanceSample;
 let cancelSample;
 let cancelPressure;
 let maxStartupTickGap;
+let controlHandle;
+let controlChecks;
+let pointerMoves = 0;
+let pointerResets = 0;
+let lastPointer;
+const pointerPort = {
+  move(pointer) {
+    pointerMoves++;
+    lastPointer = pointer;
+  },
+  reset() {
+    pointerResets++;
+    lastPointer = null;
+  },
+};
 function mount(settings, quality) {
   cancelSample?.();
   cancelPressure?.();
@@ -77,7 +93,12 @@ function mount(settings, quality) {
     attributes: true,
     childList: true,
   });
-  const dispose = mountGalaxy(container, settings, quality);
+  controlHandle = mountGalaxyControlled(container, {
+    ...(settings ? { settings } : {}),
+    ...(quality ? { quality } : {}),
+    repulsionPort: pointerPort,
+  });
+  const { dispose } = controlHandle;
   mountTime = performance.now() - started;
   return () => {
     observer.disconnect();
@@ -110,6 +131,20 @@ function inspect() {
   const canvas = container.querySelector('canvas');
   const attribute = points?.geometry.getAttribute('position');
   const report = {
+    controls: controlHandle
+      ? {
+          settings: controlHandle.controls.getSnapshot().settings,
+          camera: controlHandle.controls.getSnapshot().camera,
+          appliedSettings: controlHandle.controls.getSnapshot().data?.settings,
+          repulsionEnabled:
+            controlHandle.controls.getSnapshot().repulsionEnabled,
+          error: controlHandle.controls.getSnapshot().error,
+          checks: controlChecks,
+          pointerMoves,
+          pointerResets,
+          lastPointer,
+        }
+      : null,
     canvases: container.querySelectorAll('canvas').length,
     roots: _roots.size,
     graphics: canvas?.dataset.graphics ?? 'fallback',
@@ -308,4 +343,133 @@ document.getElementById('shader').onclick = () => {
   points.material.fragmentShader = 'deliberately invalid GLSL';
   points.material.needsUpdate = true;
   setTimeout(inspect, 500);
+};
+
+// Public controller exercised through the same handle a future controls UI will use.
+const settleControls = () => new Promise((resolve) => setTimeout(resolve, 700));
+document.getElementById('controls').onclick = async () => {
+  controlChecks = undefined;
+  result.textContent = 'Running control checks';
+  const { controls } = controlHandle;
+  const results = [];
+  const check = (name, passed) => results.push({ name, passed });
+  try {
+    await controlHandle.ready;
+    await settleControls();
+    const before = state();
+    // StrictMode's startup cleanup can release a texture after the first demand
+    // frame. Warm one explicit frame before comparing steady-state resources.
+    before.invalidate();
+    await settleControls();
+    const originalData = controls.getSnapshot().data;
+    const initialQuality = before.gl.domElement.dataset.quality;
+    const initialMemory = { ...before.gl.info.memory };
+    const originalCamera = before.camera.quaternion.toArray();
+    controls.updateCamera({
+      position: [25, -130, 120],
+      target: [3, 4, 0],
+      roll: 0.2,
+      fieldOfView: 55,
+      near: 1,
+      far: 2000,
+    });
+    await settleControls();
+    check(
+      'camera updates pose and projection without regeneration',
+      controls.getSnapshot().data === originalData &&
+        state().camera.position.x === 25 &&
+        state().camera.fov === 55 &&
+        state().camera.near === 1 &&
+        state().camera.far === 2000,
+    );
+    check(
+      'camera changes retain the bounded resolution',
+      Math.abs(
+        state().viewport.dpr -
+          boundedDpr(initialQuality, innerWidth, innerHeight, devicePixelRatio),
+      ) < 1e-10,
+    );
+    controls.resetCamera();
+    await settleControls();
+    check(
+      'camera reset restores approved quaternion without accumulated roll',
+      state()
+        .camera.quaternion.toArray()
+        .every((n, i) => Math.abs(n - originalCamera[i]) < 1e-10),
+    );
+    const beforeInvalid = controls.getSnapshot();
+    try {
+      await controls.updateGalaxy({ radius: -1 });
+    } catch {
+      /* Expected validation. */
+    }
+    check(
+      'invalid settings do not publish or replace data',
+      controls.getSnapshot() === beforeInvalid,
+    );
+    const outcomes = await Promise.all([
+      controls.updateGalaxy({ seed: 1 }),
+      controls.updateGalaxy({ seed: 2 }),
+    ]);
+    await settleControls();
+    check(
+      'latest request wins',
+      outcomes[0] === false &&
+        outcomes[1] === true &&
+        controls.getSnapshot().data.settings.seed === 2,
+    );
+    await controls.applyPreset('multiArm');
+    await settleControls();
+    check(
+      'preset preserves budget and replaces morphology',
+      controls.getSnapshot().data.settings.armCount === 4 &&
+        controls.getSnapshot().data.count === originalData.count,
+    );
+    check(
+      'renderer, quality and one loop survive same-count regeneration',
+      state().gl === before.gl &&
+        state().gl.domElement.dataset.quality === initialQuality &&
+        state().internal.subscribers.length === 1 &&
+        state().scene.getObjectByName('galaxy-stars').geometry.drawRange
+          .count <= originalData.count,
+    );
+    await controls.updateGalaxy({ starCount: 12345 });
+    await settleControls();
+    check(
+      'count changes replace geometry and draw range together',
+      state()
+        .scene.getObjectByName('galaxy-stars')
+        .geometry.getAttribute('position').count === 12345 &&
+        state().scene.getObjectByName('galaxy-stars').geometry.drawRange
+          .count === 12345,
+    );
+    await controls.reset();
+    await settleControls();
+    check(
+      'full reset restores defaults and original budget',
+      controls.getSnapshot().data.count === originalData.count &&
+        controls.getSnapshot().data.settings.armCount === 2 &&
+        controls.getSnapshot().data.settings.seed ===
+          originalData.settings.seed &&
+        !controls.getSnapshot().repulsionEnabled,
+    );
+    check(
+      'regeneration releases replaced resources',
+      state().gl.info.memory.geometries === initialMemory.geometries &&
+        state().gl.info.memory.textures === initialMemory.textures,
+    );
+  } catch (error) {
+    results.push({
+      name: 'Unexpected control failure',
+      passed: false,
+      error: String(error),
+    });
+  }
+  controlChecks = results;
+  inspect();
+};
+document.getElementById('pointer').onclick = () => {
+  const controls = controlHandle.controls;
+  controls.setRepulsionEnabled(!controls.getSnapshot().repulsionEnabled);
+  setTimeout(inspect, 100);
 };

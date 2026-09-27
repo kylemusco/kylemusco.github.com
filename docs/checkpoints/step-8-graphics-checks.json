@@ -1,0 +1,887 @@
+{
+  "desktop": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "appliedSettings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "repulsionEnabled": false,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 0
+    },
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "generation": "ready",
+    "quality": "high",
+    "hdr": "true",
+    "visibility": "visible",
+    "viewport": [1280, 720],
+    "buffer": [1280, 720],
+    "aspect": 1.7777777777777777,
+    "camera": {
+      "position": [-100, -100, 80],
+      "quaternion": [
+        0.41599488467057444, -0.2841923186316793, -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "zoom": 1,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.03969479999998215,
+    "uniformHeight": 720,
+    "pointCount": 1000000,
+    "drawnStars": 1000000,
+    "mediumSamples": 40,
+    "mediumVolumeSamples": 40,
+    "stellarSamples": 6,
+    "dpr": 1,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 14,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "always",
+    "startupMs": 732.2999999970198,
+    "mountRequestMs": 0.29999999701976776,
+    "maxStartupTickGapMs": 27.100000008940697,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": false,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  },
+  "pointerEnabled": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "appliedSettings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "repulsionEnabled": true,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 2,
+      "lastPointer": null
+    },
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "generation": "ready",
+    "quality": "high",
+    "hdr": "true",
+    "visibility": "visible",
+    "viewport": [1280, 720],
+    "buffer": [1280, 720],
+    "aspect": 1.7777777777777777,
+    "camera": {
+      "position": [-100, -100, 80],
+      "quaternion": [
+        0.41599488467057444, -0.2841923186316793, -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "zoom": 1,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.21816300000000047,
+    "uniformHeight": 720,
+    "pointCount": 1000000,
+    "drawnStars": 1000000,
+    "mediumSamples": 40,
+    "mediumVolumeSamples": 40,
+    "stellarSamples": 6,
+    "dpr": 1,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 14,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "always",
+    "startupMs": 732.2999999970198,
+    "mountRequestMs": 0.29999999701976776,
+    "maxStartupTickGapMs": 27.100000008940697,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": false,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  },
+  "contextLost": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "appliedSettings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "repulsionEnabled": true,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 4,
+      "lastPointer": null
+    },
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "lost",
+    "generation": "ready",
+    "quality": "high",
+    "hdr": "true",
+    "visibility": "hidden",
+    "viewport": [1280, 720],
+    "buffer": [1280, 720],
+    "aspect": 1.7777777777777777,
+    "camera": {
+      "position": [-100, -100, 80],
+      "quaternion": [
+        0.41599488467057444, -0.2841923186316793, -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "zoom": 1,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.2198730000000005,
+    "uniformHeight": 720,
+    "pointCount": 1000000,
+    "drawnStars": 1000000,
+    "mediumSamples": 40,
+    "mediumVolumeSamples": 40,
+    "stellarSamples": 6,
+    "dpr": 1,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 14,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "never",
+    "startupMs": 732.2999999970198,
+    "mountRequestMs": 0.29999999701976776,
+    "maxStartupTickGapMs": 27.100000008940697,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": false,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  },
+  "largeDesktop": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "appliedSettings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "repulsionEnabled": false,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 0
+    },
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "generation": "ready",
+    "quality": "high",
+    "hdr": "true",
+    "visibility": "visible",
+    "viewport": [3840, 2160],
+    "buffer": [1885, 1060],
+    "aspect": 1.7777777777777777,
+    "camera": {
+      "position": [-100, -100, 80],
+      "quaternion": [
+        0.41599488467057444, -0.2841923186316793, -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "zoom": 1,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.06836399999999981,
+    "uniformHeight": 1060.6601717798212,
+    "pointCount": 1000000,
+    "drawnStars": 1000000,
+    "mediumSamples": 40,
+    "mediumVolumeSamples": 40,
+    "stellarSamples": 6,
+    "dpr": 0.4910463758239913,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 14,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "always",
+    "startupMs": 1259.7000000029802,
+    "mountRequestMs": 0.5999999940395355,
+    "maxStartupTickGapMs": 239.29999999701977,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": false,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  },
+  "portrait": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 400000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "appliedSettings": {
+        "seed": 20260925,
+        "starCount": 400000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "repulsionEnabled": false,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 0
+    },
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "generation": "ready",
+    "quality": "balanced",
+    "hdr": "true",
+    "visibility": "visible",
+    "viewport": [390, 844],
+    "buffer": [390, 844],
+    "aspect": 0.46208530805687204,
+    "camera": {
+      "position": [-100, -100, 80],
+      "quaternion": [
+        0.41599488467057444, -0.2841923186316793, -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "zoom": 0.2800517018526497,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": -0.03453959999996412,
+    "uniformHeight": 844,
+    "pointCount": 400000,
+    "drawnStars": 400000,
+    "mediumSamples": 24,
+    "mediumVolumeSamples": 24,
+    "stellarSamples": 4,
+    "dpr": 1,
+    "positionBytes": 4800000,
+    "totalStarBytes": 12800000,
+    "textureCount": 14,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "always",
+    "startupMs": 411.6000000089407,
+    "mountRequestMs": 0.10000000894069672,
+    "maxStartupTickGapMs": 32.20000000298023,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": false,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 4,
+    "materialDisposals": 3,
+    "horizontalOverflow": false
+  },
+  "unmounted": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 400000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "repulsionEnabled": false,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 0
+    },
+    "canvases": 0,
+    "roots": 0,
+    "graphics": "fallback",
+    "generation": "cancelled",
+    "visibility": null,
+    "viewport": [390, 844],
+    "buffer": null,
+    "camera": null,
+    "totalStarBytes": 0,
+    "previousMemory": {
+      "geometries": 0,
+      "textures": 0
+    },
+    "startupMs": 411.6000000089407,
+    "mountRequestMs": 0.10000000894069672,
+    "maxStartupTickGapMs": 32.20000000298023,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": false,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 6,
+    "materialDisposals": 6,
+    "previousContextLost": true,
+    "horizontalOverflow": false
+  },
+  "reducedMotion": {
+    "controls": {
+      "settings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "camera": {
+        "position": [-100, -100, 80],
+        "target": [0, 0, 0],
+        "roll": -0.7,
+        "fieldOfView": 70,
+        "near": 0.5,
+        "far": 1500
+      },
+      "appliedSettings": {
+        "seed": 20260925,
+        "starCount": 1000000,
+        "radius": 145,
+        "armCount": 2,
+        "armTwist": 3.6,
+        "armSpread": 0.2,
+        "diskThickness": 1.7,
+        "bulgeRadius": 17,
+        "bulgeFraction": 0.22
+      },
+      "repulsionEnabled": false,
+      "error": null,
+      "checks": [
+        {
+          "name": "camera updates pose and projection without regeneration",
+          "passed": true
+        },
+        {
+          "name": "camera changes retain the bounded resolution",
+          "passed": true
+        },
+        {
+          "name": "camera reset restores approved quaternion without accumulated roll",
+          "passed": true
+        },
+        {
+          "name": "invalid settings do not publish or replace data",
+          "passed": true
+        },
+        {
+          "name": "latest request wins",
+          "passed": true
+        },
+        {
+          "name": "preset preserves budget and replaces morphology",
+          "passed": true
+        },
+        {
+          "name": "renderer, quality and one loop survive same-count regeneration",
+          "passed": true
+        },
+        {
+          "name": "count changes replace geometry and draw range together",
+          "passed": true
+        },
+        {
+          "name": "full reset restores defaults and original budget",
+          "passed": true
+        },
+        {
+          "name": "regeneration releases replaced resources",
+          "passed": true
+        }
+      ],
+      "pointerMoves": 0,
+      "pointerResets": 0
+    },
+    "canvases": 1,
+    "roots": 1,
+    "graphics": "ready",
+    "generation": "ready",
+    "quality": "high",
+    "hdr": "true",
+    "visibility": "visible",
+    "viewport": [390, 844],
+    "buffer": [390, 844],
+    "aspect": 0.46208530805687204,
+    "camera": {
+      "position": [-100, -100, 80],
+      "quaternion": [
+        0.41599488467057444, -0.2841923186316793, -0.15979793724851318,
+        0.8489096543271173
+      ],
+      "fieldOfView": 70,
+      "zoom": 0.2800517018526497,
+      "near": 0.5,
+      "far": 1500
+    },
+    "galaxyRotation": 0,
+    "uniformHeight": 844,
+    "pointCount": 1000000,
+    "drawnStars": 1000000,
+    "mediumSamples": 40,
+    "mediumVolumeSamples": 40,
+    "stellarSamples": 6,
+    "dpr": 1,
+    "positionBytes": 12000000,
+    "totalStarBytes": 32000000,
+    "textureCount": 14,
+    "previousMemory": null,
+    "drawCalls": 17,
+    "exposure": 0.9,
+    "geometryCount": 4,
+    "frameSubscribers": 1,
+    "frameloop": "demand",
+    "startupMs": 1824.9000000059605,
+    "mountRequestMs": 0.6000000089406967,
+    "maxStartupTickGapMs": 26.5,
+    "userAgent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/154.0.0.0 Safari/537.36",
+    "reducedMotion": true,
+    "documentHidden": false,
+    "bloomEnabled": true,
+    "geometryDisposals": 0,
+    "materialDisposals": 0,
+    "horizontalOverflow": false
+  },
+  "productionPortrait": {
+    "canvasCount": 1,
+    "graphics": "ready",
+    "links": [
+      {
+        "href": "/Kyle%20Musco%20-%20Resume.pdf",
+        "label": "Resume (PDF, opens in a new tab)"
+      },
+      {
+        "href": "https://github.com/kylemusco",
+        "label": "GitHub (opens in a new tab)"
+      }
+    ],
+    "overflow": false,
+    "quality": "high"
+  },
+  "productionDesktop": {
+    "canvasCount": 1,
+    "graphics": "ready",
+    "overflow": false,
+    "quality": "high"
+  }
+}
