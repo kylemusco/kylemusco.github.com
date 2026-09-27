@@ -50,6 +50,7 @@ test('presets validate and camera snapshots own immutable vectors', () => {
     { position: [0, NaN, 5] },
     { position: [1, 2] },
     { position: null },
+    { position: new Array(3) },
     { fieldOfView: 0 },
     { fieldOfView: Infinity },
     { roll: 10 },

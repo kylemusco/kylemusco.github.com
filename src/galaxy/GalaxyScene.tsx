@@ -81,6 +81,7 @@ interface GalaxySceneProps {
   rotate: boolean;
   quality: QualityLevel;
   onQualityChange: (quality: QualityLevel) => void;
+  onDprChange: (dpr: number) => void;
   onFailure: (error: unknown) => void;
 }
 
@@ -92,6 +93,7 @@ export function GalaxyScene({
   rotate,
   quality,
   onQualityChange,
+  onDprChange,
   onFailure,
 }: GalaxySceneProps) {
   const points = useRef<Points>(null);
@@ -137,7 +139,6 @@ export function GalaxyScene({
   const camera = useThree((state) => state.camera);
   const scene = useThree((state) => state.scene);
   const size = useThree((state) => state.size);
-  const setDpr = useThree((state) => state.setDpr);
   const setFrameloop = useThree((state) => state.setFrameloop);
   const invalidate = useThree((state) => state.invalidate);
 
@@ -146,7 +147,7 @@ export function GalaxyScene({
     gl.domElement.setAttribute('data-quality', quality);
     monitor.reset();
     const resize = () => {
-      setDpr(
+      onDprChange(
         boundedDpr(quality, size.width, size.height, window.devicePixelRatio),
       );
       frameCamera(camera, size.width / size.height);
@@ -164,7 +165,7 @@ export function GalaxyScene({
     camera,
     size.width,
     size.height,
-    setDpr,
+    onDprChange,
     invalidate,
     monitor,
   ]);

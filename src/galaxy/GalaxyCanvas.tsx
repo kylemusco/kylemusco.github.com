@@ -41,6 +41,7 @@ export function GalaxyCanvas({
   repulsionEnabled: boolean;
   repulsionPort: PointerRepulsionPort | undefined;
 }) {
+  const [dpr, setDpr] = useState(1);
   const [quality, setQuality] = useState(initialQuality);
   const [failed, setFailed] = useState(false);
   const onFailure = useCallback((error: unknown) => {
@@ -56,7 +57,7 @@ export function GalaxyCanvas({
     <GraphicsBoundary>
       <Canvas
         fallback={null}
-        dpr={1}
+        dpr={dpr}
         gl={{
           alpha: true,
           antialias: false,
@@ -79,6 +80,7 @@ export function GalaxyCanvas({
           rotate={rotate}
           quality={quality}
           onQualityChange={setQuality}
+          onDprChange={setDpr}
           onFailure={onFailure}
         />
       </Canvas>

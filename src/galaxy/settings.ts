@@ -87,7 +87,12 @@ export function cameraSettings(settings: CameraSettings): CameraSettings {
       (v) =>
         !Array.isArray(v) ||
         v.length !== 3 ||
-        v.some((n) => !Number.isFinite(n) || Math.abs(n) > 100_000),
+        [...v].some(
+          (n: unknown) =>
+            typeof n !== 'number' ||
+            !Number.isFinite(n) ||
+            Math.abs(n) > 100_000,
+        ),
     ) ||
     Math.hypot(...settings.position.map((n, i) => n - settings.target[i]!)) <
       0.001 ||
