@@ -1,8 +1,8 @@
 # Kyle Musco's galaxy
 
-A personal homepage with a Three.js galaxy, résumé, and GitHub link. The site is
-being migrated to React, TypeScript, Vite, and React Three Fiber in deliberate
-checkpoints. See [the refactor checklist](docs/refactor-plan.md) and
+A personal homepage with a Three.js galaxy, résumé, and GitHub link. The site uses React, TypeScript, Vite, and React Three Fiber. Local release
+checks are complete; the remaining browser/device and hosting sign-off is tracked
+in the [release checklist](docs/release-checklist.md). See [the refactor checklist](docs/refactor-plan.md) and
 [the original baseline](docs/baseline/README.md).
 
 ## Local development
@@ -23,15 +23,21 @@ development server binds only to localhost and fails if the port is occupied.
 Vite refreshes changes automatically. The profile also participates in HTML
 generation, so editing `App.tsx` can restart the development server.
 
-| Command                 | Purpose                                                     |
-| ----------------------- | ----------------------------------------------------------- |
-| `npm run dev`           | Start the Vite development server                           |
-| `npm run check`         | Run TypeScript, typed ESLint, focused tests, and formatting |
-| `npm test`              | Check generation, camera ordering, motion, and recovery     |
-| `npm run format`        | Format maintained source/configuration/documentation        |
-| `npm run build`         | Typecheck, produce `dist/`, and verify preserved assets     |
-| `npm run preview`       | Preview the production build locally on port 4173           |
-| `npm run verify:assets` | Check original static files in `public/` and `dist/`        |
+| Command                 | Purpose                                                      |
+| ----------------------- | ------------------------------------------------------------ |
+| `npm run dev`           | Start the Vite development server                            |
+| `npm run check`         | Run TypeScript, typed ESLint, focused tests, and formatting  |
+| `npm test`              | Check generation, camera ordering, motion, and recovery      |
+| `npm run format`        | Format maintained source/configuration/documentation         |
+| `npm run build`         | Typecheck, build, verify profile/worker and preserved assets |
+| `npm run preview`       | Preview the production build locally on port 4173            |
+| `npm run verify:assets` | Check original static files in `public/` and `dist/`         |
+
+`npm run verify:production` checks an existing build. To check actual HTTP
+responses too, run `npm run verify:production -- http://127.0.0.1:4174` against a
+running preview on that port. It checks file bytes, MIME types and preserved URLs.
+See [step 9 results](docs/checkpoints/step-9.md) for the verified browser coverage
+and [release instructions](docs/release-checklist.md) for deployment and rollback.
 
 Use `npm ci` with the committed lockfile for reproducible installs. Dependency
 upgrades should be intentional and checked for peer compatibility. TypeScript
@@ -43,13 +49,15 @@ reports Node 22 after upgrading, run `nvm use` in this directory. npm 11's
 install-script policy explicitly skips the optional `fsevents` install hook;
 the package ships a prebuilt macOS watcher that loads without it.
 
-## Current architecture (checkpoint 7)
+## Current architecture
 
 ```text
 index.html                 Metadata and static fallback backdrop
 src/App.tsx                Responsive profile, heading, and navigation
 src/main.tsx               Hydrates the profile and starts the client-only galaxy
-src/galaxy/settings.ts     Typed galaxy/camera configuration and defaults
+src/galaxy/settings.ts     Validated galaxy/camera configuration, defaults and presets
+src/galaxy/controller.ts   Cancellable settings updates, camera controls and reset
+src/galaxy/repulsion.ts    Disabled desktop input and recovery contract
 src/galaxy/generate.ts     Seeded 3D positions, stellar colors, sizes, and luminosities
 src/galaxy/camera.ts       Camera pose application through a renderer-independent port
 src/galaxy/start.ts        Loads the graphics chunk and handles startup cancellation

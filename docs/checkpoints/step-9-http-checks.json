@@ -1,0 +1,468 @@
+{
+  "checkedAt": "2026-09-27T00:56:36.387Z",
+  "origin": "http://127.0.0.1:4174",
+  "staticChecks": "passed",
+  "preservedAssets": 66,
+  "checkedFiles": 72,
+  "bundles": [
+    {
+      "file": "generate.worker-DJfZClvt.js",
+      "bytes": 5298,
+      "gzipBytes": 2377
+    },
+    {
+      "file": "index-CzDlSDOf.css",
+      "bytes": 2857,
+      "gzipBytes": 1180
+    },
+    {
+      "file": "index-QrZmrAbF.js",
+      "bytes": 223815,
+      "gzipBytes": 69440
+    },
+    {
+      "file": "mount-CLh4mSoj.js",
+      "bytes": 951761,
+      "gzipBytes": 250989
+    }
+  ],
+  "http": [
+    {
+      "path": "/",
+      "status": 200,
+      "type": "text/html",
+      "bytes": 2550
+    },
+    {
+      "path": "/assets/generate.worker-DJfZClvt.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 5298
+    },
+    {
+      "path": "/assets/index-CzDlSDOf.css",
+      "status": 200,
+      "type": "text/css",
+      "bytes": 2857
+    },
+    {
+      "path": "/assets/index-QrZmrAbF.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 223815
+    },
+    {
+      "path": "/assets/mount-CLh4mSoj.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 951761
+    },
+    {
+      "path": "/images/space_icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 20788
+    },
+    {
+      "path": "/Kyle%20Musco%20-%20Resume.pdf",
+      "status": 200,
+      "type": "application/pdf",
+      "bytes": 101845
+    },
+    {
+      "path": "/images/galaxy-preview.jpg",
+      "status": 200,
+      "type": "image/jpeg",
+      "bytes": 61037
+    },
+    {
+      "path": "/images/space.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 244807
+    },
+    {
+      "path": "/2022/Kyle%20Musco%20-%20Resume.pdf",
+      "status": 200,
+      "type": "application/pdf",
+      "bytes": 87252
+    },
+    {
+      "path": "/2022/css/main.css",
+      "status": 200,
+      "type": "text/css",
+      "bytes": 1324
+    },
+    {
+      "path": "/2022/img/FluentStream/Chats%20View.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 66616
+    },
+    {
+      "path": "/2022/img/FluentStream/Message%20View.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 19874
+    },
+    {
+      "path": "/2022/img/favicon.ico",
+      "status": 200,
+      "type": "image/x-icon",
+      "bytes": 2407
+    },
+    {
+      "path": "/2022/index.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 2860
+    },
+    {
+      "path": "/2022/projects.html",
+      "status": 200,
+      "type": "text/html;charset=utf-8",
+      "bytes": 2599
+    },
+    {
+      "path": "/css/style.css",
+      "status": 200,
+      "type": "text/css",
+      "bytes": 17175
+    },
+    {
+      "path": "/css/texteffects.css",
+      "status": 200,
+      "type": "text/css",
+      "bytes": 131
+    },
+    {
+      "path": "/images/back.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 493
+    },
+    {
+      "path": "/images/cop/code4pa/code4pa.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 7785
+    },
+    {
+      "path": "/images/cop/icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 7766
+    },
+    {
+      "path": "/images/cop/logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 59115
+    },
+    {
+      "path": "/images/cop/oa-white.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 21327
+    },
+    {
+      "path": "/images/cop/webscraper/webscraper-logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 37240
+    },
+    {
+      "path": "/images/cop/webscraper/webscraper.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 54995
+    },
+    {
+      "path": "/images/icons/arrow.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 341
+    },
+    {
+      "path": "/images/icons/contact.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 880
+    },
+    {
+      "path": "/images/icons/experience.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 1028
+    },
+    {
+      "path": "/images/icons/projects.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 1079
+    },
+    {
+      "path": "/images/icons/resume.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 609
+    },
+    {
+      "path": "/images/jci/chiller.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 742650
+    },
+    {
+      "path": "/images/jci/icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 279745
+    },
+    {
+      "path": "/images/jci/iconwhite.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 271834
+    },
+    {
+      "path": "/images/jci/logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 599256
+    },
+    {
+      "path": "/images/kioware/conversion.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 11412
+    },
+    {
+      "path": "/images/kioware/hardware.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 104215
+    },
+    {
+      "path": "/images/kioware/icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 3410
+    },
+    {
+      "path": "/images/kioware/iconwhite.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 27380
+    },
+    {
+      "path": "/images/kioware/logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 19241
+    },
+    {
+      "path": "/images/kioware/pos.jpg",
+      "status": 200,
+      "type": "image/jpeg",
+      "bytes": 224354
+    },
+    {
+      "path": "/images/metaimage.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 178664
+    },
+    {
+      "path": "/images/mobile/cop.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 26442
+    },
+    {
+      "path": "/images/mobile/jci.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 37171
+    },
+    {
+      "path": "/images/mobile/kioware.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 13358
+    },
+    {
+      "path": "/images/mobile/moena.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 3904
+    },
+    {
+      "path": "/images/mobile/patton.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 8098
+    },
+    {
+      "path": "/images/moena/fast/fast-interface.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 87974
+    },
+    {
+      "path": "/images/moena/fast/fast.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 16818
+    },
+    {
+      "path": "/images/moena/icon-white.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 781
+    },
+    {
+      "path": "/images/moena/icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 863
+    },
+    {
+      "path": "/images/moena/ironride/ironride-logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 32268
+    },
+    {
+      "path": "/images/moena/ironride/ironride.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 926335
+    },
+    {
+      "path": "/images/moena/keystone/Commonwealth.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 109330
+    },
+    {
+      "path": "/images/moena/keystone/commonwealth-logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 124276
+    },
+    {
+      "path": "/images/moena/logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 7395
+    },
+    {
+      "path": "/images/moena/navigator/mrglogo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 436800
+    },
+    {
+      "path": "/images/moena/navigator/navigator-interface.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 73380
+    },
+    {
+      "path": "/images/moena/navigator/navigator-large.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 506885
+    },
+    {
+      "path": "/images/moena/navigator/navigator-white.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 12357
+    },
+    {
+      "path": "/images/moena/navigator/navigator.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 9163
+    },
+    {
+      "path": "/images/moena/navigator/preventative-maintenance.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 281623
+    },
+    {
+      "path": "/images/patton/icon.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 3092
+    },
+    {
+      "path": "/images/patton/logo.png",
+      "status": 200,
+      "type": "image/png",
+      "bytes": 30494
+    },
+    {
+      "path": "/js/animation.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 3373
+    },
+    {
+      "path": "/js/anime.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 11233
+    },
+    {
+      "path": "/js/galaxy.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 14604
+    },
+    {
+      "path": "/js/resources/experience.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 11713
+    },
+    {
+      "path": "/js/resources/projects.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 3288
+    },
+    {
+      "path": "/js/scripts.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 22946
+    },
+    {
+      "path": "/js/space.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 1734
+    },
+    {
+      "path": "/js/texteffects.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 2495
+    },
+    {
+      "path": "/js/three.min.js",
+      "status": 200,
+      "type": "text/javascript",
+      "bytes": 507487
+    },
+    {
+      "path": "/2022/",
+      "status": 200,
+      "type": "text/html"
+    }
+  ]
+}

@@ -62,6 +62,11 @@ work, verification, remaining work, and newly discovered items.
   - Desktop Chrome/Safari/Firefox/Edge and physical iOS Safari/Android Chrome,
     focused tests, performance results, static hosting instructions, and URL
     preservation checks against the baseline inventory.
+  - Local automated/build/HTTP checks and Chromium responsive/lifecycle checks
+    are complete. Safari production rendering was observed.
+  - Keep this step open pending full browser/physical-device and actual-host
+    sign-off. See [step 9 results](checkpoints/step-9.md) and the
+    [release checklist](release-checklist.md).
 
 Preserve the name, current subtitle, résumé, GitHub link, and public asset URLs.
 Keep `2022` separate and `2019` untouched. No publishing or remote push is included
