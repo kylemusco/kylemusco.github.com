@@ -1,7 +1,6 @@
 # Galaxy customization and control API
 
-The public page starts with the approved camera and animated galaxy. **Customize
-galaxy** opens a keyboard-accessible panel for presets, arm shape, radius, disk
+The public page starts with the approved camera and animated galaxy. **Customize** opens a keyboard-accessible panel for presets, arm shape, radius, disk
 thickness, core population, a new random pattern, and star detail. Shape changes
 are debounced by 220 ms and generated in a worker while the previous view stays
 visible. Full/Medium/Light use 100%/50%/25% of the device's initial star budget;
@@ -9,15 +8,16 @@ adaptive quality can still reduce rendering cost further.
 
 **Camera position & angle** exposes orbit, elevation, distance, roll, field of
 view, and XYZ target panning. Panning translates camera and target together.
-**Reset camera** restores the exact approved pose; **Reset everything** also
+**Reset camera** restores the exact approved pose; **Reset** also
 cancels pending slider changes and restores the initial galaxy and disables
 repulsion. Settings last for the current visit and are not saved or shared.
 Escape closes the panel and returns keyboard focus to its trigger. The panel
-scrolls independently on small screens.
+scrolls independently on small screens. Each slider also has an editable numeric
+value: Enter or blur applies a finite value within its range and step; empty
+input restores the current value, and Escape cancels an edit.
 
-**Repel stars with your mouse** is off by default. It requires a fine, hovering
-mouse, ready graphics, and reduced motion disabled. Touch users can customize
-shape and camera; the desktop effect stays disabled. Reduced motion also stops
+The repulsion control is hidden from the customization panel. Its implementation
+and controller API remain available, disabled by default. Reduced motion stops
 automatic rotation while allowing explicit camera/shape updates.
 
 ## Mount and lifecycle

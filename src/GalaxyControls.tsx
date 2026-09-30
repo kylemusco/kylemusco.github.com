@@ -31,15 +31,42 @@ function Slider({
   onChange: (value: number) => void;
 }) {
   const id = useId();
+  const [draft, setDraft] = useState<string | null>(null);
+  function commitValue() {
+    if (draft === null) return;
+    const number = draft.trim() === '' ? NaN : Number(draft);
+    setDraft(null);
+    if (!Number.isFinite(number)) return;
+    const bounded = Math.max(min, Math.min(max, number));
+    const stepped = min + Math.round((bounded - min) / step) * step;
+    onChange(Math.max(min, Math.min(max, Number(stepped.toFixed(10)))));
+  }
   return (
-    <label className="galaxy-slider" htmlFor={id}>
-      <span>
-        {label}
-        <output aria-hidden="true">
-          {Number(value.toFixed(2))}
-          {unit}
-        </output>
-      </span>
+    <div className="galaxy-slider">
+      <div className="slider-heading">
+        <label htmlFor={id}>{label}</label>
+        <span className="slider-value">
+          <input
+            aria-label={`${label} value`}
+            type="number"
+            inputMode="decimal"
+            min={min}
+            max={max}
+            step={step}
+            value={draft ?? Number(value.toFixed(2))}
+            onChange={(event) => setDraft(event.target.value)}
+            onBlur={commitValue}
+            onKeyDown={(event) => {
+              if (event.key === 'Enter') event.currentTarget.blur();
+              if (event.key === 'Escape') {
+                event.stopPropagation();
+                setDraft(null);
+              }
+            }}
+          />
+          {unit && <span aria-hidden="true">{unit}</span>}
+        </span>
+      </div>
       <input
         id={id}
         aria-label={label}
@@ -50,7 +77,7 @@ function Slider({
         value={value}
         onChange={(event) => onChange(Number(event.target.value))}
       />
-    </label>
+    </div>
   );
 }
 
@@ -159,7 +186,7 @@ export default function GalaxyControls({
         aria-controls="galaxy-panel"
         onClick={() => setOpen(!open)}
       >
-        ✦ Customize galaxy
+        ✦ Customize
       </button>
       {open && (
         <section
@@ -170,10 +197,6 @@ export default function GalaxyControls({
           tabIndex={-1}
         >
           <header className="galaxy-panel-heading">
-            <div>
-              <p className="eyebrow">YOUR VIEW OF THE UNIVERSE</p>
-              <h2>Make it yours</h2>
-            </div>
             <button
               className="panel-close"
               aria-label="Close galaxy controls"
@@ -194,7 +217,7 @@ export default function GalaxyControls({
                   ? 'Graphics are unavailable. Reload to try again.'
                   : snapshot.graphics === 'lost'
                     ? 'Graphics paused. Waiting to reconnect…'
-                    : 'Changes stay in this visit. Reset anytime.'}
+                    : null}
           </p>
           <fieldset disabled={unavailable}>
             <legend>Galaxy</legend>
@@ -372,7 +395,7 @@ export default function GalaxyControls({
               </button>
             </fieldset>
           </details>
-          <div className="interaction-control">
+          <div className="interaction-control" hidden>
             <label>
               <input
                 type="checkbox"
@@ -396,7 +419,7 @@ export default function GalaxyControls({
             </p>
           </div>
           <button className="control-button reset-all" onClick={reset}>
-            Reset everything
+            Reset
           </button>
         </section>
       )}

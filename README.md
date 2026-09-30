@@ -171,12 +171,12 @@ applies a bounded synthetic frame load. Query flags `?no-webgl`, `?no-worker`,
 `?no-hdr`, and `?reduced-motion` exercise capability and preference paths. This fixture uses
 R3F internals only for inspection; neither it nor its controls ship in `dist/`.
 
-The **Customize galaxy** panel exposes presets, shape and detail controls,
+The **Customize** panel exposes presets, shape and detail controls,
 random patterns, camera orbit/elevation/distance/roll/FOV/target panning, and
 resets. Shape changes are debounced and cancellable; camera changes are immediate.
 The approved galaxy and camera remain the defaults. Settings last for this visit.
-Opt-in mouse repulsion moves nearby stars outward and lets them settle back,
-using the same render loop. It is disabled for touch and reduced motion.
+Each slider accepts manual numeric input. Mouse repulsion remains implemented
+but its menu control is hidden; it is disabled by default.
 See the [control guide](docs/galaxy-controls.md) and
 [interactive feature checkpoint](docs/checkpoints/interactive-galaxy.md).
 `/scripts/interaction-check.html` exercises the actual app and reports camera,
