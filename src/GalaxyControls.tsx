@@ -209,15 +209,13 @@ export default function GalaxyControls({
             </button>
           </header>
           <p className="controls-status" role="status">
-            {snapshot.generation === 'pending'
-              ? 'Creating your galaxy…'
-              : snapshot.generation === 'failed'
-                ? 'Could not create that galaxy. Your previous view is safe. Try another preset or reset.'
-                : snapshot.graphics === 'unavailable'
-                  ? 'Graphics are unavailable. Reload to try again.'
-                  : snapshot.graphics === 'lost'
-                    ? 'Graphics paused. Waiting to reconnect…'
-                    : null}
+            {snapshot.generation === 'failed'
+              ? 'Could not create that galaxy. Your previous view is safe. Try another preset or reset.'
+              : snapshot.graphics === 'unavailable'
+                ? 'Graphics are unavailable. Reload to try again.'
+                : snapshot.graphics === 'lost'
+                  ? 'Graphics paused. Waiting to reconnect…'
+                  : null}
           </p>
           <fieldset disabled={unavailable}>
             <legend>Galaxy</legend>
@@ -293,7 +291,7 @@ export default function GalaxyControls({
                 updateShape({ seed });
               }}
             >
-              Generate a new pattern
+              Generate
             </button>
             <label className="galaxy-select">
               Star detail
