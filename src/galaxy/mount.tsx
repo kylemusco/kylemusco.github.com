@@ -55,6 +55,7 @@ export function mountGalaxyControlled(
             cameraSettings={snapshot.camera}
             repulsionEnabled={snapshot.repulsionEnabled}
             repulsionPort={repulsionPort}
+            onGraphicsChange={controls.reportGraphics}
             rotate
             initialQuality={quality}
           />

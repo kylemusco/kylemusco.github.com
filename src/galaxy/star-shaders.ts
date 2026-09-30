@@ -1,7 +1,9 @@
+import { repulsionGLSL } from './repulsion-field.ts';
 import { mediumGLSL } from './medium-shaders.ts';
 
 export const starVertexShader = /* glsl */ `
   ${mediumGLSL}
+  ${repulsionGLSL}
   uniform float viewportHeight;
   uniform float densityScale;
   attribute vec3 starColor;
@@ -9,7 +11,7 @@ export const starVertexShader = /* glsl */ `
   attribute float luminosity;
   varying vec3 light;
   void main() {
-    vec4 viewPosition = modelViewMatrix * vec4(position, 1.0);
+    vec4 viewPosition = modelViewMatrix * vec4(repelledPosition(position), 1.0);
     gl_Position = projectionMatrix * viewPosition;
     // The focal scale makes world-space diameter consistent under FOV changes.
     float diameter = starSize * viewportHeight * projectionMatrix[1][1] * 0.5

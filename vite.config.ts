@@ -2,7 +2,7 @@ import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 import { createElement } from 'react';
 import { renderToString } from 'react-dom/server';
-import App from './src/App.tsx';
+import Profile from './src/Profile.tsx';
 
 export default defineConfig({
   plugins: [
@@ -14,7 +14,7 @@ export default defineConfig({
         handler(html) {
           return html.replace(
             '<!--app-html-->',
-            renderToString(createElement(App)),
+            renderToString(createElement(Profile)),
           );
         },
       },

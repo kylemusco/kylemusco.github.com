@@ -20,6 +20,8 @@ import {
   qualityProfiles,
 } from './quality.ts';
 import type { QualityLevel } from './quality.ts';
+import { createRepulsionField } from './repulsion-field.ts';
+import type { GalaxySnapshot } from './controller.ts';
 import type { GalaxyData } from './generate.ts';
 import { connectGraphicsLifecycle } from './graphics.ts';
 import {
@@ -54,6 +56,20 @@ function applyQuality(
   if (medium) medium.uniforms.mediumSamples!.value = profile.mediumSamples;
 }
 
+function setRepulsion(
+  material: ShaderMaterial | null,
+  pulses: unknown,
+  active: boolean,
+) {
+  if (!material) return;
+  material.uniforms.repulsionActive!.value = active ? 1 : 0;
+  material.uniforms.repulsionPulses!.value = pulses;
+}
+
+function updateViewportHeight(material: ShaderMaterial | null, height: number) {
+  if (material) material.uniforms.viewportHeight!.value = height;
+}
+
 function updateLocalCamera(material: ShaderMaterial | null, position: Vector3) {
   const uniform = material?.uniforms.localCamera;
   if (uniform?.value instanceof Vector3) uniform.value.copy(position);
@@ -83,6 +99,7 @@ interface GalaxySceneProps {
   onQualityChange: (quality: QualityLevel) => void;
   onDprChange: (dpr: number) => void;
   onFailure: (error: unknown) => void;
+  onGraphicsChange: (status: GalaxySnapshot['graphics']) => void;
 }
 
 export function GalaxyScene({
@@ -95,8 +112,12 @@ export function GalaxyScene({
   onQualityChange,
   onDprChange,
   onFailure,
+  onGraphicsChange,
 }: GalaxySceneProps) {
   const points = useRef<Points>(null);
+  const repulsion = useRef<ReturnType<typeof createRepulsionField> | null>(
+    null,
+  );
   const monitor = useMemo(() => createQualityMonitor(quality), [quality]);
   const group = useRef<Group>(null);
   const pipeline = useRef<ReturnType<typeof createPostProcessing> | null>(null);
@@ -124,6 +145,8 @@ export function GalaxyScene({
   const uniforms = useMemo(
     () => ({
       viewportHeight: { value: 1 },
+      repulsionActive: { value: 0 },
+      repulsionPulses: { value: new Float32Array(32) },
       galaxyRadius: { value: data.settings.radius },
       morphologyMap: { value: texture },
       localCamera: { value: new Vector3() },
@@ -195,9 +218,27 @@ export function GalaxyScene({
   }, [camera, cameraSettings, invalidate]);
 
   useEffect(() => {
-    if (!repulsionEnabled || !repulsionPort) return;
-    return connectPointerRepulsion(gl.domElement, repulsionPort);
-  }, [gl, repulsionEnabled, repulsionPort, data, cameraSettings]);
+    if (!repulsionEnabled) return;
+    const field = createRepulsionField(data.settings.radius);
+    repulsion.current = field;
+    const reset = () => {
+      field.reset();
+      repulsionPort?.reset();
+      setRepulsion(material.current, field.pulses, false);
+      invalidate();
+    };
+    const disconnect = connectPointerRepulsion(gl.domElement, {
+      move(pointer) {
+        field.port.move(pointer);
+        repulsionPort?.move(pointer);
+      },
+      reset,
+    });
+    return () => {
+      disconnect();
+      repulsion.current = null;
+    };
+  }, [gl, repulsionEnabled, repulsionPort, data, cameraSettings, invalidate]);
 
   useEffect(() => {
     const preference = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -218,7 +259,10 @@ export function GalaxyScene({
       }
     };
     const disconnect = connectGraphicsLifecycle(gl, {
-      stop: () => setFrameloop('never'),
+      stop: () => {
+        setFrameloop('never');
+        onGraphicsChange('lost');
+      },
       resume: updateMotion,
     });
     preference.addEventListener('change', updateMotion);
@@ -229,7 +273,7 @@ export function GalaxyScene({
       preference.removeEventListener('change', updateMotion);
       document.removeEventListener('visibilitychange', updateMotion);
     };
-  }, [gl, rotate, setFrameloop, invalidate, monitor]);
+  }, [gl, rotate, setFrameloop, invalidate, monitor, onGraphicsChange]);
 
   // Positive priority takes over R3F's render call, not its frame scheduler.
   // This keeps rendering failures inside our fallback boundary and uses one loop.
@@ -253,9 +297,17 @@ export function GalaxyScene({
         group.current.worldToLocal(uniforms.localCamera.value);
         updateLocalCamera(material.current, uniforms.localCamera.value);
         updateLocalCamera(mediumMaterial.current, uniforms.localCamera.value);
+        if (repulsion.current) {
+          const active =
+            motionAllowed.current &&
+            repulsion.current.update(delta, state.camera, group.current);
+          setRepulsion(material.current, repulsion.current.pulses, active);
+        }
       }
-      const height = material.current?.uniforms.viewportHeight;
-      if (height) height.value = state.size.height * state.viewport.dpr;
+      updateViewportHeight(
+        material.current,
+        state.size.height * state.viewport.dpr,
+      );
       if (!pipeline.current) return;
       pipeline.current.render(
         delta,
@@ -277,6 +329,7 @@ export function GalaxyScene({
       if (state.gl.domElement.dataset.graphics !== 'ready') {
         state.gl.domElement.dataset.graphics = 'ready';
         state.gl.domElement.style.visibility = 'visible';
+        onGraphicsChange('ready');
       }
     } catch (error) {
       failed.current = true;
@@ -315,7 +368,12 @@ export function GalaxyScene({
             depthTest={false}
           />
         </mesh>
-        <points ref={points} name="galaxy-stars" renderOrder={1}>
+        <points
+          frustumCulled={false}
+          ref={points}
+          name="galaxy-stars"
+          renderOrder={1}
+        >
           <bufferGeometry key={texture.uuid}>
             <bufferAttribute
               attach="attributes-position"

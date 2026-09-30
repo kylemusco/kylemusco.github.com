@@ -1,13 +1,18 @@
+import type { GalaxyController } from './controller.ts';
 /** Keep graphics code in a separate chunk from the pre-rendered profile. */
-export function startGalaxy(): () => void {
+export function startGalaxy(
+  onReady?: (controls: GalaxyController) => void,
+): () => void {
   let disposed = false;
   let stop: (() => void) | undefined;
   void import('./mount.tsx')
-    .then(({ mountGalaxy }) => {
+    .then(({ mountGalaxyControlled }) => {
       if (disposed) return;
       const container = document.getElementById('galaxy');
       if (!container) throw new Error('The galaxy container is missing.');
-      stop = mountGalaxy(container);
+      const handle = mountGalaxyControlled(container);
+      stop = handle.dispose;
+      onReady?.(handle.controls);
     })
     .catch((error: unknown) => {
       console.error(

@@ -20,6 +20,7 @@ export interface GalaxySnapshot {
   readonly data: GalaxyData | null;
   readonly generation: 'idle' | 'pending' | 'ready' | 'failed' | 'cancelled';
   readonly error: string | null;
+  readonly graphics: 'loading' | 'ready' | 'lost' | 'unavailable';
 }
 
 /** UI-independent controls. Superseded/disposed requests resolve false. */
@@ -40,7 +41,9 @@ export function createGalaxyController({
     data: null,
     generation: 'idle',
     error: null,
+    graphics: 'loading',
   });
+  const listeners = new Set<() => void>();
   let disposed = false;
   let revision = 0;
   let pending: ReturnType<typeof generate> | undefined;
@@ -50,6 +53,7 @@ export function createGalaxyController({
   const publish = (patch: Partial<GalaxySnapshot>) => {
     snapshot = Object.freeze({ ...snapshot, ...patch });
     onChange(snapshot);
+    for (const listener of listeners) listener();
   };
   async function updateGalaxy(
     patch: Partial<GalaxySettings>,
@@ -89,6 +93,15 @@ export function createGalaxyController({
   }
   return {
     getSnapshot: () => snapshot,
+    subscribe: (listener: () => void) => {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
+    reportGraphics: (graphics: GalaxySnapshot['graphics']) => {
+      if (!disposed && snapshot.graphics !== graphics) publish({ graphics });
+    },
     updateGalaxy,
     applyPreset(preset: GalaxyPreset) {
       assertActive();
@@ -116,6 +129,7 @@ export function createGalaxyController({
       pending?.cancel();
       pending = undefined;
       publish({ repulsionEnabled: false, data: null, generation: 'cancelled' });
+      listeners.clear();
     },
   };
 }

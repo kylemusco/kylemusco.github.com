@@ -1,4 +1,4 @@
-/** Future simulation adapter: coordinates are normalized device coordinates.
+/** Simulation adapter: coordinates are normalized device coordinates.
  * The adapter projects through the current camera and owns its displacement
  * buffers. reset() must restore rest positions and clear velocities immediately.
  */
@@ -52,7 +52,7 @@ export function connectPointerRepulsion(
       event.buttons !== 0 ||
       (event.target instanceof Element &&
         event.target.closest(
-          'a, button, input, select, textarea, [role="dialog"]',
+          'a, button, input, select, textarea, [data-galaxy-controls], [role="dialog"]',
         ))
     ) {
       reset();

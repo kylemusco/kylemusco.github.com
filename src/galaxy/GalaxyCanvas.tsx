@@ -5,10 +5,11 @@ import { GalaxyScene } from './GalaxyScene.tsx';
 import type { GalaxyData } from './generate.ts';
 import { defaultCameraSettings, type CameraSettings } from './settings.ts';
 import type { PointerRepulsionPort } from './repulsion.ts';
+import type { GalaxySnapshot } from './controller.ts';
 import type { QualityLevel } from './quality.ts';
 
 class GraphicsBoundary extends Component<
-  { children: ReactNode },
+  { children: ReactNode; onFailure: (error: unknown) => void },
   { failed: boolean }
 > {
   state = { failed: false };
@@ -18,7 +19,7 @@ class GraphicsBoundary extends Component<
   }
 
   componentDidCatch(error: unknown) {
-    console.error('Galaxy unavailable; using the static background.', error);
+    this.props.onFailure(error);
   }
 
   render() {
@@ -33,6 +34,7 @@ export function GalaxyCanvas({
   cameraSettings,
   repulsionEnabled,
   repulsionPort,
+  onGraphicsChange,
 }: {
   data: GalaxyData;
   rotate: boolean;
@@ -40,21 +42,26 @@ export function GalaxyCanvas({
   cameraSettings: CameraSettings;
   repulsionEnabled: boolean;
   repulsionPort: PointerRepulsionPort | undefined;
+  onGraphicsChange: (status: GalaxySnapshot['graphics']) => void;
 }) {
   const [dpr, setDpr] = useState(1);
   const [quality, setQuality] = useState(initialQuality);
   const [failed, setFailed] = useState(false);
-  const onFailure = useCallback((error: unknown) => {
-    console.error(
-      'Galaxy rendering failed; using the static background.',
-      error,
-    );
-    setFailed(true);
-  }, []);
+  const onFailure = useCallback(
+    (error: unknown) => {
+      console.error(
+        'Galaxy rendering failed; using the static background.',
+        error,
+      );
+      setFailed(true);
+      onGraphicsChange('unavailable');
+    },
+    [onGraphicsChange],
+  );
 
   if (failed) return null;
   return (
-    <GraphicsBoundary>
+    <GraphicsBoundary onFailure={onFailure}>
       <Canvas
         fallback={null}
         dpr={dpr}
@@ -82,6 +89,7 @@ export function GalaxyCanvas({
           onQualityChange={setQuality}
           onDprChange={setDpr}
           onFailure={onFailure}
+          onGraphicsChange={onGraphicsChange}
         />
       </Canvas>
     </GraphicsBoundary>

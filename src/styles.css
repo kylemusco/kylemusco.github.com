@@ -210,3 +210,177 @@ h1 {
     transition: none;
   }
 }
+
+/* Controls stay independent of the decorative canvas and profile links. */
+.galaxy-controls {
+  position: fixed;
+  z-index: 3;
+  top: max(2rem, env(safe-area-inset-top));
+  left: max(2rem, env(safe-area-inset-left));
+  font-size: 0.875rem;
+}
+.galaxy-controls button,
+.galaxy-controls select {
+  font: inherit;
+  color: inherit;
+}
+.customize-toggle,
+.control-button,
+.panel-close,
+.galaxy-select select {
+  border: 1px solid #657087;
+  background: #0b1220;
+  border-radius: 0.625rem;
+  cursor: pointer;
+}
+.customize-toggle {
+  min-height: 44px;
+  padding: 0.75rem 1rem;
+  letter-spacing: 0.02em;
+}
+.galaxy-panel {
+  width: min(360px, calc(100vw - 40px));
+  max-height: calc(100dvh - 110px);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin-top: 0.75rem;
+  padding: 1.25rem;
+  border: 1px solid #3a465c;
+  border-radius: 1rem;
+  background: rgb(5 8 17 / 97%);
+  box-shadow: 0 12px 50px #0009;
+  scrollbar-width: thin;
+}
+.galaxy-panel-heading {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+}
+.galaxy-panel h2 {
+  margin: 0.35rem 0 0;
+  font-size: 1.35rem;
+  font-weight: 450;
+}
+.eyebrow {
+  color: #a7badb;
+  font-size: 0.6rem;
+  letter-spacing: 0.13em;
+  margin: 0;
+}
+.panel-close {
+  flex: none;
+  width: 44px;
+  height: 44px;
+  font-size: 1.5rem !important;
+}
+.controls-status {
+  min-height: 2.5em;
+  color: #b8c4d9;
+  line-height: 1.5;
+  font-size: 0.75rem;
+}
+.galaxy-panel fieldset {
+  border: 0;
+  padding: 0;
+  margin: 1rem 0;
+  min-width: 0;
+}
+.galaxy-panel legend {
+  font-size: 1rem;
+  margin-bottom: 0.75rem;
+}
+.galaxy-slider {
+  display: block;
+  margin-top: 0.55rem;
+}
+.galaxy-slider > span {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+}
+.galaxy-slider output {
+  color: #b7d0ff;
+  font-variant-numeric: tabular-nums;
+}
+.galaxy-slider input {
+  display: block;
+  width: 100%;
+  height: 32px;
+  margin: 0;
+  accent-color: #a9c8ff;
+  cursor: pointer;
+}
+.galaxy-select {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  margin: 0.75rem 0;
+}
+.galaxy-select select {
+  max-width: 65%;
+  min-height: 44px;
+  padding: 0.5rem;
+}
+.control-button {
+  min-height: 44px;
+  padding: 0.6rem 0.8rem;
+}
+.camera-controls {
+  border-block: 1px solid #334056;
+  margin: 1rem 0;
+}
+.camera-controls summary {
+  cursor: pointer;
+  padding: 1rem 0;
+  min-height: 44px;
+}
+.interaction-control label {
+  display: flex;
+  gap: 0.7rem;
+  align-items: center;
+  min-height: 44px;
+  cursor: pointer;
+}
+.interaction-control input {
+  width: 20px;
+  height: 20px;
+  accent-color: #a9c8ff;
+  flex: none;
+}
+.interaction-control p {
+  color: #b8c4d9;
+  font-size: 0.75rem;
+  line-height: 1.5;
+}
+.reset-all {
+  width: 100%;
+  margin-top: 0.5rem;
+}
+.galaxy-controls :focus-visible {
+  outline: 3px solid #b7d0ff;
+  outline-offset: 3px;
+}
+.galaxy-controls :disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+@media (max-width: 40rem) {
+  .galaxy-controls {
+    top: max(130px, calc(env(safe-area-inset-top) + 110px));
+    left: 20px;
+  }
+  .galaxy-panel {
+    max-height: calc(100dvh - 225px);
+  }
+}
+@media (max-height: 500px) and (min-width: 40.01rem) {
+  .galaxy-controls {
+    top: 12px;
+    left: 12px;
+  }
+  .galaxy-panel {
+    max-height: calc(100dvh - 80px);
+  }
+}
