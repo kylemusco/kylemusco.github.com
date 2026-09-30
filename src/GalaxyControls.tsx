@@ -186,7 +186,7 @@ export default function GalaxyControls({
         aria-controls="galaxy-panel"
         onClick={() => setOpen(!open)}
       >
-        ✦ Customize
+        Customize
       </button>
       {open && (
         <section
@@ -322,7 +322,6 @@ export default function GalaxyControls({
                 value={orbit.azimuth}
                 min={-180}
                 max={180}
-                unit="°"
                 onChange={(azimuth) => updateOrbit({ azimuth })}
               />
               <Slider
@@ -330,7 +329,6 @@ export default function GalaxyControls({
                 value={orbit.elevation}
                 min={-85}
                 max={85}
-                unit="°"
                 onChange={(elevation) => updateOrbit({ elevation })}
               />
               <Slider
@@ -345,7 +343,6 @@ export default function GalaxyControls({
                 value={(snapshot.camera.roll * 180) / Math.PI}
                 min={-180}
                 max={180}
-                unit="°"
                 onChange={(roll) =>
                   controls.updateCamera({ roll: (roll * Math.PI) / 180 })
                 }
@@ -355,7 +352,6 @@ export default function GalaxyControls({
                 value={snapshot.camera.fieldOfView}
                 min={35}
                 max={100}
-                unit="°"
                 onChange={(fieldOfView) =>
                   controls.updateCamera({ fieldOfView })
                 }
