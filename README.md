@@ -21,7 +21,7 @@ npm run dev
 Open the localhost URL printed by Vite (normally `http://127.0.0.1:5173`). The
 development server binds only to localhost and fails if the port is occupied.
 Vite refreshes changes automatically. The profile also participates in HTML
-generation, so editing `App.tsx` can restart the development server.
+generation, so editing `Profile.tsx` can restart the development server.
 
 | Command                 | Purpose                                                      |
 | ----------------------- | ------------------------------------------------------------ |
@@ -53,11 +53,16 @@ the package ships a prebuilt macOS watcher that loads without it.
 
 ```text
 index.html                 Metadata and static fallback backdrop
-src/App.tsx                Responsive profile, heading, and navigation
-src/main.tsx               Hydrates the profile and starts the client-only galaxy
+src/App.tsx                Profile and client-only galaxy experience
+src/Profile.tsx            Pre-rendered profile, heading, and navigation
+src/GalaxyControls.tsx     Customization, camera controls, and desktop interaction UI
+src/GalaxyExperience.tsx   Owns the client graphics lifecycle and control handle
+src/main.tsx               Hydrates the application
 src/galaxy/settings.ts     Validated galaxy/camera configuration, defaults and presets
 src/galaxy/controller.ts   Cancellable settings updates, camera controls and reset
-src/galaxy/repulsion.ts    Disabled desktop input and recovery contract
+src/galaxy/repulsion.ts    Opt-in desktop mouse input and recovery
+src/galaxy/repulsion-field.ts Camera-aware impulses and bounded shader displacement
+src/galaxy/orbit.ts        Camera orbit/position conversion
 src/galaxy/generate.ts     Seeded 3D positions, stellar colors, sizes, and luminosities
 src/galaxy/camera.ts       Camera pose application through a renderer-independent port
 src/galaxy/start.ts        Loads the graphics chunk and handles startup cancellation
@@ -105,9 +110,8 @@ browser or Three.js dependencies and returns its own position, color, size, and
 luminosity buffers, plus a snapshot of the settings used to generate them.
 The same seed/settings reproduce the same positions; a smaller star count
 retains the beginning of the same sequence. Generation validates numerical
-inputs before allocating. Treat the generated buffer as rest positions; later
-interaction code should use separate displacement/velocity buffers. No such
-interaction buffers are allocated until that feature is implemented.
+inputs before allocating. Generated buffers remain immutable rest positions. Desktop repulsion uses a
+small fixed impulse history and shader displacement without per-star CPU buffers.
 
 Camera pose and projection settings are separate from galaxy shape, so moving
 the camera does not require regenerating stars. The renderer implements the
@@ -167,13 +171,16 @@ applies a bounded synthetic frame load. Query flags `?no-webgl`, `?no-worker`,
 `?no-hdr`, and `?reduced-motion` exercise capability and preference paths. This fixture uses
 R3F internals only for inspection; neither it nor its controls ship in `dist/`.
 
-Validated galaxy settings, presets, camera updates, reset, and a disabled mouse
-interaction adapter are available through `mountGalaxyControlled`. The public
-page keeps its existing presentation; actual control UI and star displacement
-remain a later phase. See the [control API guide](docs/galaxy-controls.md) and
-[step 8 checkpoint](docs/checkpoints/step-8.md). The development fixture's
-**Run control checks** button verifies live updates and resource cleanup;
-**Toggle pointer adapter** enables a counting adapter without moving stars.
+The **Customize galaxy** panel exposes presets, shape and detail controls,
+random patterns, camera orbit/elevation/distance/roll/FOV/target panning, and
+resets. Shape changes are debounced and cancellable; camera changes are immediate.
+The approved galaxy and camera remain the defaults. Settings last for this visit.
+Opt-in mouse repulsion moves nearby stars outward and lets them settle back,
+using the same render loop. It is disabled for touch and reduced motion.
+See the [control guide](docs/galaxy-controls.md) and
+[interactive feature checkpoint](docs/checkpoints/interactive-galaxy.md).
+`/scripts/interaction-check.html` exercises the actual app and reports camera,
+input, and renderer state; it is excluded from production.
 
 The old `css/`, `js/`, `images/`, résumé, and `2022/` files moved under `public/`.
 Vite serves those directories at the same URL paths and copies them unchanged

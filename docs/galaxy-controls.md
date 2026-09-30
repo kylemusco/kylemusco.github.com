@@ -1,10 +1,24 @@
-# Galaxy control extension points
+# Galaxy customization and control API
 
-Step 8 prepares the controls API. The public landing page still starts with the
-approved camera, normal animation, and no interaction controls or pointer
-listeners. The development fixture at `/scripts/graphics-check.html` exercises
-these interfaces; Vite excludes that page and its controls from the production
-build.
+The public page starts with the approved camera and animated galaxy. **Customize
+galaxy** opens a keyboard-accessible panel for presets, arm shape, radius, disk
+thickness, core population, a new random pattern, and star detail. Shape changes
+are debounced by 220 ms and generated in a worker while the previous view stays
+visible. Full/Medium/Light use 100%/50%/25% of the device's initial star budget;
+adaptive quality can still reduce rendering cost further.
+
+**Camera position & angle** exposes orbit, elevation, distance, roll, field of
+view, and XYZ target panning. Panning translates camera and target together.
+**Reset camera** restores the exact approved pose; **Reset everything** also
+cancels pending slider changes and restores the initial galaxy and disables
+repulsion. Settings last for the current visit and are not saved or shared.
+Escape closes the panel and returns keyboard focus to its trigger. The panel
+scrolls independently on small screens.
+
+**Repel stars with your mouse** is off by default. It requires a fine, hovering
+mouse, ready graphics, and reduced motion disabled. Touch users can customize
+shape and camera; the desktop effect stays disabled. Reduced motion also stops
+automatic rotation while allowing explicit camera/shape updates.
 
 ## Mount and lifecycle
 
@@ -21,13 +35,14 @@ handle.dispose();
 ```
 
 The existing `mountGalaxy(container, settings?, quality?)` returns a cleanup
-function for the landing page. Use the controlled handle for future UI. Dispose
+function for simple consumers. The landing page uses the controlled handle. Dispose
 the **handle** when its container leaves the page; this also disposes its controller,
 pending worker, React root, input adapter, and graphics resources. Disposal is
 idempotent. Calls to controls after disposal fail rather than reviving the view.
 
 `getSnapshot()` returns an immutable settings/camera snapshot and the generation
-status/error. `data` is the currently displayed generation and may differ from
+status/error, graphics status, and desired interaction state. `subscribe(listener)`
+notifies React through `useSyncExternalStore`; its return value unsubscribes. `data` is the currently displayed generation and may differ from
 requested `settings` while a worker is pending. Its typed arrays belong to the
 renderer and must not be mutated by a UI. The standalone `createGalaxyController`
 accepts an `onChange` observer and an injectable generator for tests or other
@@ -40,7 +55,7 @@ renderers.
   Superseded/disposed requests resolve `false`; an applied result resolves `true`.
   Validation and generation failures reject. The old galaxy stays visible during
   generation; worker failure retains it and rolls settings back to that displayed
-  generation. Catch rejections in the eventual UI and display a useful message.
+  generation. The panel catches rejections and displays a recovery message.
 - `applyPreset('default' | 'openSpiral' | 'multiArm')` changes shape while preserving
   seed and selected star count. Presets are frozen and deterministic.
 - `updateCamera(partialCamera)` validates, copies and freezes vectors, then applies
@@ -64,30 +79,41 @@ is unchanged. Resolution stays within the adaptive quality budget on React updat
 A fatal graphics error still uses the static fallback; an explicit handle disposal
 and remount is needed to retry that renderer. Worker failures can retry in place.
 
-## Future desktop repulsion adapter
+## Desktop repulsion
 
-`mountGalaxyControlled` optionally accepts a `repulsionPort` implementing
-`PointerRepulsionPort`. It receives `move({ x, y })` in normalized device coordinates
-and `reset()`. `setRepulsionEnabled(true)` opts in; without an installed port it has
-no effect. The default page installs neither a port nor pointer listeners and
-allocates no displacement/velocity arrays.
+`setRepulsionEnabled(true)` enables the built-in effect. The optional
+`repulsionPort` still receives normalized `move({ x, y })` and `reset()` calls
+for instrumentation. It is no longer required to move stars.
 
-This is an **input and recovery contract**, not the star displacement simulation.
-The later feature must supply camera-aware projection, lazy displacement/velocity
-storage, bounded forces and recovery, GPU updates, and performance measurements.
-Use immutable generation positions as rest positions; never overwrite them.
-The adapter's reset must restore rest positions and clear velocities immediately.
-Do not add a second animation loop. Catch errors within an eventual adapter and
-fall back to its rest state.
+The effect projects the pointer through the current camera into the rotating
+galaxy's local disk plane. A fixed history of eight impulses feeds the star
+vertex shader. Nearby stars move outward and ease back over 0.64 seconds;
+overlapping impulses have a bounded displacement. Near-parallel rays and hits
+outside the galaxy are ignored. Dust, gas, and background stars remain in place.
+This is a visual interaction, not a physical gravitational simulation.
+
+Rest-position buffers are never mutated or uploaded each frame. The impulse
+history is allocated only on opt-in; the shader has a small fixed uniform payload
+and bypasses displacement when inactive. Work runs inside the existing single
+frame callback. There are no per-star CPU simulation arrays or additional GPU
+buffers. The existing adaptive quality monitor remains active.
 
 Input is admitted only for a fine, hovering mouse with no held button, visible
 ready graphics, and reduced motion disabled. Touch/pen events, dragging, and
-links/form controls are excluded. The adapter never captures or prevents events.
-Reset runs on pointer exit/cancellation, blur, visibility/capability changes,
-context loss, disable, regeneration, camera changes, and unmount. Cleanup removes
-all listeners. Enabling in the development fixture uses a counting adapter;
-**it does not move stars**.
+links/form controls/the customization panel are excluded. The adapter never
+captures or prevents events. Reset runs on pointer exit/cancellation, blur,
+visibility/capability changes, context loss, disable, regeneration, camera changes,
+and unmount. Cleanup removes all listeners.
 
-Future UI should debounce shape sliders to avoid repeatedly launching workers,
-catch update failures, expose a clear reset, and label the interaction as desktop
-only. Saved settings, URLs, and persistence are intentionally outside step 8.
+## Verification
+
+`npm run check` includes projection/orbit, bounded impulse recovery, controller
+subscription, input gating, worker cancellation, and resource lifecycle tests.
+The development page `/scripts/interaction-check.html` runs the actual application
+with a DOM diagnostic inspector. Query flags `?touch`, `?reduced`, and `?no-worker`
+exercise capability/failure paths; these are simulations, not physical devices.
+The fixture is excluded from the production build. The older graphics fixture
+continues to cover context loss, disposal, adaptive quality, and control API tests.
+
+See the [interactive feature checkpoint](checkpoints/interactive-galaxy.md) for
+browser evidence and remaining device validation.

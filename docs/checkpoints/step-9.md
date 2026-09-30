@@ -93,8 +93,9 @@ step 8 balanced-tier portrait checks remain available separately.
   background/return, touch, low-power conditions and five-minute thermal sessions.
 - Actual HTTPS host: compression/cache/MIME/CSP behavior, release procedure and
   rollback rehearsal. No deployment is authorized by these local checks.
-- Future customization UI and the repulsion simulation remain a separate feature
-  phase. Step 8 supplied their interfaces, not those user-facing features.
+- Customization and repulsion were subsequently implemented in the separate
+  [interactive feature checkpoint](interactive-galaxy.md); the browser/device
+  and actual-host sign-off above remains open.
 
 No new application defect was found in these local checks. The remaining items
 are verification gaps, not passing results. Keep the main checklist open until

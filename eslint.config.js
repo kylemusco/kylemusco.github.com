@@ -28,7 +28,7 @@ export default defineConfig([
     languageOptions: { globals: globals.node },
   },
   {
-    files: ['scripts/graphics-check.mjs'],
+    files: ['scripts/graphics-check.mjs', 'scripts/interaction-check.mjs'],
     languageOptions: { globals: globals.browser },
   },
 ]);
