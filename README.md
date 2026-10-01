@@ -189,6 +189,13 @@ baseline SHA-256 manifest, including both distinct résumé PDFs.
 
 ## Production output
 
+GitHub Pages must use **Settings → Pages → Source: GitHub Actions**. The
+workflow in `.github/workflows/deploy-pages.yml` builds and deploys pushes to
+`master`. Publishing the repository root directly serves uncompiled TypeScript
+and breaks the page. See the [GitHub Pages setup](docs/release-checklist.md#github-pages-deployment).
+The workflow stages `dist/` plus an unchanged copy of the excluded archive to
+preserve its existing URL.
+
 ```sh
 npm run check
 npm run build

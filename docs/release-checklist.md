@@ -4,6 +4,36 @@ The refactor is built locally. Publishing and remote push are separate actions.
 Use the [step 9 checkpoint](checkpoints/step-9.md) to distinguish verified results
 from the outstanding browser/device checks.
 
+## GitHub Pages deployment
+
+The live outage diagnosed October 1, 2026 was caused by publishing the repository
+root directly. Its development HTML requests `/src/main.tsx`; browsers cannot run
+that TypeScript/JSX source. Root asset URLs also fail because originals now live
+under `public/` until Vite copies them into the build.
+
+Use `.github/workflows/deploy-pages.yml` to build and deploy on pushes to `master`,
+or run it manually from Actions. One-time repository setup:
+
+1. Open repository **Settings → Pages → Build and deployment**.
+2. Set **Source** to **GitHub Actions**, instead of **Deploy from a branch**.
+3. Push the workflow commit to `master`. Watch **Deploy website to GitHub Pages**
+   in Actions; both build and deploy jobs must succeed. If the commit was already
+   pushed, use **Run workflow** on `master` after changing the setting.
+4. Check `https://kylemusco.github.io/` first, then `https://kylemusco.com/`.
+   On October 1 the latter serves an HTML redirect to the former. No DNS or domain
+   change is needed to fix this build/deployment problem.
+
+The workflow installs the lockfile under Node 24, runs all checks, builds and
+verifies `dist/`, then stages that output in a separate temporary directory. It
+copies the untouched `2019/` archive alongside it because a Pages release replaces
+the whole site. The source archive is not edited or included in the Vite build.
+Only the staged site is uploaded, not the repository root or development files.
+The normal root Vite base (`/`) is correct for this user Pages URL.
+
+For rollback, revert the problematic source change and let this same build
+workflow publish the corrected release, or redeploy a retained known-good Pages
+artifact. Do not switch back to publishing raw `master` with the Vite source tree.
+
 ## Build and verify a release
 
 ```sh
