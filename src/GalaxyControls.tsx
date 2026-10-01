@@ -288,6 +288,14 @@ export default function GalaxyControls({
               step={0.01}
               onChange={(bulgeFraction) => updateShape({ bulgeFraction })}
             />
+            <Slider
+              label="Rotation speed"
+              value={snapshot.rotationSpeed}
+              min={0}
+              max={10}
+              step={0.1}
+              onChange={(speed) => controls.setRotationSpeed(speed)}
+            />
             <button
               className="control-button"
               onClick={() => {

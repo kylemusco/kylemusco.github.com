@@ -6,6 +6,12 @@ are debounced by 220 ms and generated in a worker while the previous view stays
 visible. Full/Medium/Light use 100%/50%/25% of the device's initial star budget;
 adaptive quality can still reduce rendering cost further.
 
+**Rotation speed** applies immediately without regenerating stars. Its slider and
+numeric input range from 0 to 10 in steps of 0.1: 0 pauses rotation, 1 is the
+original speed, and 10 is ten times that speed. Reset restores 1. Reduced motion
+still prevents automatic animation at every speed; paused rotation renders on
+demand while the hidden repulsion feature is disabled.
+
 **Camera position & angle** exposes orbit, elevation, distance, roll, field of
 view, and XYZ target panning. Panning translates camera and target together.
 **Reset camera** restores the exact approved pose; **Reset** also
@@ -62,8 +68,10 @@ renderers.
   position, target, roll, FOV, and near/far planes without generating stars.
   Updates invalidate a frame even with reduced motion. Roll does not accumulate.
 - `resetCamera()` restores the approved step 5 pose and projection.
+- `setRotationSpeed(number)` accepts a finite multiplier from 0 to 10 without
+  generating data or restarting the rotation phase. Presets preserve the speed.
 - `reset()` restores the mount's initial galaxy settings, default camera and
-  disabled interaction. It preserves the device's initial star budget and the
+  disabled interaction, plus rotation speed 1. It preserves the device's initial star budget and the
   renderer's current adaptive quality tier. It does not restart rotation phase.
 
 The galaxy validator retains the generation limits: at most one million stars,

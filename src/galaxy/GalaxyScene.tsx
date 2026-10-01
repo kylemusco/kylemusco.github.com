@@ -95,6 +95,7 @@ interface GalaxySceneProps {
   repulsionEnabled: boolean;
   repulsionPort: PointerRepulsionPort | undefined;
   rotate: boolean;
+  rotationSpeed: number;
   quality: QualityLevel;
   onQualityChange: (quality: QualityLevel) => void;
   onDprChange: (dpr: number) => void;
@@ -108,6 +109,7 @@ export function GalaxyScene({
   repulsionEnabled,
   repulsionPort,
   rotate,
+  rotationSpeed,
   quality,
   onQualityChange,
   onDprChange,
@@ -125,6 +127,7 @@ export function GalaxyScene({
   const mediumMaterial = useRef<ShaderMaterial>(null);
   const failed = useRef(false);
   const motionAllowed = useRef(rotate);
+  const animationRequested = rotationSpeed > 0 || repulsionEnabled;
   const texture = useMemo(() => {
     const map = new DataTexture(
       data.morphology.pixels,
@@ -253,7 +256,11 @@ export function GalaxyScene({
         setFrameloop('never');
       } else {
         setFrameloop(
-          motionFrameloop(document.hidden, preference.matches, rotate),
+          motionFrameloop(
+            document.hidden,
+            preference.matches,
+            rotate && animationRequested,
+          ),
         );
         invalidate();
       }
@@ -273,7 +280,15 @@ export function GalaxyScene({
       preference.removeEventListener('change', updateMotion);
       document.removeEventListener('visibilitychange', updateMotion);
     };
-  }, [gl, rotate, setFrameloop, invalidate, monitor, onGraphicsChange]);
+  }, [
+    gl,
+    rotate,
+    animationRequested,
+    setFrameloop,
+    invalidate,
+    monitor,
+    onGraphicsChange,
+  ]);
 
   // Positive priority takes over R3F's render call, not its frame scheduler.
   // This keeps rendering failures inside our fallback boundary and uses one loop.
@@ -287,7 +302,7 @@ export function GalaxyScene({
       ) {
         group.current.rotation.z = advanceRotation(
           group.current.rotation.z,
-          galaxyAngularVelocity,
+          galaxyAngularVelocity * rotationSpeed,
           delta,
         );
       }

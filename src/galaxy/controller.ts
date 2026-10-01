@@ -17,6 +17,8 @@ export interface GalaxySnapshot {
   readonly settings: GalaxySettings;
   readonly camera: CameraSettings;
   readonly repulsionEnabled: boolean;
+  /** Multiplier of the default angular velocity; zero pauses rotation. */
+  readonly rotationSpeed: number;
   readonly data: GalaxyData | null;
   readonly generation: 'idle' | 'pending' | 'ready' | 'failed' | 'cancelled';
   readonly error: string | null;
@@ -38,6 +40,7 @@ export function createGalaxyController({
     settings: defaults,
     camera: defaultCameraSettings,
     repulsionEnabled: false,
+    rotationSpeed: 1,
     data: null,
     generation: 'idle',
     error: null,
@@ -110,6 +113,12 @@ export function createGalaxyController({
       return updateGalaxy(galaxyPresets[preset]);
     },
     updateCamera,
+    setRotationSpeed(speed: number) {
+      assertActive();
+      if (!Number.isFinite(speed) || speed < 0 || speed > 10)
+        throw new RangeError('Rotation speed must be between 0 and 10.');
+      publish({ rotationSpeed: speed });
+    },
     resetCamera: () => updateCamera(defaultCameraSettings),
     setRepulsionEnabled(enabled: boolean) {
       assertActive();
@@ -119,7 +128,11 @@ export function createGalaxyController({
     },
     reset() {
       assertActive();
-      publish({ camera: defaultCameraSettings, repulsionEnabled: false });
+      publish({
+        camera: defaultCameraSettings,
+        repulsionEnabled: false,
+        rotationSpeed: 1,
+      });
       return updateGalaxy(defaults);
     },
     dispose() {

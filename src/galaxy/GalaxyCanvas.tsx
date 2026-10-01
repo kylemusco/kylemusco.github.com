@@ -30,6 +30,7 @@ class GraphicsBoundary extends Component<
 export function GalaxyCanvas({
   data,
   rotate,
+  rotationSpeed,
   initialQuality,
   cameraSettings,
   repulsionEnabled,
@@ -38,6 +39,7 @@ export function GalaxyCanvas({
 }: {
   data: GalaxyData;
   rotate: boolean;
+  rotationSpeed: number;
   initialQuality: QualityLevel;
   cameraSettings: CameraSettings;
   repulsionEnabled: boolean;
@@ -85,6 +87,7 @@ export function GalaxyCanvas({
           repulsionEnabled={repulsionEnabled}
           repulsionPort={repulsionPort}
           rotate={rotate}
+          rotationSpeed={rotationSpeed}
           quality={quality}
           onQualityChange={setQuality}
           onDprChange={setDpr}

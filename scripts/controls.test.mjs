@@ -148,6 +148,34 @@ test('camera controls do not generate data; presets and reset preserve the mount
   controls.dispose();
 });
 
+test('rotation speed updates independently of generation, validates, and resets', async () => {
+  const { controls, requests } = fixture();
+  assert.equal(controls.getSnapshot().rotationSpeed, 1);
+  const pending = controls.updateGalaxy({});
+  controls.setRotationSpeed(2.5);
+  assert.equal(controls.getSnapshot().rotationSpeed, 2.5);
+  assert.equal(requests.length, 1);
+  assert.equal(requests[0].cancelled, 0);
+  const valid = controls.getSnapshot();
+  for (const speed of [-1, 11, NaN, Infinity, '2']) {
+    assert.throws(() => controls.setRotationSpeed(speed), RangeError);
+    assert.equal(controls.getSnapshot(), valid);
+  }
+  requests[0].resolve();
+  await pending;
+  const data = controls.getSnapshot().data;
+  controls.setRotationSpeed(0);
+  assert.equal(controls.getSnapshot().rotationSpeed, 0);
+  assert.equal(controls.getSnapshot().data, data);
+  assert.equal(requests.length, 1);
+  const reset = controls.reset();
+  assert.equal(controls.getSnapshot().rotationSpeed, 1);
+  requests[1].resolve();
+  await reset;
+  controls.dispose();
+  assert.throws(() => controls.setRotationSpeed(1), /disposed/);
+});
+
 test('dispose cancels once and blocks late worker publication and further controls', async () => {
   const { controls, requests, snapshots } = fixture();
   const pending = controls.updateGalaxy({});

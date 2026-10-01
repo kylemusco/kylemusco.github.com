@@ -231,15 +231,24 @@ test('camera pose establishes position and aim before applying roll, independent
 });
 
 test('rotation is consistent at 30, 60, and 120 Hz', () => {
-  const results = [30, 60, 120].map((hz) => {
-    let angle = 0;
-    for (let frame = 0; frame < hz * 10; frame++) {
-      angle = advanceRotation(angle, galaxyAngularVelocity, 1 / hz);
-    }
-    return angle;
-  });
-  for (const angle of results)
-    assert.ok(Math.abs(angle - galaxyAngularVelocity * 10) < 1e-12);
+  for (const multiplier of [0, 0.1, 1, 2.5, 10]) {
+    const results = [30, 60, 120].map((hz) => {
+      let angle = 0.75;
+      for (let frame = 0; frame < hz * 10; frame++) {
+        angle = advanceRotation(
+          angle,
+          galaxyAngularVelocity * multiplier,
+          1 / hz,
+        );
+      }
+      return angle;
+    });
+    for (const angle of results)
+      assert.ok(
+        Math.abs(angle - (0.75 + galaxyAngularVelocity * multiplier * 10)) <
+          1e-12,
+      );
+  }
 });
 
 test('motion respects visibility and accessibility independently of device identity', () => {
