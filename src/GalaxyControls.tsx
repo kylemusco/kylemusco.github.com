@@ -197,6 +197,7 @@ export default function GalaxyControls({
           tabIndex={-1}
         >
           <header className="galaxy-panel-heading">
+            <h2 id="galaxy-settings-heading">Galaxy</h2>
             <button
               className="panel-close"
               aria-label="Close galaxy controls"
@@ -217,8 +218,11 @@ export default function GalaxyControls({
                   ? 'Graphics paused. Waiting to reconnect…'
                   : null}
           </p>
-          <fieldset disabled={unavailable}>
-            <legend>Galaxy</legend>
+          <fieldset
+            className="galaxy-settings"
+            disabled={unavailable}
+            aria-labelledby="galaxy-settings-heading"
+          >
             <label className="galaxy-select">
               Style
               <select
