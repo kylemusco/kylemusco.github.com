@@ -10,7 +10,13 @@ const manifest = JSON.parse(
   ),
 );
 // The homepage is being refactored. Every other original file has a stable URL.
-const assets = manifest.files.filter(({ path }) => path !== 'index.html');
+const originalAssets = manifest.files.filter(
+  ({ path }) => path !== 'index.html',
+);
+const archivedAssets = manifest.files
+  .filter(({ path }) => !path.startsWith('2022/'))
+  .map((file) => ({ ...file, path: `2025/${file.path}` }));
+const assets = [...originalAssets, ...archivedAssets];
 
 for (const { path, sha256 } of assets) {
   for (const directory of ['public', 'dist']) {
@@ -26,5 +32,5 @@ for (const { path, sha256 } of assets) {
 }
 
 console.log(
-  `Verified ${assets.length} original assets in public/ and dist/ against the baseline.`,
+  `Verified ${originalAssets.length} original assets and ${archivedAssets.length} archived files in public/ and dist/ against the baseline.`,
 );

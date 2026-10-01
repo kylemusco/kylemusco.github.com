@@ -1,0 +1,7 @@
+/* Space Effect CSS */
+.space {
+    display: inline-block;
+    font-family: 'Quicksand';
+    font-weight: medium;
+    opacity: 0;
+}

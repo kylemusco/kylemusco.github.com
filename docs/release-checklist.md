@@ -52,8 +52,9 @@ npm run verify:production -- http://127.0.0.1:4174
 ```
 
 The build verifies the pre-rendered profile, module entry and worker, referenced
-assets, absence of source/test directories, and all 66 preserved-file checksums.
-The optional HTTP check fetches 72 emitted files plus `/2022/`, checks bytes,
+assets, absence of source/test directories, all 66 preserved-file checksums, and
+the 60 byte-for-byte files of the original galaxy site under `/2025/`.
+The optional HTTP check fetches 132 emitted files plus `/2022/` and `/2025/`, checks bytes,
 status and recognized MIME types, and fails on redirects or HTML returned in place
 of a module/PDF. Supply the exact origin serving this same build, not a subpath.
 It never follows external profile links and does not request `/2019/`.
@@ -68,7 +69,8 @@ command is only for local checks, not a production server.
 - Keep the generated `assets/` JavaScript, CSS and module worker together. Serve
   JavaScript as `text/javascript` or `application/javascript`, CSS as `text/css`,
   HTML as `text/html`, and the résumés as `application/pdf`.
-- Serve `/` from `index.html` and `/2022/` from `2022/index.html`. This homepage
+- Serve `/` from `index.html`, `/2022/` from `2022/index.html`, and `/2025/` from
+  `2025/index.html`. This homepage
   needs no client-side routing fallback. Missing assets should return a 404,
   rather than silently returning the homepage.
 - Enable gzip or Brotli for HTML, CSS and JavaScript. In this build the graphics

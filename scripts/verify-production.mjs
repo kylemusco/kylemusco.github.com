@@ -59,7 +59,10 @@ for (const match of html.matchAll(/(?:href|src)="(\/[^"#?]*)"/g)) {
 }
 paths.add('images/galaxy-preview.jpg');
 paths.add('images/space.png');
-for (const { path } of manifest.files) paths.add(path);
+const archivedFiles = manifest.files
+  .filter(({ path }) => !path.startsWith('2022/'))
+  .map((file) => ({ ...file, path: `2025/${file.path}` }));
+for (const { path } of [...manifest.files, ...archivedFiles]) paths.add(path);
 const files = new Map();
 for (const path of paths) {
   files.set(
@@ -69,9 +72,10 @@ for (const path of paths) {
     ),
   );
 }
-for (const { path, sha256 } of manifest.files.filter(
-  (f) => f.path !== 'index.html',
-)) {
+for (const { path, sha256 } of [
+  ...manifest.files.filter((f) => f.path !== 'index.html'),
+  ...archivedFiles,
+]) {
   assert.equal(hash(files.get(path)), sha256, `Baseline mismatch: ${path}`);
 }
 const bundles = assets.map((file) => {
@@ -131,20 +135,22 @@ if (baseArg) {
       bytes: received.length,
     });
   }
-  const archive = await fetch(new URL('/2022/', base), {
-    redirect: 'error',
-    signal: AbortSignal.timeout(15000),
-  });
-  assert.equal(archive.status, 200, 'Archive directory URL must resolve');
-  assert.equal(
-    hash(Buffer.from(await archive.arrayBuffer())),
-    hash(files.get('2022/index.html')),
-  );
-  http.push({
-    path: '/2022/',
-    status: archive.status,
-    type: archive.headers.get('content-type'),
-  });
+  for (const year of ['2022', '2025']) {
+    const archive = await fetch(new URL(`/${year}/`, base), {
+      redirect: 'error',
+      signal: AbortSignal.timeout(15000),
+    });
+    assert.equal(archive.status, 200, 'Archive directory URL must resolve');
+    assert.equal(
+      hash(Buffer.from(await archive.arrayBuffer())),
+      hash(files.get(`${year}/index.html`)),
+    );
+    http.push({
+      path: `/${year}/`,
+      status: archive.status,
+      type: archive.headers.get('content-type'),
+    });
+  }
 }
 console.log(
   JSON.stringify(
@@ -153,6 +159,7 @@ console.log(
       origin: baseArg ?? null,
       staticChecks: 'passed',
       preservedAssets: manifest.files.length - 1,
+      archivedFiles: archivedFiles.length,
       checkedFiles: files.size,
       bundles,
       http,

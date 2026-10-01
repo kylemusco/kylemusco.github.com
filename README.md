@@ -86,6 +86,7 @@ public/
   js/, css/, images/       Preserved legacy files at their original public URLs
   Kyle Musco - Resume.pdf  Current résumé
   2022/                    Separate archived site, including its own résumé
+  2025/                    Original galaxy site before the refactor
 scripts/                   Build verification utilities
 docs/                      Baseline evidence and refactor progress
 dist/                      Generated static deployment output (ignored by Git)
@@ -188,6 +189,13 @@ into `dist/`. Build verification compares all 66 preserved files with the
 baseline SHA-256 manifest, including both distinct résumé PDFs.
 
 ## Production output
+
+The original galaxy site is preserved at `/2025/` in `public/2025/`. Its HTML,
+CSS, JavaScript, images, and résumé are byte-for-byte copies from the pre-refactor
+commit `3d9ad556570d506b899401c20fcf4c885a96cb5b`. Existing external font/jQuery
+dependencies remain as they were. Build verification checks every archived file
+against the baseline manifest; Vite and the Pages workflow publish this archive
+alongside the current site automatically.
 
 GitHub Pages must use **Settings → Pages → Source: GitHub Actions**. The
 workflow in `.github/workflows/deploy-pages.yml` builds and deploys pushes to
